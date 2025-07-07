@@ -190,7 +190,7 @@ const faqs = [
   },
   {
     question: 'What\'s not included in membership?',
-    answer: 'Membership doesn\'t include medications (available at wholesale prices), outside lab work, imaging, specialist visits, or hospitalizations.'
+    answer: 'Membership doesn\'t include medications (available at wholesale prices), outside lab work, imaging, specialist visits, hospitalizations, prenatal care, or obstetric care.'
   },
   {
     question: 'Can I join if I have chronic conditions?',
