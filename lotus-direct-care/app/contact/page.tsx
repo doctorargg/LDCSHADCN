@@ -91,7 +91,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Office Hours</p>
                   <div className="text-gray-600 space-y-1">
-                    <p>Monday - Friday: {BUSINESS_HOURS.MONDAY.open} - {BUSINESS_HOURS.MONDAY.close}</p>
+                    <p>Monday - Friday: {BUSINESS_HOURS.MON.open} - {BUSINESS_HOURS.MON.close}</p>
                     <p>Saturday - Sunday: Closed</p>
                   </div>
                 </div>
