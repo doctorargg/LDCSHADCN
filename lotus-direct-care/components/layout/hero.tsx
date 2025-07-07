@@ -4,7 +4,7 @@ import { EXTERNAL_URLS } from '@/lib/constants'
 export function Hero() {
   return (
     <HeroWithImage
-      imageSrc="/images/Lotus Midjourney Flowers/lotus-homepage-new.png"
+      imageSrc="/images/Lotus Midjourney Flowers/lotus_about_hero.png"
       imageAlt="Lotus flower representing holistic health and wellness at Lotus Direct Care"
       title={
         <>
