@@ -11,7 +11,7 @@ export function LegitScriptSeal({ className = '' }: LegitScriptSealProps) {
       href="https://www.legitscript.com/websites/lotusdirectcare.com"
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-block ${className}`}
+      className={`inline-block transition-all duration-300 hover:scale-105 hover:shadow-lg ${className}`}
       title="Verify LegitScript Approval"
     >
       <Image
@@ -20,6 +20,7 @@ export function LegitScriptSeal({ className = '' }: LegitScriptSealProps) {
         width={140}
         height={100}
         unoptimized
+        className="rounded-md"
       />
     </Link>
   )

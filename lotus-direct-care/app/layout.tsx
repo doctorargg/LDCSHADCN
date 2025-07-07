@@ -66,8 +66,57 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "Lotus Direct Care",
+    "url": "https://lotusdirectcare.com",
+    "logo": "https://lotusdirectcare.com/images/logo.png",
+    "description": "Functional medicine and direct primary care practice in Mequon, Wisconsin",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "11649 N Port Washington Rd",
+      "addressLocality": "Mequon",
+      "addressRegion": "WI",
+      "postalCode": "53092",
+      "addressCountry": "US"
+    },
+    "telephone": "262-299-8488",
+    "email": "info@lotusdirectcare.com",
+    "founder": {
+      "@type": "Person",
+      "name": "Dr. Aaron Rosenberg, MD",
+      "jobTitle": "Physician"
+    },
+    "medicalSpecialty": [
+      "Internal Medicine",
+      "Functional Medicine",
+      "Addiction Medicine"
+    ],
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "Certification",
+      "name": "LegitScript Certification",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "LegitScript",
+        "url": "https://www.legitscript.com"
+      },
+      "url": "https://www.legitscript.com/websites/lotusdirectcare.com"
+    },
+    "sameAs": [
+      "https://www.legitscript.com/websites/lotusdirectcare.com"
+    ]
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
