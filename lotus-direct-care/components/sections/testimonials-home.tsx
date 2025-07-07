@@ -28,28 +28,8 @@ export function TestimonialsHome() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-[oklch(0.75_0.15_75_/_0.03)] via-background to-[oklch(0.62_0.18_180_/_0.02)] relative overflow-hidden">
-      {/* Decorative lotus elements */}
-      <div 
-        className="absolute top-0 right-0 w-96 h-96 opacity-10"
-        style={{
-          backgroundImage: 'url("/images/Lotus Midjourney Flowers/lotus-functional-medicine-hero.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          transform: 'translateX(50%) translateY(-50%)',
-        }}
-      />
-      <div 
-        className="absolute bottom-0 left-0 w-96 h-96 opacity-10"
-        style={{
-          backgroundImage: 'url("/images/Lotus Midjourney Flowers/lotus_dpc_hero.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          transform: 'translateX(-50%) translateY(50%)',
-        }}
-      />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-[oklch(0.75_0.15_75_/_0.03)] via-background to-[oklch(0.62_0.18_180_/_0.02)]">
+      <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12">
