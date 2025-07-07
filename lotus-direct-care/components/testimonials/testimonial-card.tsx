@@ -7,8 +7,41 @@ interface TestimonialCardProps {
 }
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
+  const reviewSchema = {
+    "@type": "Review",
+    "@context": "https://schema.org",
+    "author": {
+      "@type": "Person",
+      "name": testimonial.patientName
+    },
+    "datePublished": testimonial.date,
+    "reviewBody": testimonial.review,
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": testimonial.rating,
+      "bestRating": 5,
+      "worstRating": 1
+    },
+    "itemReviewed": {
+      "@type": "MedicalOrganization",
+      "name": "Lotus Direct Care",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "11649 N Port Washington Rd",
+        "addressLocality": "Mequon",
+        "addressRegion": "WI",
+        "postalCode": "53092",
+        "addressCountry": "US"
+      }
+    }
+  };
+
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div>

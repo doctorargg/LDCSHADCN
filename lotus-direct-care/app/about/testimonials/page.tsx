@@ -28,8 +28,34 @@ export default function TestimonialsPage() {
     testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
   ).toFixed(1);
 
+  // Aggregate rating schema for SEO
+  const aggregateRatingSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "Lotus Direct Care",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "11649 N Port Washington Rd",
+      "addressLocality": "Mequon",
+      "addressRegion": "WI",
+      "postalCode": "53092",
+      "addressCountry": "US"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": averageRating,
+      "reviewCount": testimonials.length,
+      "bestRating": 5,
+      "worstRating": 1
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
+      />
       {/* Header */}
       <div className="text-center mb-12">
         <div className="flex justify-center mb-4">

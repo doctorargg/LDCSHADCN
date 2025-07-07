@@ -5,6 +5,7 @@ import { ServicesOverview } from '@/components/sections/services-overview'
 import { DoctorIntro } from '@/components/sections/doctor-intro'
 import { TrustSignals } from '@/components/sections/trust-signals'
 import { Testimonials } from '@/components/sections/testimonials'
+import { SuccessStories } from '@/components/sections/success-stories'
 import { CONTACT_INFO } from '@/lib/constants'
 
 export default function HomePage() {
@@ -72,6 +73,9 @@ export default function HomePage() {
       
       {/* Doctor Introduction */}
       <DoctorIntro />
+      
+      {/* Success Stories */}
+      <SuccessStories />
       
       {/* Testimonials */}
       <Testimonials />
