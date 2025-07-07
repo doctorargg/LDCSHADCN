@@ -2,8 +2,8 @@ import { Resend } from 'resend';
 import { LeadNotificationEmail } from './email-templates/lead-notification';
 import { LeadConfirmationEmail } from './email-templates/lead-confirmation';
 
-// Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend client conditionally
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export interface EmailLeadData {
   name: string;
@@ -16,6 +16,11 @@ export interface EmailLeadData {
 
 export async function sendLeadNotificationEmail(leadData: EmailLeadData) {
   try {
+    if (!resend) {
+      console.warn('Email service not configured. Skipping notification email.');
+      return { success: false, message: 'Email service not configured' };
+    }
+
     if (!process.env.NOTIFICATION_EMAIL) {
       throw new Error('NOTIFICATION_EMAIL environment variable is not set');
     }
@@ -48,6 +53,11 @@ export async function sendLeadNotificationEmail(leadData: EmailLeadData) {
 
 export async function sendLeadConfirmationEmail(email: string, name: string) {
   try {
+    if (!resend) {
+      console.warn('Email service not configured. Skipping confirmation email.');
+      return { success: false, message: 'Email service not configured' };
+    }
+
     const { data, error } = await resend.emails.send({
       from: 'Lotus Direct Care <noreply@lotusdirectcare.com>',
       to: email,
@@ -72,6 +82,11 @@ export async function sendEmails(leadData: EmailLeadData) {
     notification: { success: false, error: null as any },
     confirmation: { success: false, error: null as any },
   };
+
+  if (!resend) {
+    console.warn('Email service not configured. Skipping all emails.');
+    return results;
+  }
 
   // Send notification email
   try {
