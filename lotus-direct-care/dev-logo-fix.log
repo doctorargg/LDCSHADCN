@@ -1,0 +1,26 @@
+
+> lotus-direct-care@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+
+ ✓ Starting...
+ ✓ Ready in 16.8s
+ ○ Compiling / ...
+ ✓ Compiled / in 7.5s
+ GET / 200 in 8702ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 628ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1222ms
+ ○ Compiling /about/testimonials ...
+ ✓ Compiled /about/testimonials in 1348ms
+ GET /about/testimonials 200 in 1596ms
+ GET /about/testimonials 200 in 479ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 455ms
+ GET /about/testimonials 200 in 530ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 620ms
+ GET / 200 in 316ms
+ GET / 200 in 468ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 430ms

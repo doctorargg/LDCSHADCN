@@ -1,0 +1,63 @@
+
+> lotus-direct-care@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+
+ ✓ Starting...
+ ✓ Ready in 13.9s
+ ○ Compiling / ...
+Error: Cannot apply unknown utility class `hover:shadow-lotus`
+    [2m[at onInvalidCandidate (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:18:1509)][0m
+    [2m[at ge (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:13:29803)][0m
+    [2m[at /mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:18:373][0m
+    [2m[at I (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:3:1656)][0m
+    [2m[at je (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:18:172)][0m
+    [2m[at bi (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:35:780)][0m
+    [2m[at async yi (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/tailwindcss/dist/lib.js:35:1123)][0m
+    [2m[at async _r (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/@tailwindcss/node/dist/index.js:10:3384)][0m
+    [2m[at async p (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/@tailwindcss/postcss/dist/index.js:10:4019)][0m
+    [2m[at async Object.Once (/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care/node_modules/@tailwindcss/postcss/dist/index.js:10:4290)][0m
+ ✓ Compiled / in 7.1s
+ GET / 200 in 8338ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 790ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1269ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 1362ms
+ ⨯ ./app/contact/page.tsx:9:7
+Parsing ecmascript source code failed
+[0m [90m  7 |[39m     [33m<[39m[33m>[39m[0m
+[0m [90m  8 |[39m       {[90m/* Hero Section */[39m}[0m
+[0m[31m[1m>[22m[39m[90m  9 |[39m       [33m<[39m[33mHeroWithImage[39m[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 10 |[39m         imageSrc[33m=[39m[32m"/images/Lotus Midjourney Flowers/lotus_contact_hero.png"[39m[0m
+[0m [90m 11 |[39m         imageAlt[33m=[39m[32m"Lotus flower representing connection and communication at Lotus Direct Care"[39m[0m
+[0m [90m 12 |[39m         title[33m=[39m[32m"Contact Lotus Direct Care"[39m[0m
+
+Expected ',', got '< (jsx tag start)'
+
+
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1627ms
+ GET /contact 500 in 14806ms
+ ⨯ ./app/contact/page.tsx:9:7
+Parsing ecmascript source code failed
+[0m [90m  7 |[39m     [33m<[39m[33m>[39m[0m
+[0m [90m  8 |[39m       {[90m/* Hero Section */[39m}[0m
+[0m[31m[1m>[22m[39m[90m  9 |[39m       [33m<[39m[33mHeroWithImage[39m[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 10 |[39m         imageSrc[33m=[39m[32m"/images/Lotus Midjourney Flowers/lotus_contact_hero.png"[39m[0m
+[0m [90m 11 |[39m         imageAlt[33m=[39m[32m"Lotus flower representing connection and communication at Lotus Direct Care"[39m[0m
+[0m [90m 12 |[39m         title[33m=[39m[32m"Contact Lotus Direct Care"[39m[0m
+
+Expected ',', got '< (jsx tag start)'
+
+
+ GET /contact 500 in 249ms
+ GET / 500 in 418ms
+ GET / 500 in 351ms
+ HEAD / 500 in 404ms
+[?25h

@@ -1,0 +1,91 @@
+
+> lotus-direct-care@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+
+ ✓ Starting...
+ ✓ Ready in 10.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 8.4s
+ GET / 200 in 9530ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 731ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1173ms
+ GET / 200 in 282ms
+ GET / 200 in 506ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 450ms
+ GET / 200 in 427ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 462ms
+ ○ Compiling /about/dr-rosenberg ...
+ ✓ Compiled /about/dr-rosenberg in 2.3s
+ GET /about/dr-rosenberg 200 in 2501ms
+ ○ Compiling /membership ...
+ ✓ Compiled /membership in 1688ms
+ GET /membership 200 in 2001ms
+ GET /membership 200 in 306ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 1980ms
+ ⨯ ./app/contact/page.tsx:10:7
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m     [33m<[39m[33m>[39m[0m
+[0m [90m  9 |[39m       {[90m/* Hero Section */[39m}[0m
+[0m[31m[1m>[22m[39m[90m 10 |[39m       [33m<[39m[33mHeroWithImage[39m[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 11 |[39m         imageSrc[33m=[39m[32m"/images/Lotus Midjourney Flowers/lotus_contact_hero.png"[39m[0m
+[0m [90m 12 |[39m         imageAlt[33m=[39m[32m"Lotus flower representing connection and communication at Lotus Direct Care"[39m[0m
+[0m [90m 13 |[39m         title[33m=[39m[32m"Contact Lotus Direct Care"[39m[0m
+
+Expected ',', got '< (jsx tag start)'
+
+
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1592ms
+ GET /contact 500 in 18380ms
+ ⨯ ./app/contact/page.tsx:10:7
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m     [33m<[39m[33m>[39m[0m
+[0m [90m  9 |[39m       {[90m/* Hero Section */[39m}[0m
+[0m[31m[1m>[22m[39m[90m 10 |[39m       [33m<[39m[33mHeroWithImage[39m[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 11 |[39m         imageSrc[33m=[39m[32m"/images/Lotus Midjourney Flowers/lotus_contact_hero.png"[39m[0m
+[0m [90m 12 |[39m         imageAlt[33m=[39m[32m"Lotus flower representing connection and communication at Lotus Direct Care"[39m[0m
+[0m [90m 13 |[39m         title[33m=[39m[32m"Contact Lotus Direct Care"[39m[0m
+
+Expected ',', got '< (jsx tag start)'
+
+
+ GET /contact 500 in 235ms
+ ⨯ ./app/contact/page.tsx:10:7
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m     [33m<[39m[33m>[39m[0m
+[0m [90m  9 |[39m       {[90m/* Hero Section */[39m}[0m
+[0m[31m[1m>[22m[39m[90m 10 |[39m       [33m<[39m[33mHeroWithImage[39m[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 11 |[39m         imageSrc[33m=[39m[32m"/images/Lotus Midjourney Flowers/lotus_contact_hero.png"[39m[0m
+[0m [90m 12 |[39m         imageAlt[33m=[39m[32m"Lotus flower representing connection and communication at Lotus Direct Care"[39m[0m
+[0m [90m 13 |[39m         title[33m=[39m[32m"Contact Lotus Direct Care"[39m[0m
+
+Expected ',', got '< (jsx tag start)'
+
+
+ GET /contact 500 in 278ms
+ ⨯ ./app/contact/page.tsx:10:7
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m     [33m<[39m[33m>[39m[0m
+[0m [90m  9 |[39m       {[90m/* Hero Section */[39m}[0m
+[0m[31m[1m>[22m[39m[90m 10 |[39m       [33m<[39m[33mHeroWithImage[39m[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 11 |[39m         imageSrc[33m=[39m[32m"/images/Lotus Midjourney Flowers/lotus_contact_hero.png"[39m[0m
+[0m [90m 12 |[39m         imageAlt[33m=[39m[32m"Lotus flower representing connection and communication at Lotus Direct Care"[39m[0m
+[0m [90m 13 |[39m         title[33m=[39m[32m"Contact Lotus Direct Care"[39m[0m
+
+Expected ',', got '< (jsx tag start)'
+
+
+ GET /contact 500 in 250ms
+ GET / 500 in 446ms
+ GET / 500 in 447ms
+[?25h

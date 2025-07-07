@@ -1,0 +1,36 @@
+
+> lotus-direct-care@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+
+ ✓ Starting...
+ ✓ Ready in 15.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 8.3s
+ GET / 200 in 9340ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 651ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1103ms
+ ○ Compiling /about/dr-rosenberg ...
+ ✓ Compiled /about/dr-rosenberg in 1286ms
+ GET /about/dr-rosenberg 200 in 1509ms
+ ○ Compiling /services/direct-primary-care ...
+ ✓ Compiled /services/direct-primary-care in 1411ms
+ GET /services/direct-primary-care 200 in 1647ms
+ ○ Compiling /membership ...
+ ✓ Compiled /membership in 1618ms
+ GET /membership 200 in 1863ms
+ ○ Compiling /services/longevity-medicine ...
+ ✓ Compiled /services/longevity-medicine in 1513ms
+ GET /services/longevity-medicine 200 in 1775ms
+ GET /services/longevity-medicine 200 in 496ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 445ms
+ GET /services/longevity-medicine 200 in 643ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 466ms
+ GET / 200 in 427ms
+ GET / 200 in 440ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 468ms
+[?25h

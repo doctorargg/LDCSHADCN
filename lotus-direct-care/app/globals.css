@@ -1,0 +1,435 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Lotus color palette for Tailwind */
+  --color-lotus-teal: var(--lotus-teal);
+  --color-lotus-teal-light: var(--lotus-teal-light);
+  --color-lotus-teal-dark: var(--lotus-teal-dark);
+  --color-lotus-turquoise: var(--lotus-turquoise);
+  --color-lotus-gold: var(--lotus-gold);
+  --color-lotus-amber: var(--lotus-amber);
+  --color-lotus-cream: var(--lotus-cream);
+  --color-lotus-orange: var(--lotus-orange);
+  --color-lotus-coral: var(--lotus-coral);
+  --color-lotus-green: var(--lotus-green);
+  --color-lotus-green-dark: var(--lotus-green-dark);
+}
+
+:root {
+  --radius: 0.625rem;
+  
+  /* Lotus-inspired color palette */
+  --lotus-teal: oklch(0.58 0.15 195); /* Deep teal from water */
+  --lotus-teal-light: oklch(0.72 0.12 195); /* Lighter teal */
+  --lotus-teal-dark: oklch(0.42 0.18 195); /* Darker teal for depth */
+  --lotus-turquoise: oklch(0.65 0.16 185); /* Vibrant turquoise */
+  --lotus-gold: oklch(0.75 0.14 85); /* Rich gold from petals */
+  --lotus-amber: oklch(0.82 0.16 75); /* Warm amber */
+  --lotus-cream: oklch(0.95 0.05 85); /* Soft cream from petals */
+  --lotus-orange: oklch(0.72 0.18 45); /* Warm orange accent */
+  --lotus-coral: oklch(0.68 0.16 35); /* Coral from flower centers */
+  --lotus-green: oklch(0.62 0.12 140); /* Natural green from logo */
+  --lotus-green-dark: oklch(0.48 0.14 140); /* Deeper green */
+  
+  /* Gradient definitions */
+  --gradient-lotus-water: linear-gradient(135deg, var(--lotus-teal-dark), var(--lotus-teal), var(--lotus-turquoise));
+  --gradient-lotus-petal: linear-gradient(135deg, var(--lotus-gold), var(--lotus-amber), var(--lotus-cream));
+  --gradient-lotus-sunset: linear-gradient(135deg, var(--lotus-orange), var(--lotus-coral), var(--lotus-amber));
+  --gradient-lotus-nature: linear-gradient(135deg, var(--lotus-green-dark), var(--lotus-green), var(--lotus-teal));
+  
+  /* Updated system colors with lotus palette */
+  --background: oklch(0.99 0.01 85); /* Warm off-white */
+  --foreground: oklch(0.18 0.05 195); /* Deep teal-tinted dark */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.05 195);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.05 195);
+  --primary: var(--lotus-teal);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: var(--lotus-gold);
+  --secondary-foreground: oklch(0.15 0.02 85);
+  --muted: oklch(0.96 0.02 195); /* Teal-tinted muted */
+  --muted-foreground: oklch(0.45 0.08 195);
+  --accent: var(--lotus-amber);
+  --accent-foreground: oklch(0.15 0.02 75);
+  --destructive: oklch(0.58 0.22 25);
+  --border: oklch(0.92 0.02 195); /* Subtle teal border */
+  --input: oklch(0.94 0.02 195);
+  --ring: var(--lotus-turquoise);
+  --chart-1: var(--lotus-gold);
+  --chart-2: var(--lotus-teal);
+  --chart-3: var(--lotus-coral);
+  --chart-4: var(--lotus-green);
+  --chart-5: var(--lotus-amber);
+  --sidebar: oklch(0.985 0.01 195);
+  --sidebar-foreground: oklch(0.18 0.05 195);
+  --sidebar-primary: var(--lotus-teal);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: var(--lotus-cream);
+  --sidebar-accent-foreground: oklch(0.15 0.02 85);
+  --sidebar-border: oklch(0.92 0.02 195);
+  --sidebar-ring: var(--lotus-turquoise);
+}
+
+.dark {
+  /* Dark mode with lotus-inspired palette */
+  --background: oklch(0.12 0.02 195); /* Deep teal-tinted dark */
+  --foreground: oklch(0.96 0.01 85); /* Warm off-white */
+  --card: oklch(0.16 0.03 195); /* Slightly lighter teal-dark */
+  --card-foreground: oklch(0.96 0.01 85);
+  --popover: oklch(0.16 0.03 195);
+  --popover-foreground: oklch(0.96 0.01 85);
+  --primary: var(--lotus-turquoise); /* Brighter for dark mode */
+  --primary-foreground: oklch(0.12 0.02 195);
+  --secondary: var(--lotus-amber); /* Warmer gold for dark mode */
+  --secondary-foreground: oklch(0.12 0.02 75);
+  --muted: oklch(0.22 0.04 195); /* Teal-tinted muted dark */
+  --muted-foreground: oklch(0.68 0.06 195);
+  --accent: var(--lotus-coral); /* Warm accent for dark mode */
+  --accent-foreground: oklch(0.98 0.01 35);
+  --destructive: oklch(0.65 0.20 25);
+  --border: oklch(0.96 0.08 195 / 15%); /* Subtle teal border */
+  --input: oklch(0.96 0.08 195 / 20%);
+  --ring: var(--lotus-turquoise);
+  --chart-1: var(--lotus-amber);
+  --chart-2: var(--lotus-turquoise);
+  --chart-3: var(--lotus-coral);
+  --chart-4: var(--lotus-green);
+  --chart-5: var(--lotus-gold);
+  --sidebar: oklch(0.14 0.03 195);
+  --sidebar-foreground: oklch(0.96 0.01 85);
+  --sidebar-primary: var(--lotus-turquoise);
+  --sidebar-primary-foreground: oklch(0.12 0.02 195);
+  --sidebar-accent: oklch(0.20 0.04 195);
+  --sidebar-accent-foreground: oklch(0.96 0.01 85);
+  --sidebar-border: oklch(0.96 0.08 195 / 15%);
+  --sidebar-ring: var(--lotus-turquoise);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom styles for lotus wellness aesthetic */
+@layer utilities {
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Lotus color utility classes */
+  .text-lotus-teal { color: var(--lotus-teal); }
+  .text-lotus-gold { color: var(--lotus-gold); }
+  .text-lotus-amber { color: var(--lotus-amber); }
+  .text-lotus-orange { color: var(--lotus-orange); }
+  .text-lotus-coral { color: var(--lotus-coral); }
+  .text-lotus-green { color: var(--lotus-green); }
+  
+  .bg-lotus-teal { background-color: var(--lotus-teal); }
+  .bg-lotus-gold { background-color: var(--lotus-gold); }
+  .bg-lotus-amber { background-color: var(--lotus-amber); }
+  .bg-lotus-orange { background-color: var(--lotus-orange); }
+  .bg-lotus-coral { background-color: var(--lotus-coral); }
+  .bg-lotus-green { background-color: var(--lotus-green); }
+  .bg-lotus-cream { background-color: var(--lotus-cream); }
+
+  /* Navigation enhancements */
+  .navigation-menu-trigger[data-state="open"] {
+    @apply text-primary;
+  }
+
+  /* Professional hover effects */
+  .hover-lift {
+    @apply transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md;
+  }
+
+  /* Accordion animations */
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+
+  /* Lotus-themed gradient backgrounds */
+  .gradient-lotus-water {
+    background: var(--gradient-lotus-water);
+  }
+  
+  .gradient-lotus-petal {
+    background: var(--gradient-lotus-petal);
+  }
+  
+  .gradient-lotus-sunset {
+    background: var(--gradient-lotus-sunset);
+  }
+  
+  .gradient-lotus-nature {
+    background: var(--gradient-lotus-nature);
+  }
+  
+  /* Subtle background gradients for sections */
+  .gradient-lotus-subtle {
+    background: linear-gradient(135deg, 
+      oklch(from var(--lotus-teal) l c h / 0.05) 0%, 
+      oklch(from var(--background) l c h / 1) 50%, 
+      oklch(from var(--lotus-gold) l c h / 0.05) 100%);
+  }
+  
+  .gradient-wellness {
+    background: linear-gradient(135deg,
+      oklch(from var(--lotus-cream) l c h / 0.6) 0%,
+      oklch(from var(--background) l c h / 1) 40%,
+      oklch(from var(--lotus-teal) l c h / 0.08) 100%);
+  }
+
+  /* Image overlay utilities for text readability */
+  .lotus-overlay-dark {
+    position: relative;
+  }
+  .lotus-overlay-dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.2) 0%, 
+      rgba(0, 0, 0, 0.6) 100%);
+    pointer-events: none;
+  }
+  
+  .lotus-overlay-teal {
+    position: relative;
+  }
+  .lotus-overlay-teal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, 
+      oklch(from var(--lotus-teal-dark) l c h / 0.3) 0%, 
+      oklch(from var(--lotus-teal-dark) l c h / 0.8) 100%);
+    pointer-events: none;
+  }
+  
+  .lotus-overlay-gradient {
+    position: relative;
+  }
+  .lotus-overlay-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+      oklch(from var(--lotus-teal-dark) l c h / 0.7) 0%, 
+      oklch(from var(--lotus-gold) l c h / 0.5) 100%);
+    pointer-events: none;
+  }
+  
+  /* Text shadow utilities for image overlays */
+  .text-shadow-lotus {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .text-shadow-lotus-strong {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Lotus-inspired borders and shadows */
+  .border-lotus-gradient {
+    @apply border-2;
+    border-image: linear-gradient(135deg, 
+      var(--lotus-teal) 0%, 
+      var(--lotus-gold) 100%) 1;
+  }
+  
+  .shadow-lotus {
+    box-shadow: 0 4px 20px -4px oklch(from var(--lotus-teal) l c h / 0.15);
+  }
+  
+  .shadow-lotus-gold {
+    box-shadow: 0 4px 20px -4px oklch(from var(--lotus-gold) l c h / 0.15);
+  }
+  
+  .shadow-lotus-hover {
+    box-shadow: 0 8px 30px -8px oklch(from var(--lotus-teal) l c h / 0.25);
+  }
+
+  /* Smooth transitions for interactive elements */
+  button, a {
+    @apply transition-colors duration-200;
+  }
+
+  /* Professional card styling with lotus touch */
+  .card-wellness {
+    @apply border border-border/50 shadow-sm hover:shadow-lg hover:shadow-lotus-teal/10 transition-all duration-200;
+  }
+
+  /* Clean wellness typography */
+  .heading-wellness {
+    @apply font-medium tracking-tight bg-gradient-to-r from-lotus-teal to-lotus-teal-dark bg-clip-text text-transparent;
+  }
+
+  /* Subtle animations */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.5s ease-out;
+  }
+  
+  /* Lotus-inspired animations */
+  @keyframes lotus-bloom {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes lotus-float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes lotus-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px oklch(0.62 0.18 180 / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px oklch(0.62 0.18 180 / 0.4);
+    }
+  }
+  
+  .animate-lotus-bloom {
+    animation: lotus-bloom 0.6s ease-out;
+  }
+  
+  .animate-lotus-float {
+    animation: lotus-float 3s ease-in-out infinite;
+  }
+  
+  .animate-lotus-glow {
+    animation: lotus-glow 2s ease-in-out infinite;
+  }
+  
+  /* Lotus petal effect for decorations */
+  .lotus-petal {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .lotus-petal::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, 
+      oklch(0.75 0.15 75 / 0.1) 0%, 
+      transparent 70%);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  
+  /* Lotus petal animation */
+  @keyframes lotus-bloom {
+    0% {
+      transform: scale(0.8) rotate(0deg);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.05) rotate(180deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(360deg);
+      opacity: 0.9;
+    }
+  }
+  
+  .animate-lotus-bloom {
+    animation: lotus-bloom 20s ease-in-out infinite;
+  }
+}
