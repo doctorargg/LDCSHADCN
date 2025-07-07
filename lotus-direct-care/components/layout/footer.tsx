@@ -148,11 +148,11 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Office Hours</h3>
             <ul className="space-y-2 text-sm">
               {Object.entries(BUSINESS_HOURS).map(([day, hours]) => (
-                <li key={day} className="flex justify-between">
-                  <span className="text-muted-foreground capitalize">
-                    {day.toLowerCase()}:
+                <li key={day} className="flex justify-between gap-4">
+                  <span className="text-muted-foreground">
+                    {day}:
                   </span>
-                  <span className="font-medium">
+                  <span className="font-medium whitespace-nowrap">
                     {hours.open === "Closed" ? "Closed" : `${hours.open} - ${hours.close}`}
                   </span>
                 </li>

@@ -27,13 +27,13 @@ export const CONTACT_INFO = {
 
 // Business Hours
 export const BUSINESS_HOURS = {
-  MONDAY: { open: "9:00 AM", close: "5:00 PM" },
-  TUESDAY: { open: "9:00 AM", close: "5:00 PM" },
-  WEDNESDAY: { open: "9:00 AM", close: "5:00 PM" },
-  THURSDAY: { open: "9:00 AM", close: "5:00 PM" },
-  FRIDAY: { open: "9:00 AM", close: "5:00 PM" },
-  SATURDAY: { open: "Closed", close: "Closed" },
-  SUNDAY: { open: "Closed", close: "Closed" },
+  MON: { open: "9:00 AM", close: "5:00 PM" },
+  TUE: { open: "9:00 AM", close: "5:00 PM" },
+  WED: { open: "9:00 AM", close: "5:00 PM" },
+  THU: { open: "9:00 AM", close: "5:00 PM" },
+  FRI: { open: "9:00 AM", close: "5:00 PM" },
+  SAT: { open: "Closed", close: "Closed" },
+  SUN: { open: "Closed", close: "Closed" },
 } as const;
 
 // Doctor Information
