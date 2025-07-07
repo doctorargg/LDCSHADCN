@@ -69,7 +69,7 @@ export const faqs: FAQItem[] = [
   {
     id: "7",
     question: "How much does Direct Primary Care membership cost?",
-    answer: "Our DPC membership starts at $150 per month for adults, with discounted rates for families and children. This includes unlimited visits, 24/7 access to Dr. Rosenberg, same-day appointments, and no copays. Contact us for detailed pricing information.",
+    answer: "Our DPC membership starts at $165 per month for individuals (ages 5+), and $220 per month for families (first 2 members). Additional family members are $20/month each. Annual plans offer significant savings. No enrollment fees! This includes unlimited visits, 24/7 access to Dr. Rosenberg, same-day appointments, and no copays.",
     category: "Pricing & Insurance",
   },
   {

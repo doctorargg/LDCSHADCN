@@ -122,7 +122,7 @@ export default function IntegrativeTherapiesPage() {
     <>
       {/* Hero Section */}
       <HeroWithImage
-        imageSrc="/images/Lotus Midjourney Flowers/lotus_services_hero.png"
+        imageSrc="/images/Lotus Midjourney Flowers/u6683669286_httpss.mj.runnXIAXCQcAw0_Use_this_to_make_a_websi_995d475e-9ef2-497e-aa80-7ad4a490f562_2.png"
         imageAlt="Lotus flower symbolizing the integration of conventional and natural medicine at Lotus Direct Care"
         title="The Best of Both Worlds in Healthcare"
         subtitle="Experience the power of integrative medicine - where cutting-edge conventional treatments meet time-tested natural therapies. Get comprehensive care that addresses not just symptoms, but your whole person."

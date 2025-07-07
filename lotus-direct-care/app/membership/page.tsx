@@ -29,7 +29,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Membership Plans | Lotus Direct Care - Direct Primary Care in Mequon, WI',
-  description: 'Transparent, affordable Direct Primary Care membership plans. Unlimited visits, extended appointments, and personalized healthcare starting at $99/month.',
+  description: 'Transparent, affordable Direct Primary Care membership plans. Unlimited visits, extended appointments, and personalized healthcare starting at $165/month.',
   keywords: 'DPC membership, direct primary care pricing, concierge medicine cost, healthcare membership, Dr. Aaron Rosenberg, Mequon Wisconsin',
   openGraph: {
     title: 'Direct Primary Care Membership | Lotus Direct Care',
@@ -41,10 +41,10 @@ export const metadata: Metadata = {
 const membershipTiers = [
   {
     name: 'Individual',
-    price: 99,
+    price: 165,
     period: 'month',
     description: 'Perfect for personal health management',
-    ageRange: 'Ages 18-64',
+    ageRange: 'Ages 5 and up',
     featured: false,
     features: [
       'Unlimited office visits',
@@ -59,38 +59,20 @@ const membershipTiers = [
   },
   {
     name: 'Family',
-    price: 249,
+    price: 220,
     period: 'month',
     description: 'Comprehensive care for the whole family',
-    ageRange: '2 adults + children under 18',
+    ageRange: 'First 2 family members (ages 5+)',
     featured: true,
     features: [
       'Everything in Individual plan',
-      'Coverage for entire household',
-      'Pediatric care included',
+      'Coverage for first 2 family members',
+      'Add additional members for $20/month each',
       'Family wellness planning',
       'Coordinated family health goals',
       'Parenting health guidance',
       'School/sports physicals',
       'Vaccination management'
-    ]
-  },
-  {
-    name: 'Senior',
-    price: 149,
-    period: 'month',
-    description: 'Specialized care for older adults',
-    ageRange: 'Ages 65+',
-    featured: false,
-    features: [
-      'Everything in Individual plan',
-      'Medicare coordination',
-      'Chronic disease management focus',
-      'Medication review & optimization',
-      'Fall risk assessment',
-      'Cognitive health monitoring',
-      'Care transitions support',
-      'Advanced care planning'
     ]
   }
 ]
@@ -111,7 +93,7 @@ const comparisonFeatures = [
   {
     feature: 'Annual Cost (Healthy Adult)',
     traditional: '$3,000-5,000+',
-    dpc: '$1,200-2,400',
+    dpc: '$1,512-1,980',
     dpcHighlight: true
   },
   {
@@ -204,7 +186,7 @@ const faqs = [
   },
   {
     question: 'Are there any enrollment fees or contracts?',
-    answer: 'There\'s a one-time $99 enrollment fee that covers your initial comprehensive assessment. No long-term contracts - you can cancel anytime with 30 days notice.'
+    answer: 'No enrollment fees! We have a 3-month minimum commitment (paid upfront), but no long-term contracts - you can cancel anytime after that with 30 days notice. If you cancel and later resume care, there is a $150 re-initiation fee.'
   },
   {
     question: 'What\'s not included in membership?',
@@ -221,7 +203,7 @@ export default function MembershipPage() {
     <>
       {/* Hero Section */}
       <HeroWithImage
-        imageSrc="/images/Lotus Midjourney Flowers/lotus_pricing_hero.png"
+        imageSrc="/images/Lotus Midjourney Flowers/u6683669286_A_lotus_flower_--chaos_35_--ar_21_--sref_httpss.m_9101ead2-ead7-4a8c-9d6c-4b421697725e_2.png"
         imageAlt="Lotus flower symbolizing transparent and affordable healthcare membership at Lotus Direct Care"
         title="Healthcare That Works For You"
         subtitle="Simple, transparent pricing for comprehensive primary care. No insurance hassles, no hidden fees - just exceptional healthcare when you need it."
@@ -339,7 +321,7 @@ export default function MembershipPage() {
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {membershipTiers.map((tier, index) => (
                 <Card 
                   key={index} 
@@ -380,11 +362,34 @@ export default function MembershipPage() {
               ))}
             </div>
 
-            <div className="mt-8 text-center">
-              <p className="text-gray-600">
-                <span className="font-semibold">One-time enrollment fee:</span> $99 
-                <span className="text-sm ml-2">(includes comprehensive initial assessment)</span>
-              </p>
+            <div className="mt-8 space-y-4">
+              <div className="text-center">
+                <p className="text-gray-600">
+                  <span className="font-semibold">No enrollment fees!</span> 
+                  <span className="text-sm ml-2">Start your membership without any upfront costs</span>
+                </p>
+              </div>
+              
+              <Card className="bg-green-50 border-green-200">
+                <CardContent className="p-6">
+                  <h3 className="font-semibold text-green-900 mb-2">Save with Annual Plans</h3>
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="font-medium text-green-800">Individual Annual: $1,512.50</p>
+                      <p className="text-green-700">Save over $450 per year!</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-green-800">Family Annual: $2,062.50</p>
+                      <p className="text-green-700">Save over $575 per year!</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-600 mt-3">* Annual discount not available when paying with Care Credit</p>
+                </CardContent>
+              </Card>
+              
+              <div className="text-center text-sm text-gray-600">
+                <p><span className="font-semibold">Important:</span> We care for patients ages 5 and up. 3-month minimum commitment required.</p>
+              </div>
             </div>
           </div>
         </div>

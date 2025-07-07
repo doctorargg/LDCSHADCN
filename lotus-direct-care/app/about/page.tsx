@@ -31,7 +31,7 @@ export default function AboutPage() {
     <>
       {/* Hero Section */}
       <HeroWithImage
-        imageSrc="/images/Lotus Midjourney Flowers/lotus_about_hero.png"
+        imageSrc="/images/Lotus Midjourney Flowers/u6683669286_httpss.mj.runnXIAXCQcAw0_Use_this_to_make_a_websi_875e0c6c-0eb2-4288-bc2a-a5de572245e3_0.png"
         imageAlt="Lotus flower representing the holistic approach of Lotus Direct Care"
         title="About Lotus Direct Care"
         subtitle="A revolutionary approach to healthcare that puts you first. We combine direct primary care accessibility with functional medicine principles, longevity medicine, and integrative therapies for comprehensive care."
