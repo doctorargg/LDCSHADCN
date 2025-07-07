@@ -6,19 +6,14 @@ import type { Database } from '@/types/database'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-// For static export, we'll make Supabase optional
-const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true'
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  if (!isStaticExport) {
-    throw new Error('Missing Supabase environment variables')
-  }
-  console.warn('Supabase environment variables not found. API routes will not function.')
-}
-
+// Make Supabase client creation conditional to allow deployment without env vars
 export const supabase = supabaseUrl && supabaseAnonKey 
   ? createClient<Database>(supabaseUrl, supabaseAnonKey)
-  : null as any
+  : null
+
+if (!supabase && typeof window === 'undefined') {
+  console.warn('Supabase environment variables not configured. Database features will not work.')
+}
 
 // Type definitions for our database tables
 export type Lead = Database['public']['Tables']['leads']['Row']

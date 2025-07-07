@@ -1,4 +1,0 @@
-[build]
-  base = "lotus-direct-care"
-  command = "npm run build"
-  publish = "out"
