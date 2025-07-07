@@ -111,19 +111,8 @@ export function ValuePropositions() {
           </div>
           
           {/* CTA with urgency */}
-          <Card className="inline-block bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20 shadow-lg relative overflow-hidden">
-            {/* Subtle lotus accent in corner */}
-            <div 
-              className="absolute top-0 right-0 w-32 h-32 opacity-20"
-              style={{
-                backgroundImage: 'url("/images/Lotus Midjourney Flowers/lotus_logo_full.png")',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'top right',
-                transform: 'translate(25%, -25%) rotate(15deg)',
-              }}
-            />
-            <CardContent className="p-8 relative z-10">
+          <Card className="inline-block bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20 shadow-lg">
+            <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-3">Ready to Experience Better Healthcare?</h3>
               <p className="text-gray-600 mb-2">
                 Join a practice where you're a patient, not a number.
