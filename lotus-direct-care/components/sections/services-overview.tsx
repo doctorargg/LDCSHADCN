@@ -2,31 +2,65 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { 
+  ArrowRight, 
+  Heart, 
+  Microscope, 
+  Leaf, 
+  Clock, 
+  Shield, 
+  Sparkles, 
+  Droplets 
+} from 'lucide-react'
 
 const services = [
   {
-    title: 'Comprehensive Health Assessment',
-    description: 'In-depth evaluation including advanced lab testing, genetic analysis, and lifestyle assessment to create your personalized health roadmap.',
-    features: ['90-minute consultation', 'Advanced biomarker testing', 'Genetic insights'],
+    title: 'Direct Primary Care',
+    description: 'Healthcare membership with unlimited access',
+    icon: Heart,
+    href: '/services/direct-primary-care',
     popular: true,
   },
   {
-    title: 'Hormone Optimization',
-    description: 'Balance your hormones naturally for improved energy, mood, sleep, and overall vitality using bioidentical hormone therapy.',
-    features: ['Thyroid optimization', 'Adrenal support', 'Sex hormone balance'],
+    title: 'Functional Medicine',
+    description: 'Discover and treat root causes of chronic illness',
+    icon: Microscope,
+    href: '/services/functional-medicine',
     popular: false,
   },
   {
-    title: 'Gut Health Restoration',
-    description: 'Heal your digestive system and microbiome to improve immunity, mental clarity, and nutrient absorption.',
-    features: ['Microbiome analysis', 'Food sensitivity testing', 'Personalized nutrition'],
+    title: 'Integrative Therapies',
+    description: 'Combining conventional and natural approaches',
+    icon: Leaf,
+    href: '/services/integrative-therapies',
     popular: false,
   },
   {
-    title: 'Metabolic Optimization',
-    description: 'Reset your metabolism for sustainable weight management, increased energy, and disease prevention.',
-    features: ['Insulin sensitivity', 'Mitochondrial support', 'Body composition'],
+    title: 'Longevity Medicine',
+    description: 'Optimize your healthspan, not just lifespan',
+    icon: Clock,
+    href: '/services/longevity-medicine',
+    popular: false,
+  },
+  {
+    title: 'Addiction Medicine',
+    description: 'Compassionate, evidence-based recovery support',
+    icon: Shield,
+    href: '/services/addiction-medicine',
+    popular: false,
+  },
+  {
+    title: 'Ketamine Therapy',
+    description: 'Breakthrough treatment for depression and pain',
+    icon: Sparkles,
+    href: '/services/ketamine-therapy',
+    popular: false,
+  },
+  {
+    title: 'PRP Therapy',
+    description: 'Natural regenerative therapy for healing',
+    icon: Droplets,
+    href: '/services/prp-therapy',
     popular: false,
   },
 ]
@@ -40,39 +74,42 @@ export function ServicesOverview() {
             Our Services
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Comprehensive functional medicine services designed to optimize your health at every level
+            Experience comprehensive healthcare with our full range of services designed to optimize your health and well-being
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {services.map((service, index) => (
-            <Card key={index} className="relative hover:shadow-lg hover:shadow-lotus-teal/20 transition-all duration-300 hover:scale-[1.02]">
-              {service.popular && (
-                <Badge className="absolute -top-2 -right-2 bg-gradient-to-r from-[oklch(0.75_0.15_75)] to-[oklch(0.70_0.14_75)] border-0 shadow-lg">
-                  Most Popular
-                </Badge>
-              )}
-              <CardHeader>
-                <CardTitle className="text-xl">{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600">{service.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {service.features.map((feature, idx) => (
-                    <Badge key={idx} variant="secondary" className="text-xs bg-[oklch(0.62_0.18_180_/_0.1)] text-[oklch(0.45_0.16_180)] border-[oklch(0.62_0.18_180_/_0.2)]">
-                      {feature}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+          {services.map((service, index) => {
+            const Icon = service.icon
+            return (
+              <Link key={index} href={service.href} className="group">
+                <Card className="relative h-full hover:shadow-lg hover:shadow-lotus-teal/20 transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                  {service.popular && (
+                    <Badge className="absolute -top-2 -right-2 bg-gradient-to-r from-[oklch(0.75_0.15_75)] to-[oklch(0.70_0.14_75)] border-0 shadow-lg z-10">
+                      Most Popular
                     </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  )}
+                  <CardHeader>
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-[oklch(0.62_0.18_180_/_0.1)] text-[oklch(0.45_0.16_180)] group-hover:bg-[oklch(0.62_0.18_180_/_0.15)] transition-colors">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <CardTitle className="text-lg flex-1">{service.title}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 text-sm">{service.description}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            )
+          })}
         </div>
         
         <div className="text-center">
           <Button asChild size="lg" variant="outline">
             <Link href="/services" className="flex items-center gap-2">
-              View All Services
+              Learn More About Our Services
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>

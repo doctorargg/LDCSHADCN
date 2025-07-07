@@ -14,13 +14,16 @@ import {
   CheckCircle2,
   Users,
   Clock,
-  Shield
+  Shield,
+  HeartHandshake,
+  Zap,
+  Sparkles
 } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Services | Lotus Direct Care - Functional Medicine & Direct Primary Care',
-  description: 'Explore our comprehensive healthcare services including Direct Primary Care, Functional Medicine, Longevity Medicine, and Addiction Medicine in Mequon, WI.',
-  keywords: 'direct primary care, functional medicine, longevity medicine, addiction medicine, Dr. Aaron Rosenberg, Mequon, Wisconsin',
+  description: 'Explore our comprehensive healthcare services including Direct Primary Care, Functional Medicine, Longevity Medicine, Addiction Medicine, Integrative Therapies, Ketamine Therapy, and PRP Therapy in Mequon, WI.',
+  keywords: 'direct primary care, functional medicine, longevity medicine, addiction medicine, integrative therapies, ketamine therapy, PRP therapy, Dr. Aaron Rosenberg, Mequon, Wisconsin',
   openGraph: {
     title: 'Healthcare Services | Lotus Direct Care',
     description: 'Comprehensive healthcare services designed to optimize your health at every level.',
@@ -89,6 +92,51 @@ const services = [
     bgColor: 'bg-rose-50',
     borderColor: 'border-rose-200',
   },
+  {
+    title: 'Integrative Therapies',
+    description: 'Combine conventional medicine with evidence-based complementary approaches for whole-person healing and optimal wellness outcomes.',
+    icon: HeartHandshake,
+    href: '/services/integrative-therapies',
+    features: [
+      'Mind-body techniques',
+      'Nutritional therapy',
+      'Stress management',
+      'Holistic healing'
+    ],
+    color: 'text-emerald-600',
+    bgColor: 'bg-emerald-50',
+    borderColor: 'border-emerald-200',
+  },
+  {
+    title: 'Ketamine Therapy',
+    description: 'Experience breakthrough treatment for depression, anxiety, PTSD, and chronic pain with professionally supervised ketamine therapy protocols.',
+    icon: Zap,
+    href: '/services/ketamine-therapy',
+    features: [
+      'Treatment-resistant depression',
+      'Anxiety & PTSD relief',
+      'Chronic pain management',
+      'Supervised protocols'
+    ],
+    color: 'text-amber-600',
+    bgColor: 'bg-amber-50',
+    borderColor: 'border-amber-200',
+  },
+  {
+    title: 'PRP Therapy',
+    description: 'Harness your body\'s natural healing power with platelet-rich plasma therapy for joint health, aesthetic enhancement, and regenerative medicine.',
+    icon: Sparkles,
+    href: '/services/prp-therapy',
+    features: [
+      'Joint & tissue repair',
+      'Hair restoration',
+      'Skin rejuvenation',
+      'Natural healing'
+    ],
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-50',
+    borderColor: 'border-indigo-200',
+  },
 ]
 
 const benefits = [
@@ -134,16 +182,16 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {services.map((service, index) => {
               const Icon = service.icon
               return (
                 <Card 
                   key={index} 
-                  className={`hover:shadow-xl transition-all duration-300 border-2 ${service.borderColor} overflow-hidden group`}
+                  className={`hover:shadow-xl transition-all duration-300 border-2 ${service.borderColor} overflow-hidden group h-full flex flex-col`}
                 >
                   <div className={`h-2 ${service.bgColor}`} />
-                  <CardHeader>
+                  <CardHeader className="flex-grow">
                     <div className="flex items-start justify-between mb-4">
                       <div className={`p-3 rounded-lg ${service.bgColor}`}>
                         <Icon className={`w-8 h-8 ${service.color}`} />
@@ -152,8 +200,8 @@ export default function ServicesPage() {
                         Learn More
                       </Badge>
                     </div>
-                    <CardTitle className="text-2xl mb-2">{service.title}</CardTitle>
-                    <CardDescription className="text-base">
+                    <CardTitle className="text-xl lg:text-2xl mb-2">{service.title}</CardTitle>
+                    <CardDescription className="text-sm lg:text-base">
                       {service.description}
                     </CardDescription>
                   </CardHeader>
@@ -161,7 +209,7 @@ export default function ServicesPage() {
                     <div className="space-y-2">
                       {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
-                          <CheckCircle2 className={`w-4 h-4 ${service.color}`} />
+                          <CheckCircle2 className={`w-4 h-4 ${service.color} flex-shrink-0`} />
                           <span>{feature}</span>
                         </div>
                       ))}

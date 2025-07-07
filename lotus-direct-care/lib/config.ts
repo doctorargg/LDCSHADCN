@@ -21,8 +21,11 @@ export const navigationItems = [
     subItems: [
       { title: "Direct Primary Care", href: "/services/direct-primary-care" },
       { title: "Functional Medicine", href: "/services/functional-medicine" },
+      { title: "Integrative Therapies", href: "/services/integrative-therapies" },
       { title: "Longevity Medicine", href: "/services/longevity-medicine" },
       { title: "Addiction Medicine", href: "/services/addiction-medicine" },
+      { title: "Ketamine Therapy", href: "/services/ketamine-therapy" },
+      { title: "PRP Therapy", href: "/services/prp-therapy" },
     ],
   },
   {
