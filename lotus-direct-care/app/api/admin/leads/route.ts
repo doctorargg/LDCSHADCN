@@ -134,6 +134,14 @@ export async function GET(request: NextRequest) {
 // Update lead status
 export async function PATCH(request: NextRequest) {
   try {
+    // Check if Supabase is configured
+    if (!supabase) {
+      return NextResponse.json(
+        { message: 'Database not configured' },
+        { status: 503 }
+      )
+    }
+
     // Check authentication
     if (!isAuthenticated(request)) {
       return NextResponse.json(
