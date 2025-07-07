@@ -50,14 +50,15 @@ export default function DrRosenbergPage() {
             <div className="relative">
               <div className="relative w-full aspect-[3/4] max-w-md mx-auto lg:mx-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-100 to-blue-100 rounded-2xl transform rotate-3" />
-                <div className="relative h-full rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-gradient-to-br from-lotus-teal/10 to-lotus-gold/10">
-                  {/* TODO: Replace with actual photo once PDF is converted to image format */}
-                  <div className="w-full h-full flex items-center justify-center flex-col gap-4">
-                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-lotus-teal to-lotus-teal-dark flex items-center justify-center">
-                      <span className="text-white text-5xl font-bold">AR</span>
-                    </div>
-                    <span className="text-gray-500 text-sm">Dr. Aaron Rosenberg, MD</span>
-                  </div>
+                <div className="relative h-full rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                  <Image
+                    src="/images/team/dr-rosenberg.jpg"
+                    alt="Dr. Aaron Rosenberg, MD - Board-Certified Physician & Functional Medicine Expert"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                    priority
+                  />
                 </div>
               </div>
               {/* Decorative elements */}

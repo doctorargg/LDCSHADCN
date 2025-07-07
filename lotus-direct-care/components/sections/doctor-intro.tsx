@@ -14,9 +14,14 @@ export function DoctorIntro() {
             <div className="relative w-full aspect-[4/5] max-w-md mx-auto lg:mx-0">
               <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.62_0.18_180_/_0.2)] to-[oklch(0.75_0.15_75_/_0.2)] rounded-2xl" />
               <div className="relative h-full rounded-2xl overflow-hidden border-4 border-white shadow-lotus-hover">
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-lg">Dr. Rosenberg Photo</span>
-                </div>
+                <Image
+                  src="/images/team/dr-rosenberg.jpg"
+                  alt="Dr. Aaron Rosenberg - Board-Certified Physician & Functional Medicine Expert"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                  priority
+                />
               </div>
             </div>
             {/* Decorative elements */}
