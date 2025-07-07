@@ -369,7 +369,7 @@ export default function AddictionMedicinePage() {
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold">24/7 Support Line</h3>
+                      <h3 className="font-semibold">After-hours/Weekend Support</h3>
                       <p className="text-sm text-gray-600">
                         Always available when you need help
                       </p>
@@ -477,7 +477,7 @@ export default function AddictionMedicinePage() {
                   </Button>
                 </div>
                 <p className="text-sm text-gray-500">
-                  Available 24/7 for urgent situations
+                  Available after-hours and weekends through our dedicated communication app for urgent situations
                 </p>
               </div>
               

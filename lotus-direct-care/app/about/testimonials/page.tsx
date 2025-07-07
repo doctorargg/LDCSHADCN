@@ -109,7 +109,7 @@ export default function TestimonialsPage() {
                   </div>
                   <div className="flex items-center gap-1">
                     <CheckCircle className="h-4 w-4 text-primary" />
-                    <span>24/7 Doctor Access</span>
+                    <span>After-hours/Weekend Access</span>
                   </div>
                 </div>
               </div>

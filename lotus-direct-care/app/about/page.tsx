@@ -91,7 +91,7 @@ export default function AboutPage() {
                     <div className="text-sm text-gray-600">Patient Satisfaction</div>
                   </div>
                   <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-3xl font-bold text-teal-600 mb-1">24/7</div>
+                    <div className="text-3xl font-bold text-teal-600 mb-1">After-hours</div>
                     <div className="text-sm text-gray-600">Member Access</div>
                   </div>
                 </div>

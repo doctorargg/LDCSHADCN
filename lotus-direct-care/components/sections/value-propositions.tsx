@@ -106,7 +106,7 @@ export function ValuePropositions() {
             </div>
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
               <Shield className="h-5 w-5 text-purple-600" />
-              <span className="text-sm font-medium text-gray-700">24/7 Doctor Access</span>
+              <span className="text-sm font-medium text-gray-700">After-hours/Weekend Access</span>
             </div>
           </div>
           

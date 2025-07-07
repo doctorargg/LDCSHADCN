@@ -41,7 +41,7 @@ export const faqs: FAQItem[] = [
   {
     id: "3",
     question: "What are your office hours?",
-    answer: "Our office hours are Monday through Friday, 9:00 AM to 5:00 PM. We are closed on weekends. However, DPC members have 24/7 access to Dr. Rosenberg via phone, text, or email for urgent concerns.",
+    answer: "Our office hours are Monday through Friday, 9:00 AM to 5:00 PM. We are closed on weekends. However, DPC members have after-hours and weekend access to Dr. Rosenberg via our dedicated communication app for urgent concerns.",
     category: "General",
   },
 
@@ -69,7 +69,7 @@ export const faqs: FAQItem[] = [
   {
     id: "7",
     question: "How much does Direct Primary Care membership cost?",
-    answer: "Our DPC membership starts at $165 per month for individuals (ages 5+), and $220 per month for families (first 2 members). Additional family members are $20/month each. Annual plans offer significant savings. No enrollment fees! This includes unlimited visits, 24/7 access to Dr. Rosenberg, same-day appointments, and no copays.",
+    answer: "Our DPC membership starts at $165 per month for individuals (ages 5+), and $220 per month for families (first 2 members). Additional family members are $20/month each. Annual plans offer significant savings. No enrollment fees! This includes unlimited visits, after-hours/weekend access to Dr. Rosenberg via our dedicated communication app, same-day appointments, and no copays.",
     category: "Pricing & Insurance",
   },
   {
@@ -121,7 +121,7 @@ export const faqs: FAQItem[] = [
   {
     id: "15",
     question: "What's included in DPC membership?",
-    answer: "DPC membership includes unlimited office visits, 24/7 access to Dr. Rosenberg via phone/text/email, same-day or next-day appointments, extended appointments (30-60 minutes), chronic disease management, preventive care, care coordination, and often discounted labs and medications.",
+    answer: "DPC membership includes unlimited office visits, after-hours and weekend access to Dr. Rosenberg through our dedicated communication app, same-day or next-day appointments, extended appointments (30-60 minutes), chronic disease management, preventive care, care coordination, and often discounted labs and medications.",
     category: "Direct Primary Care",
   },
   {

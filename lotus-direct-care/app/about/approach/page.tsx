@@ -331,7 +331,7 @@ export default function ApproachPage() {
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                       <div className="w-2 h-2 bg-white rounded-full" />
                     </div>
-                    <span>24/7 direct access to Dr. Rosenberg</span>
+                    <span>After-hours and weekend access to Dr. Rosenberg via dedicated communication app</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
