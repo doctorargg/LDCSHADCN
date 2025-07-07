@@ -366,7 +366,7 @@ export default function MembershipPage() {
               <div className="text-center">
                 <p className="text-gray-600">
                   <span className="font-semibold">No enrollment fees!</span> 
-                  <span className="text-sm ml-2">Start your membership without any upfront costs</span>
+                  <span className="text-sm ml-2">Just your monthly membership fee to get started</span>
                 </p>
               </div>
               
