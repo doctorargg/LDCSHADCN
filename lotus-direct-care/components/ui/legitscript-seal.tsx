@@ -1,37 +1,29 @@
 'use client'
 
-import { useEffect } from 'react'
+import Script from 'next/script'
+import { useId } from 'react'
 
 interface LegitScriptSealProps {
   className?: string
 }
 
 export function LegitScriptSeal({ className = '' }: LegitScriptSealProps) {
-  useEffect(() => {
-    // Create script element
-    const script = document.createElement('script')
-    script.src = 'https://static.legitscript.com/seals/17561062.js'
-    script.async = true
-    
-    // Find the container element and append the script
-    const container = document.getElementById('legitscript-seal-container')
-    if (container) {
-      container.appendChild(script)
-    }
-    
-    // Cleanup function to remove script on unmount
-    return () => {
-      if (container && script.parentNode) {
-        container.removeChild(script)
-      }
-    }
-  }, [])
-  
+  const id = useId()
+  const containerId = `legitscript-seal-${id}`
+
   return (
-    <div 
-      id="legitscript-seal-container" 
-      className={`inline-block ${className}`}
-      aria-label="LegitScript approved"
-    />
+    <>
+      <div 
+        id={containerId}
+        className={`inline-block ${className}`}
+        aria-label="LegitScript approved"
+        style={{ minHeight: '100px', minWidth: '140px' }}
+      >
+        <Script 
+          src="https://static.legitscript.com/seals/17561062.js"
+          strategy="lazyOnload"
+        />
+      </div>
+    </>
   )
 }
