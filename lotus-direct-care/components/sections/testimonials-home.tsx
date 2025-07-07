@@ -112,23 +112,12 @@ export function TestimonialsHome() {
             </div>
             
             {/* Primary CTA */}
-            <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 max-w-2xl mx-auto relative overflow-hidden">
-              {/* Decorative lotus accent */}
-              <div 
-                className="absolute bottom-0 left-0 w-24 h-24 opacity-15"
-                style={{
-                  backgroundImage: 'url("/images/Lotus Midjourney Flowers/lotus_logo_full.png")',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'bottom left',
-                  transform: 'translate(-20%, 20%) rotate(-15deg)',
-                }}
-              />
-              <h3 className="text-xl font-semibold mb-2 relative z-10">Ready to Transform Your Health?</h3>
-              <p className="text-gray-600 mb-4 relative z-10">
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 max-w-2xl mx-auto">
+              <h3 className="text-xl font-semibold mb-2">Ready to Transform Your Health?</h3>
+              <p className="text-gray-600 mb-4">
                 Join these satisfied patients and experience healthcare that puts you first.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center relative z-10">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild size="lg" className="shadow-lg">
                   <a href={EXTERNAL_URLS.BOOK_APPOINTMENT} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                     <Calendar className="h-5 w-5" />
