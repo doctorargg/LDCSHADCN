@@ -18,10 +18,10 @@ import {
 
 export const metadata: Metadata = {
   title: 'About Us | Lotus Direct Care',
-  description: 'Learn about Lotus Direct Care, Dr. Aaron Rosenberg, and our patient-centered approach to functional medicine and direct primary care in Mequon, Wisconsin.',
+  description: 'Learn about Lotus Direct Care, Dr. Aaron Rosenberg, and our patient-centered approach to comprehensive healthcare. Combining direct primary care with functional medicine and integrative therapies in Mequon, Wisconsin.',
   openGraph: {
     title: 'About Us | Lotus Direct Care',
-    description: 'Learn about Lotus Direct Care, Dr. Aaron Rosenberg, and our patient-centered approach to functional medicine and direct primary care in Mequon, Wisconsin.',
+    description: 'Learn about Lotus Direct Care, Dr. Aaron Rosenberg, and our patient-centered approach to comprehensive healthcare. Combining direct primary care with functional medicine and integrative therapies in Mequon, Wisconsin.',
     url: 'https://lotusdirectcare.com/about',
   },
 }
@@ -34,7 +34,7 @@ export default function AboutPage() {
         imageSrc="/images/Lotus Midjourney Flowers/lotus_about_hero.png"
         imageAlt="Lotus flower representing the holistic approach of Lotus Direct Care"
         title="About Lotus Direct Care"
-        subtitle="A revolutionary approach to healthcare that puts you first. We combine the latest in functional medicine with the personalized attention of direct primary care."
+        subtitle="A revolutionary approach to healthcare that puts you first. We combine direct primary care accessibility with functional medicine principles, longevity medicine, and integrative therapies for comprehensive care."
         showCTA={true}
         primaryCTAText="Meet Dr. Rosenberg"
         primaryCTAHref="/about/dr-rosenberg"
@@ -199,7 +199,7 @@ export default function AboutPage() {
                   <Award className="w-8 h-8 text-teal-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  Board-Certified Excellence
+                  Licensed Medical Excellence
                 </h3>
                 <p className="text-gray-600">
                   Dr. Rosenberg brings over 20 years of experience and multiple certifications in 

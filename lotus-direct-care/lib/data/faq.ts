@@ -29,7 +29,7 @@ export const faqs: FAQItem[] = [
   {
     id: "1",
     question: "What makes Lotus Direct Care different from traditional medical practices?",
-    answer: "Lotus Direct Care combines Direct Primary Care (DPC) with Functional Medicine. This means you get unlimited access to Dr. Rosenberg through a monthly membership, longer appointments (30-60 minutes), same-day or next-day availability, and a root-cause approach to health issues rather than just symptom management.",
+    answer: "Lotus Direct Care provides comprehensive healthcare through Direct Primary Care (DPC) combined with a functional medicine approach and integrative therapies. This means you get unlimited access to Dr. Rosenberg through a monthly membership, longer appointments (30-60 minutes), same-day or next-day availability, and personalized treatment plans that address root causes while offering multiple therapeutic options including longevity medicine, addiction medicine, and specialized therapies.",
     category: "General",
   },
   {
@@ -135,13 +135,13 @@ export const faqs: FAQItem[] = [
   {
     id: "17",
     question: "What is Functional Medicine?",
-    answer: "Functional Medicine is a systems-based approach that focuses on identifying and addressing the root causes of disease. Instead of just treating symptoms, we look at genetics, environment, lifestyle, and how all body systems interact to create optimal health or disease.",
+    answer: "Functional Medicine is a systems-based approach that focuses on identifying and addressing the root causes of disease. At Lotus Direct Care, we integrate functional medicine principles with our comprehensive healthcare services including direct primary care, longevity medicine, and integrative therapies. We look at genetics, environment, lifestyle, and how all body systems interact to create optimal health.",
     category: "Functional Medicine",
   },
   {
     id: "18",
-    question: "How is Functional Medicine different from conventional medicine?",
-    answer: "While conventional medicine often focuses on managing symptoms with medications, Functional Medicine seeks to understand why symptoms occur. We use advanced testing, detailed health histories, and personalized treatment plans that may include nutrition, supplements, lifestyle changes, and medications when necessary.",
+    question: "How does your integrative approach differ from conventional medicine?",
+    answer: "While conventional medicine often focuses on managing symptoms with medications, our integrative approach at Lotus Direct Care seeks to understand why symptoms occur. We combine the best of conventional medicine with functional medicine principles, offering personalized treatment plans that may include nutrition, supplements, lifestyle changes, specialized therapies like ketamine or PRP, and medications when necessary.",
     category: "Functional Medicine",
   },
   {

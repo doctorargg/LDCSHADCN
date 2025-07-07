@@ -15,17 +15,17 @@ const credentials = [
   {
     icon: GraduationCap,
     title: 'Medical Education',
-    items: ['Autonomous University of Guadalajara (Valedictorian)', 'UC Davis-affiliated Residency', 'San Francisco State University'],
+    items: ['Medical Doctor (MD) - Valedictorian', 'Autonomous University of Guadalajara', 'UC Davis-affiliated Residency', 'San Francisco State University'],
   },
   {
     icon: Award,
-    title: 'Certifications',
-    items: ['Board Certified Internal Medicine', 'Functional Medicine (IFM - In Progress)', 'Addiction Medicine'],
+    title: 'Specialized Training',
+    items: ['Institute for Functional Medicine Training', 'Addiction Medicine Expertise', '10+ Years Clinical Experience', 'Ketamine & Integrative Therapies'],
   },
   {
     icon: Building,
-    title: 'Professional Affiliations',
-    items: ['American College of Physicians', 'Institute for Functional Medicine', 'Fluent in English & Spanish'],
+    title: 'Professional Excellence',
+    items: ['American College of Physicians Member', 'Multilingual Care (English & Spanish)', 'Direct Primary Care Pioneer', 'Evidence-Based Practice'],
   },
 ]
 
@@ -42,10 +42,10 @@ export function TrustSignals() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Excellence in Functional Medicine
+            Excellence in Personalized Healthcare
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Trusted credentials and proven results you can count on
+            Trusted credentials and proven results across multiple medical disciplines
           </p>
         </div>
         
@@ -114,11 +114,12 @@ export function TrustSignals() {
               ))}
             </div>
             <blockquote className="text-lg italic text-gray-700 mb-4 max-w-2xl mx-auto">
-              "Dr. Rosenberg changed my life. After years of conventional treatments that only 
-              masked my symptoms, he helped me discover and address the root causes of my health 
-              issues. I feel better at 50 than I did at 30!"
+              "My experience with Dr Rosenberg has been wonderful. His office staff is amazing, 
+              and he is an absolute professional. He found things that no one else did. He has 
+              experience as a PCP but uses a functional medicine approach. This is so effective! 
+              I am now a patient for life."
             </blockquote>
-            <p className="text-gray-600">— Sarah M., Patient since 2019</p>
+            <p className="text-gray-600">— Katrina J., Functional Medicine Patient</p>
           </CardContent>
         </Card>
       </div>

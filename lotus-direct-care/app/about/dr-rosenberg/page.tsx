@@ -22,10 +22,10 @@ import {
 
 export const metadata: Metadata = {
   title: 'Dr. Aaron Rosenberg | Lotus Direct Care',
-  description: 'Meet Dr. Aaron Rosenberg, valedictorian of the Autonomous University of Guadalajara medical program, UC Davis-trained internist, and functional medicine practitioner serving Mequon, WI.',
+  description: 'Meet Dr. Aaron Rosenberg, valedictorian of the Autonomous University of Guadalajara medical program, UC Davis-trained internist, and integrative healthcare physician specializing in direct primary care, functional medicine, longevity medicine, and addiction medicine in Mequon, WI.',
   openGraph: {
     title: 'Dr. Aaron Rosenberg | Lotus Direct Care',
-    description: 'Meet Dr. Aaron Rosenberg, valedictorian of the Autonomous University of Guadalajara medical program, UC Davis-trained internist, and functional medicine practitioner serving Mequon, WI.',
+    description: 'Meet Dr. Aaron Rosenberg, valedictorian of the Autonomous University of Guadalajara medical program, UC Davis-trained internist, and integrative healthcare physician specializing in direct primary care, functional medicine, longevity medicine, and addiction medicine in Mequon, WI.',
     url: 'https://lotusdirectcare.com/about/dr-rosenberg',
   },
 }
@@ -36,9 +36,9 @@ export default function DrRosenbergPage() {
       {/* Hero Section */}
       <HeroWithImage
         imageSrc="/images/Lotus Midjourney Flowers/lotus-ketamine-therapy-hero.png"
-        imageAlt="Dr. Aaron Rosenberg - Board-Certified Physician & Functional Medicine Expert"
+        imageAlt="Dr. Aaron Rosenberg - Licensed Physician & Integrative Healthcare Specialist"
         title="Dr. Aaron Rosenberg"
-        subtitle="Board-Certified Physician & Functional Medicine Expert with over 10 years of experience helping patients achieve optimal health through personalized, evidence-based treatments."
+        subtitle="Licensed Physician & Integrative Healthcare Specialist with over 10 years of experience helping patients achieve optimal health through personalized medicine, combining direct primary care with functional medicine principles and specialized therapies."
         showCTA={false}
       />
 
@@ -53,7 +53,7 @@ export default function DrRosenbergPage() {
                 <div className="relative h-full rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
                   <Image
                     src="/images/team/dr-rosenberg.jpg"
-                    alt="Dr. Aaron Rosenberg, MD - Board-Certified Physician & Functional Medicine Expert"
+                    alt="Dr. Aaron Rosenberg, MD - Licensed Physician & Functional Medicine Practitioner"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
@@ -73,7 +73,7 @@ export default function DrRosenbergPage() {
                   Meet Your Doctor
                 </h2>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  <Badge variant="secondary">MD, Board Certified</Badge>
+                  <Badge variant="secondary">MD, Licensed Physician</Badge>
                   <Badge variant="secondary">Functional Medicine</Badge>
                   <Badge variant="secondary">Addiction Medicine</Badge>
                   <Badge variant="secondary">10+ Years Experience</Badge>
@@ -198,7 +198,7 @@ export default function DrRosenbergPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
                     <Award className="w-6 h-6 text-teal-600" />
-                    Board Certifications
+                    Medical Credentials
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">

@@ -1,12 +1,16 @@
 import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { 
   Heart, 
   Target, 
   Users, 
   Clock, 
   Shield, 
-  Sparkles 
+  Sparkles,
+  Calendar,
+  CheckCircle 
 } from 'lucide-react'
+import { EXTERNAL_URLS } from '@/lib/constants'
 
 const values = [
   {
@@ -27,7 +31,7 @@ const values = [
   {
     icon: Shield,
     title: 'Evidence-Based',
-    description: 'Our approach combines cutting-edge research with proven functional medicine principles.',
+    description: 'Our integrative approach combines cutting-edge research with proven medical principles across multiple disciplines.',
   },
   {
     icon: Heart,
@@ -47,10 +51,10 @@ export function ValuePropositions() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Why Choose Functional Medicine?
+            Why Choose Lotus Direct Care?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Experience healthcare that treats you as a whole person, not just a collection of symptoms
+            Experience comprehensive healthcare that combines direct primary care with functional medicine to treat you as a whole person
           </p>
         </div>
         
@@ -73,6 +77,44 @@ export function ValuePropositions() {
               </Card>
             )
           })}
+        </div>
+        
+        {/* Trust Indicators and CTA */}
+        <div className="mt-12 text-center">
+          {/* Trust badges */}
+          <div className="flex flex-wrap justify-center items-center gap-6 mb-8">
+            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <span className="text-sm font-medium text-gray-700">No Insurance Hassles</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+              <Clock className="h-5 w-5 text-blue-600" />
+              <span className="text-sm font-medium text-gray-700">Same-Day Appointments</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+              <Shield className="h-5 w-5 text-purple-600" />
+              <span className="text-sm font-medium text-gray-700">24/7 Doctor Access</span>
+            </div>
+          </div>
+          
+          {/* CTA with urgency */}
+          <Card className="inline-block bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20 shadow-lg">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-3">Ready to Experience Better Healthcare?</h3>
+              <p className="text-gray-600 mb-2">
+                Join a practice where you're a patient, not a number.
+              </p>
+              <p className="text-sm text-primary font-semibold mb-6">
+                Limited membership spots available - Secure yours today!
+              </p>
+              <Button asChild size="lg" className="shadow-lg">
+                <a href={EXTERNAL_URLS.BOOK_APPOINTMENT} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                  Schedule Your Free Discovery Call
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

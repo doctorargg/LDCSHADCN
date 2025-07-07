@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lotus Direct Care | Functional Medicine & Direct Primary Care in Mequon, WI",
-  description: "Dr. Aaron Rosenberg provides personalized functional medicine and direct primary care in Mequon, Wisconsin. Expert in longevity medicine, integrative therapies, and addiction medicine.",
+  title: "Lotus Direct Care | Direct Primary Care & Personalized Medicine in Mequon, WI",
+  description: "Dr. Aaron Rosenberg provides comprehensive healthcare through direct primary care with a functional medicine approach. Expert in personalized medicine, longevity medicine, integrative therapies, and addiction medicine in Mequon, Wisconsin.",
   keywords: "functional medicine, direct primary care, Dr. Aaron Rosenberg, Mequon, Wisconsin, longevity medicine, integrative therapies, addiction medicine",
   authors: [{ name: "Dr. Aaron Rosenberg" }],
   creator: "Lotus Direct Care",
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Lotus Direct Care | Functional Medicine & Direct Primary Care in Mequon, WI",
-    description: "Dr. Aaron Rosenberg provides personalized functional medicine and direct primary care in Mequon, Wisconsin.",
+    title: "Lotus Direct Care | Direct Primary Care & Personalized Medicine in Mequon, WI",
+    description: "Dr. Aaron Rosenberg provides comprehensive healthcare through direct primary care with a functional medicine approach in Mequon, Wisconsin.",
     url: "https://lotusdirectcare.com",
     siteName: "Lotus Direct Care",
     locale: "en_US",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lotus Direct Care | Functional Medicine & Direct Primary Care",
-    description: "Dr. Aaron Rosenberg provides personalized functional medicine and direct primary care in Mequon, Wisconsin.",
+    title: "Lotus Direct Care | Direct Primary Care & Personalized Medicine",
+    description: "Dr. Aaron Rosenberg provides comprehensive healthcare through direct primary care with a functional medicine approach in Mequon, Wisconsin.",
   },
   robots: {
     index: true,
@@ -72,7 +72,7 @@ export default function RootLayout({
     "name": "Lotus Direct Care",
     "url": "https://lotusdirectcare.com",
     "logo": "https://lotusdirectcare.com/images/logo.png",
-    "description": "Functional medicine and direct primary care practice in Mequon, Wisconsin",
+    "description": "Comprehensive direct primary care practice with functional medicine approach and integrative healthcare solutions in Mequon, Wisconsin",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "11649 N Port Washington Rd",
@@ -89,9 +89,11 @@ export default function RootLayout({
       "jobTitle": "Physician"
     },
     "medicalSpecialty": [
+      "Direct Primary Care",
       "Internal Medicine",
       "Functional Medicine",
-      "Addiction Medicine"
+      "Addiction Medicine",
+      "Integrative Medicine"
     ],
     "hasCredential": {
       "@type": "EducationalOccupationalCredential",

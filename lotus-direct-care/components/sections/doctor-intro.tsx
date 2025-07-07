@@ -16,7 +16,7 @@ export function DoctorIntro() {
               <div className="relative h-full rounded-2xl overflow-hidden border-4 border-white shadow-lotus-hover">
                 <Image
                   src="/images/team/dr-rosenberg.jpg"
-                  alt="Dr. Aaron Rosenberg - Board-Certified Physician & Functional Medicine Expert"
+                  alt="Dr. Aaron Rosenberg - Licensed Physician & Functional Medicine Practitioner"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
@@ -42,21 +42,22 @@ export function DoctorIntro() {
             
             <div className="space-y-4 text-gray-600">
               <p>
-                With over 10 years of experience in functional medicine, Dr. Rosenberg 
-                has helped thousands of patients reclaim their health and vitality. His 
-                unique approach combines cutting-edge diagnostic tools with time-tested 
-                healing principles.
+                With over 10 years of experience in personalized medicine, Dr. Rosenberg 
+                has helped thousands of patients reclaim their health through comprehensive 
+                care. His integrative approach combines direct primary care accessibility 
+                with functional medicine principles and cutting-edge therapies.
               </p>
               <p>
-                As a board-certified physician and certified functional medicine practitioner, 
-                Dr. Rosenberg specializes in complex chronic conditions, hormone optimization, 
-                and metabolic health. He believes in treating the whole person, not just symptoms.
+                As a licensed physician with expertise in multiple medical disciplines, 
+                Dr. Rosenberg specializes in complex chronic conditions, longevity medicine, 
+                addiction recovery, and integrative therapies. He believes in providing 
+                personalized healthcare solutions that address the whole person.
               </p>
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary" className="bg-gradient-to-r from-[oklch(0.62_0.18_180_/_0.1)] to-[oklch(0.62_0.18_180_/_0.05)] border-[oklch(0.62_0.18_180_/_0.2)]">Board Certified MD</Badge>
-              <Badge variant="secondary" className="bg-gradient-to-r from-[oklch(0.62_0.18_180_/_0.1)] to-[oklch(0.62_0.18_180_/_0.05)] border-[oklch(0.62_0.18_180_/_0.2)]">Functional Medicine Certified</Badge>
+              <Badge variant="secondary" className="bg-gradient-to-r from-[oklch(0.62_0.18_180_/_0.1)] to-[oklch(0.62_0.18_180_/_0.05)] border-[oklch(0.62_0.18_180_/_0.2)]">Licensed MD</Badge>
+              <Badge variant="secondary" className="bg-gradient-to-r from-[oklch(0.62_0.18_180_/_0.1)] to-[oklch(0.62_0.18_180_/_0.05)] border-[oklch(0.62_0.18_180_/_0.2)]">Functional Medicine Training (IFM)</Badge>
               <Badge variant="secondary" className="bg-gradient-to-r from-[oklch(0.62_0.18_180_/_0.1)] to-[oklch(0.62_0.18_180_/_0.05)] border-[oklch(0.62_0.18_180_/_0.2)]">10+ Years Experience</Badge>
             </div>
             

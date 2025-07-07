@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, Calendar, Shield, Clock, CheckCircle } from "lucide-react";
 import { TestimonialList } from "@/components/testimonials/testimonial-list";
 import { TestimonialCarousel } from "@/components/testimonials/testimonial-carousel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -91,12 +91,66 @@ export default function TestimonialsPage() {
           Featured Patient Stories
         </h2>
         <TestimonialCarousel testimonials={featuredTestimonials} />
+        
+        {/* Mid-section CTA */}
+        <Card className="mt-8 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold mb-2">Experience the Difference</h3>
+                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>No Insurance Delays</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>60-Minute Appointments</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>24/7 Doctor Access</span>
+                  </div>
+                </div>
+              </div>
+              <Button asChild size="lg" className="shadow-lg">
+                <a href={EXTERNAL_URLS.BOOK_APPOINTMENT} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                  Schedule Free Discovery Call
+                </a>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       {/* All Testimonials */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold mb-6">All Patient Reviews</h2>
         <TestimonialList testimonials={testimonials} columns={2} />
+        
+        {/* Post-testimonials CTA with urgency */}
+        <div className="mt-12 text-center">
+          <Card className="inline-block bg-yellow-50 border-yellow-200">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Clock className="h-5 w-5 text-yellow-600" />
+                <span className="text-yellow-800 font-semibold">
+                  Limited Membership Spots Available for 2025
+                </span>
+              </div>
+              <p className="text-sm text-yellow-700 mb-4">
+                Join our practice while spots are still available.
+                Current members enjoy same-day appointments and direct doctor access.
+              </p>
+              <Button asChild variant="default" size="lg" className="bg-yellow-600 hover:bg-yellow-700">
+                <a href={EXTERNAL_URLS.BOOK_APPOINTMENT} target="_blank" rel="noopener noreferrer">
+                  Secure Your Spot Today
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       {/* CTA Section */}
@@ -107,11 +161,27 @@ export default function TestimonialsPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-4">
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
             Join our patients who have discovered the difference that personalized,
             unhurried care can make. Schedule your free discovery call today to
             learn how Direct Primary Care can transform your health journey.
           </p>
+          
+          {/* Trust Indicators */}
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground mb-4">
+            <div className="flex items-center gap-2">
+              <Shield className="h-4 w-4 text-primary" />
+              <span>HIPAA Compliant</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-primary" />
+              <span>Same-Day Appointments</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-primary" />
+              <span>No Insurance Required</span>
+            </div>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Button asChild size="lg">

@@ -74,7 +74,7 @@ export function ServicesOverview() {
             Our Services
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Experience comprehensive healthcare with our full range of services designed to optimize your health and well-being
+            Experience personalized healthcare solutions through our integrative approach, combining direct primary care, functional medicine, and specialized therapies
           </p>
         </div>
         

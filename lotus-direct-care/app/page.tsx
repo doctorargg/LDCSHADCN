@@ -4,8 +4,7 @@ import { ValuePropositions } from '@/components/sections/value-propositions'
 import { ServicesOverview } from '@/components/sections/services-overview'
 import { DoctorIntro } from '@/components/sections/doctor-intro'
 import { TrustSignals } from '@/components/sections/trust-signals'
-import { Testimonials } from '@/components/sections/testimonials'
-import { SuccessStories } from '@/components/sections/success-stories'
+import { TestimonialsHome } from '@/components/sections/testimonials-home'
 import { CONTACT_INFO } from '@/lib/constants'
 
 export default function HomePage() {
@@ -31,8 +30,8 @@ export default function HomePage() {
                 </h2>
                 <p className="text-lg text-gray-600">
                   Take the first step towards optimal wellness. Schedule a consultation 
-                  with Dr. Rosenberg and discover how functional medicine can help you 
-                  achieve your health goals.
+                  with Dr. Rosenberg and discover how our comprehensive approach to personalized 
+                  healthcare can help you achieve your health goals.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
@@ -74,11 +73,8 @@ export default function HomePage() {
       {/* Doctor Introduction */}
       <DoctorIntro />
       
-      {/* Success Stories */}
-      <SuccessStories />
-      
       {/* Testimonials */}
-      <Testimonials />
+      <TestimonialsHome />
       
       {/* Trust Signals & Credentials */}
       <TrustSignals />

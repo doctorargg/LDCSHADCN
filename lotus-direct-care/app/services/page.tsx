@@ -21,8 +21,8 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Services | Lotus Direct Care - Functional Medicine & Direct Primary Care',
-  description: 'Explore our comprehensive healthcare services including Direct Primary Care, Functional Medicine, Longevity Medicine, Addiction Medicine, Integrative Therapies, Ketamine Therapy, and PRP Therapy in Mequon, WI.',
+  title: 'Services | Lotus Direct Care - Comprehensive Healthcare Solutions',
+  description: 'Explore our integrative healthcare services including Direct Primary Care, Functional Medicine, Longevity Medicine, Addiction Medicine, Integrative Therapies, Ketamine Therapy, and PRP Therapy. Personalized medicine in Mequon, WI.',
   keywords: 'direct primary care, functional medicine, longevity medicine, addiction medicine, integrative therapies, ketamine therapy, PRP therapy, Dr. Aaron Rosenberg, Mequon, Wisconsin',
   openGraph: {
     title: 'Healthcare Services | Lotus Direct Care',

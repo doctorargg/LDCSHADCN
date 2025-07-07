@@ -98,8 +98,8 @@ export const ctaConfig = {
 // Page Metadata Defaults
 export const defaultMetadata = {
   titleTemplate: "%s | Lotus Direct Care",
-  defaultTitle: "Lotus Direct Care | Functional Medicine & Direct Primary Care",
-  description: "Dr. Aaron Rosenberg provides personalized functional medicine and direct primary care in Mequon, Wisconsin.",
+  defaultTitle: "Lotus Direct Care | Direct Primary Care & Personalized Medicine",
+  description: "Dr. Aaron Rosenberg provides comprehensive healthcare through direct primary care with a functional medicine approach. Expert in personalized medicine, integrative therapies, and addiction medicine in Mequon, Wisconsin.",
 } as const;
 
 // Feature Flags (for controlling feature visibility)
