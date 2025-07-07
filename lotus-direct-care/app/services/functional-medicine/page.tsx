@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { LeadCaptureForm } from '@/components/forms/lead-capture-form'
 import { HeroWithImage } from '@/components/layout/hero-with-image'
+import { createMedicalProcedureSchema, createFAQPageSchema, FUNCTIONAL_MEDICINE_SCHEMA } from '@/lib/schema'
 import { 
   Brain, 
   Search,
@@ -93,8 +94,39 @@ const approach = [
 ]
 
 export default function FunctionalMedicinePage() {
+  const procedureSchema = createMedicalProcedureSchema(FUNCTIONAL_MEDICINE_SCHEMA)
+  
+  const faqData = [
+    {
+      question: "How is functional medicine different from conventional medicine?",
+      answer: "Functional medicine focuses on identifying and addressing root causes rather than just treating symptoms. We spend more time with patients, use advanced testing, and create personalized treatment plans that address the whole person."
+    },
+    {
+      question: "How long does it take to see results?",
+      answer: "Results vary depending on your condition and commitment to the protocol. Some patients notice improvements within weeks, while complex chronic conditions may take 3-6 months to see significant changes."
+    },
+    {
+      question: "Is functional medicine covered by insurance?",
+      answer: "Some services may be covered by insurance, and we can provide documentation for reimbursement. Many patients use HSA/FSA accounts. We also offer flexible payment plans to make care accessible."
+    },
+    {
+      question: "Do I need to stop my current medications?",
+      answer: "Never stop medications without consulting your prescribing physician. We work collaboratively with your other healthcare providers and may help reduce medication needs over time as your health improves."
+    }
+  ]
+  
+  const faqSchema = createFAQPageSchema(faqData)
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* Hero Section */}
       <HeroWithImage
         imageSrc="/images/Lotus Midjourney Flowers/lotus-functional-medicine-hero.png"
@@ -458,7 +490,9 @@ export default function FunctionalMedicinePage() {
                 <p className="text-gray-600">
                   Functional medicine focuses on identifying and addressing root causes rather than just 
                   treating symptoms. We spend more time with patients, use advanced testing, and create 
-                  personalized treatment plans that address the whole person.
+                  personalized treatment plans that address the whole person. This approach works 
+                  seamlessly with our <Link href="/services/direct-primary-care" className="text-teal-600 hover:text-teal-700 underline">direct primary care model</Link> 
+                  and can be enhanced with <Link href="/services/integrative-therapies" className="text-teal-600 hover:text-teal-700 underline">integrative therapies</Link>.
                 </p>
               </div>
 
@@ -500,6 +534,93 @@ export default function FunctionalMedicinePage() {
               <Button asChild size="lg">
                 <Link href="/contact">Ready to Get Started? Contact Us</Link>
               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related Services */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Complementary Services
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Enhance your functional medicine journey with our other specialized treatments
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">
+                    <Link href="/services/direct-primary-care" className="hover:text-teal-600 transition-colors">
+                      Direct Primary Care
+                    </Link>
+                  </CardTitle>
+                  <CardDescription>
+                    Unlimited access to personalized primary care as your foundation for health
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    Build a strong doctor-patient relationship with unlimited visits and direct access 
+                    to comprehensive primary care services.
+                  </p>
+                  <Link href="/services/direct-primary-care" 
+                        className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">
+                    <Link href="/services/integrative-therapies" className="hover:text-teal-600 transition-colors">
+                      Integrative Therapies
+                    </Link>
+                  </CardTitle>
+                  <CardDescription>
+                    Combine conventional and natural medicine for comprehensive healing
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    Enhance your functional medicine protocols with evidence-based complementary 
+                    therapies for optimal results.
+                  </p>
+                  <Link href="/services/integrative-therapies" 
+                        className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+                    Explore Options <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">
+                    <Link href="/services/longevity-medicine" className="hover:text-teal-600 transition-colors">
+                      Longevity Medicine
+                    </Link>
+                  </CardTitle>
+                  <CardDescription>
+                    Optimize healthspan and extend quality of life through personalized protocols
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    Take your functional medicine journey further with cutting-edge longevity 
+                    protocols designed to optimize aging.
+                  </p>
+                  <Link href="/services/longevity-medicine" 
+                        className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+                    Discover More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

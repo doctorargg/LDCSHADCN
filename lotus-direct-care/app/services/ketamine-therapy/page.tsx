@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { LeadCaptureForm } from '@/components/forms/lead-capture-form'
 import { HeroWithImage } from '@/components/layout/hero-with-image'
+import { createMedicalProcedureSchema, createFAQPageSchema, KETAMINE_THERAPY_SCHEMA } from '@/lib/schema'
 import { 
   Brain,
   Shield,
@@ -122,8 +123,14 @@ const protocols = [
 ]
 
 export default function KetamineTherapyPage() {
+  const procedureSchema = createMedicalProcedureSchema(KETAMINE_THERAPY_SCHEMA)
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }}
+      />
       {/* Hero Section */}
       <HeroWithImage
         imageSrc="/images/Lotus Midjourney Flowers/lotus-ketamine-therapy-hero.png"
@@ -760,6 +767,93 @@ export default function KetamineTherapyPage() {
               <Button asChild size="lg">
                 <Link href="/contact">Ready to Learn More? Contact Us Today</Link>
               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related Services */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Comprehensive Mental Health & Wellness
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Enhance your ketamine therapy with our holistic approach to mental health and wellness
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">
+                    <Link href="/services/functional-medicine" className="hover:text-teal-600 transition-colors">
+                      Functional Medicine
+                    </Link>
+                  </CardTitle>
+                  <CardDescription>
+                    Address root causes of mental health challenges through comprehensive testing
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    Uncover nutritional deficiencies, hormone imbalances, and other factors that 
+                    may be contributing to depression and anxiety.
+                  </p>
+                  <Link href="/services/functional-medicine" 
+                        className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+                    Explore Root Causes <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">
+                    <Link href="/services/integrative-therapies" className="hover:text-teal-600 transition-colors">
+                      Integrative Therapies
+                    </Link>
+                  </CardTitle>
+                  <CardDescription>
+                    Combine ketamine with complementary healing approaches
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    Enhance your ketamine therapy results with mind-body techniques, nutritional 
+                    support, and lifestyle interventions.
+                  </p>
+                  <Link href="/services/integrative-therapies" 
+                        className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+                    Learn About Integration <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">
+                    <Link href="/services/direct-primary-care" className="hover:text-teal-600 transition-colors">
+                      Direct Primary Care
+                    </Link>
+                  </CardTitle>
+                  <CardDescription>
+                    Ongoing support and monitoring throughout your mental health journey
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    Maintain regular contact with Dr. Rosenberg for medication management, 
+                    progress monitoring, and continued care coordination.
+                  </p>
+                  <Link href="/services/direct-primary-care" 
+                        className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

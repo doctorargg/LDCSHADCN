@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { LeadCaptureForm } from '@/components/forms/lead-capture-form'
 import { HeroWithImage } from '@/components/layout/hero-with-image'
+import { createMedicalProcedureSchema, createFAQPageSchema, INTEGRATIVE_THERAPIES_SCHEMA } from '@/lib/schema'
 import { 
   HeartHandshake,
   Leaf,
@@ -118,8 +119,43 @@ const benefits = [
 ]
 
 export default function IntegrativeTherapiesPage() {
+  const procedureSchema = createMedicalProcedureSchema(INTEGRATIVE_THERAPIES_SCHEMA)
+
+  const faqData = [
+    {
+      question: "What is the difference between integrative and functional medicine?",
+      answer: "While both approaches are holistic, functional medicine focuses primarily on finding root causes through advanced testing. Integrative medicine combines conventional treatments with evidence-based complementary therapies. At Lotus Direct Care, we offer both approaches and often combine them for optimal results."
+    },
+    {
+      question: "Will integrative therapies interfere with my current medications?",
+      answer: "Safety is our top priority. We carefully review all your current medications and supplements to ensure there are no interactions. Many integrative therapies can actually enhance the effectiveness of conventional treatments or help reduce the need for certain medications over time."
+    },
+    {
+      question: "How do you ensure the therapies you recommend are evidence-based?",
+      answer: "Dr. Rosenberg stays current with the latest research in integrative medicine through continuing education, peer-reviewed journals, and professional associations. We only recommend therapies with strong scientific support and proven clinical effectiveness."
+    },
+    {
+      question: "How long before I see results with integrative therapies?",
+      answer: "Results vary depending on your condition and the therapies used. Some patients experience improvements within days to weeks (especially with lifestyle changes), while others may need 2-3 months to see significant changes. We monitor your progress closely and adjust treatments as needed."
+    },
+    {
+      question: "Are integrative therapies covered by insurance?",
+      answer: "Coverage varies by insurance plan. Some services, particularly those involving conventional medical care, may be covered. Many patients use HSA/FSA funds for integrative therapies. We provide detailed documentation to help you seek reimbursement when possible."
+    }
+  ]
+
+  const faqSchema = createFAQPageSchema(faqData)
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* Hero Section */}
       <HeroWithImage
         imageSrc="/images/Lotus Midjourney Flowers/u6683669286_httpss.mj.runnXIAXCQcAw0_Use_this_to_make_a_websi_995d475e-9ef2-497e-aa80-7ad4a490f562_2.png"

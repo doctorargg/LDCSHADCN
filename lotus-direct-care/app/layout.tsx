@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lotusdirectcare.com"),
   title: "Lotus Direct Care | Direct Primary Care & Personalized Medicine in Mequon, WI",
   description: "Dr. Aaron Rosenberg provides comprehensive healthcare through direct primary care with a functional medicine approach. Expert in personalized medicine, longevity medicine, integrative therapies, and addiction medicine in Mequon, Wisconsin.",
   keywords: "functional medicine, direct primary care, Dr. Aaron Rosenberg, Mequon, Wisconsin, longevity medicine, integrative therapies, addiction medicine",
@@ -68,30 +69,88 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "MedicalOrganization",
+    "@type": ["MedicalOrganization", "LocalBusiness"],
     "name": "Lotus Direct Care",
     "url": "https://lotusdirectcare.com",
-    "logo": "https://lotusdirectcare.com/images/logo.png",
+    "logo": "https://lotusdirectcare.com/images/Lotus Midjourney Flowers/lotus_logo_hero - Copy.png",
     "description": "Comprehensive direct primary care practice with functional medicine approach and integrative healthcare solutions in Mequon, Wisconsin",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "11649 N Port Washington Rd",
+      "streetAddress": "1516 W Mequon Rd., STE 103",
       "addressLocality": "Mequon",
       "addressRegion": "WI",
       "postalCode": "53092",
       "addressCountry": "US"
     },
-    "telephone": "262-299-8488",
+    "telephone": "(262) 242-0700",
+    "faxNumber": "(855) 457-1293",
     "email": "info@lotusdirectcare.com",
+    "priceRange": "$165-$220",
+    "paymentAccepted": ["Cash", "Credit Card", "HSA", "FSA"],
+    "currenciesAccepted": "USD",
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Mequon",
+        "containedInPlace": {
+          "@type": "State", 
+          "name": "Wisconsin"
+        }
+      },
+      {
+        "@type": "City",
+        "name": "Milwaukee",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Wisconsin" 
+        }
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Ozaukee County",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Wisconsin"
+        }
+      }
+    ],
+    "openingHours": [
+      "Mo-Fr 09:00-17:00"
+    ],
     "founder": {
       "@type": "Person",
-      "name": "Dr. Aaron Rosenberg, MD",
-      "jobTitle": "Physician"
+      "name": "Dr. Aaron Rosenberg",
+      "jobTitle": "Physician",
+      "worksFor": {
+        "@type": "MedicalOrganization",
+        "name": "Lotus Direct Care"
+      }
+    },
+    "employee": {
+      "@type": "Person", 
+      "name": "Dr. Aaron Rosenberg",
+      "jobTitle": "Physician",
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Degree",
+          "name": "Doctor of Medicine"
+        },
+        {
+          "@type": "EducationalOccupationalCredential", 
+          "credentialCategory": "Certification",
+          "name": "Functional Medicine Training",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Institute for Functional Medicine"
+          }
+        }
+      ]
     },
     "medicalSpecialty": [
       "Direct Primary Care",
-      "Internal Medicine",
-      "Functional Medicine",
+      "Functional Medicine", 
+      "Longevity Medicine",
       "Addiction Medicine",
       "Integrative Medicine"
     ],
@@ -105,6 +164,46 @@ export default function RootLayout({
         "url": "https://www.legitscript.com"
       },
       "url": "https://www.legitscript.com/websites/lotusdirectcare.com"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "(262) 242-0700",
+        "contactType": "customer service",
+        "availableLanguage": "English"
+      },
+      {
+        "@type": "ContactPoint",
+        "email": "info@lotusdirectcare.com", 
+        "contactType": "customer service"
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Medical Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "MedicalProcedure",
+            "name": "Direct Primary Care Membership"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "MedicalProcedure",
+            "name": "Functional Medicine"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "MedicalProcedure", 
+            "name": "Ketamine Therapy"
+          }
+        }
+      ]
     },
     "sameAs": [
       "https://www.legitscript.com/websites/lotusdirectcare.com"
