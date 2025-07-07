@@ -30,12 +30,13 @@ export function Logo({ className, variant = "default", showFullLogo = false }: L
       ) : (
         <div className="flex items-center space-x-3">
           <Image
-            src="/images/Lotus Midjourney Flowers/lotus_logo.png"
+            src="/images/Lotus Midjourney Flowers/lotus_logo_hero - Copy.png"
             alt={`${SITE_NAME} Logo`}
-            width={40}
-            height={40}
+            width={120}
+            height={120}
             className="h-9 w-auto md:h-10 object-contain"
             priority
+            quality={95}
           />
           <div className="flex flex-col">
             <span className={cn(
