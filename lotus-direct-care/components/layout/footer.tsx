@@ -25,6 +25,7 @@ import {
   BUSINESS_HOURS,
   EXTERNAL_URLS 
 } from "@/lib/constants";
+import { LegitScriptSeal } from "@/components/ui/legitscript-seal";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -217,6 +218,11 @@ export function Footer() {
                   </React.Fragment>
                 ))}
             </div>
+          </div>
+          
+          {/* LegitScript Seal */}
+          <div className="flex items-center gap-4">
+            <LegitScriptSeal />
           </div>
 
           {/* Social Media Icons (placeholder - hidden if no links) */}

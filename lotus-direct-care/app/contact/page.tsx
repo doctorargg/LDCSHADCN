@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { Clock, MapPin, Phone, Mail, Printer } from "lucide-react";
 import { HeroWithImage } from '@/components/layout/hero-with-image'
 import { CONTACT_INFO, BUSINESS_HOURS } from "@/lib/constants";
+import { LegitScriptSeal } from "@/components/ui/legitscript-seal";
 
 export default function ContactPage() {
   return (
@@ -122,6 +123,17 @@ export default function ContactPage() {
               >
                 Get Directions →
               </a>
+            </div>
+          </div>
+
+          {/* Trust & Verification */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-xl font-semibold mb-4">Verified Practice</h3>
+            <div className="text-center">
+              <p className="text-gray-600 mb-4">
+                We maintain the highest standards of compliance and patient safety.
+              </p>
+              <LegitScriptSeal className="mx-auto" />
             </div>
           </div>
         </div>

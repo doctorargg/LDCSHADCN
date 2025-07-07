@@ -6,8 +6,10 @@ import {
   Users, 
   Star,
   Building,
-  Heart
+  Heart,
+  Shield
 } from 'lucide-react'
+import { LegitScriptSeal } from '@/components/ui/legitscript-seal'
 
 const credentials = [
   {
@@ -86,6 +88,21 @@ export function TrustSignals() {
               </Card>
             )
           })}
+        </div>
+        
+        {/* Verified & Certified Section */}
+        <div className="text-center mb-12">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Verified & Certified</h3>
+          <div className="flex flex-col items-center gap-6">
+            <div>
+              <p className="text-gray-600 mb-4">LegitScript Approved</p>
+              <LegitScriptSeal className="mx-auto" />
+              <p className="text-sm text-gray-500 mt-2 max-w-md mx-auto">
+                We are proud to be LegitScript certified, demonstrating our commitment to 
+                compliance, safety, and legitimate healthcare practices.
+              </p>
+            </div>
+          </div>
         </div>
         
         {/* Patient testimonial preview */}
