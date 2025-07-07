@@ -34,7 +34,7 @@ export function Footer() {
     <footer className="bg-gradient-to-b from-background to-[oklch(0.62_0.18_180_/_0.03)] border-t border-[oklch(0.62_0.18_180_/_0.1)]">
       {/* CTA Section */}
       <div className="gradient-lotus-dark text-white py-12">
-        <div className="container text-center">
+        <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-4 text-white">
             Ready to Experience Personalized Healthcare?
           </h2>
@@ -71,7 +71,7 @@ export function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container py-12">
+      <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand & Contact Column */}
           <div className="lg:col-span-2">
