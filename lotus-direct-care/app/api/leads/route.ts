@@ -83,15 +83,28 @@ export async function POST(request: NextRequest) {
     }
     
     // Send email notifications
-    const emailResults = await sendEmails(emailData)
+    let emailResults;
+    try {
+      emailResults = await sendEmails(emailData)
+    } catch (emailError) {
+      logger.error('Failed to send emails', emailError, { 
+        email: validatedData.email,
+        name: validatedData.name 
+      })
+      // Don't fail the entire request if email sending fails
+      emailResults = {
+        notification: { success: false, error: emailError },
+        confirmation: { success: false, error: emailError }
+      }
+    }
     
     // Log email results
     if (emailResults.notification.error) {
-      logger.error('Failed to send notification email', emailResults.notification.error as Error)
+      logger.error('Failed to send notification email', emailResults.notification.error)
     }
     
     if (emailResults.confirmation.error) {
-      logger.error('Failed to send confirmation email', emailResults.confirmation.error as Error)
+      logger.error('Failed to send confirmation email', emailResults.confirmation.error)
     }
     
     // Return success response

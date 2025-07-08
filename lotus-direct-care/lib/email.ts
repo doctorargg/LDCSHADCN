@@ -94,6 +94,7 @@ export async function sendEmails(leadData: EmailLeadData) {
     await sendLeadNotificationEmail(leadData);
     results.notification.success = true;
   } catch (error) {
+    console.error('Error in sendLeadNotificationEmail:', error);
     results.notification.error = error;
   }
 
@@ -102,7 +103,18 @@ export async function sendEmails(leadData: EmailLeadData) {
     await sendLeadConfirmationEmail(leadData.email, leadData.name);
     results.confirmation.success = true;
   } catch (error) {
+    console.error('Error in sendLeadConfirmationEmail:', error);
     results.confirmation.error = error;
+  }
+
+  // If both emails failed, throw an error with details
+  if (!results.notification.success && !results.confirmation.success) {
+    const errorDetails = {
+      notification: results.notification.error,
+      confirmation: results.confirmation.error,
+      message: 'Both email sends failed'
+    };
+    throw new Error(JSON.stringify(errorDetails));
   }
 
   return results;
