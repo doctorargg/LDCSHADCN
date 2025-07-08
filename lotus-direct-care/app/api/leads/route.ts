@@ -17,66 +17,72 @@ const leadSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    // Check if Supabase is configured
-    if (!supabase) {
-      return NextResponse.json(
-        { message: 'Database not configured. Form submissions are disabled.' },
-        { status: 503 }
-      )
-    }
     // Parse request body
     const body = await request.json()
     
     // Validate input
     const validatedData = leadSchema.parse(body)
     
-    // Prepare lead data for insertion
-    const leadData: InsertLead = {
+    // Prepare email data
+    const emailData: EmailLeadData = {
       name: validatedData.name,
       email: validatedData.email,
-      phone: validatedData.phone || null,
-      message: validatedData.message || null,
-      preferred_contact: validatedData.preferredContact || null,
-      reason_for_visit: validatedData.reasonForVisit || null,
-      source: 'website',
-      status: 'new'
-    }
-    
-    // Save to Supabase
-    const { data, error } = await supabase
-      .from('leads')
-      .insert(leadData)
-      .select()
-      .single()
-    
-    if (error) {
-      const errorMessage = handleSupabaseError(error)
-      logApiError('POST /api/leads', error, { email: leadData.email })
-      
-      return NextResponse.json(
-        { message: errorMessage },
-        { status: error.code === '23505' ? 409 : 500 }
-      )
-    }
-    
-    // Log successful submission
-    logger.info('New lead saved', {
-      id: data.id,
-      email: data.email,
-      source: data.source,
-      createdAt: data.created_at,
-    })
-    
-    // Send email notifications
-    const emailData: EmailLeadData = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone || undefined,
+      phone: validatedData.phone,
       preferredContact: validatedData.preferredContact,
       reasonForVisit: validatedData.reasonForVisit,
-      message: data.message || '',
+      message: validatedData.message || '',
     }
     
+    // If Supabase is configured, save to database
+    if (supabase) {
+      // Prepare lead data for insertion
+      const leadData: InsertLead = {
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone || null,
+        message: validatedData.message || null,
+        preferred_contact: validatedData.preferredContact || null,
+        reason_for_visit: validatedData.reasonForVisit || null,
+        source: 'website',
+        status: 'new'
+      }
+      
+      // Save to Supabase
+      const { data, error } = await supabase
+        .from('leads')
+        .insert(leadData)
+        .select()
+        .single()
+      
+      if (error) {
+        const errorMessage = handleSupabaseError(error)
+        logApiError('POST /api/leads', error, { email: leadData.email })
+        
+        // Don't fail the entire request if it's just a duplicate
+        if (error.code !== '23505') {
+          return NextResponse.json(
+            { message: errorMessage },
+            { status: 500 }
+          )
+        }
+      } else {
+        // Log successful submission
+        logger.info('New lead saved', {
+          id: data.id,
+          email: data.email,
+          source: data.source,
+          createdAt: data.created_at,
+        })
+      }
+    } else {
+      // Log that we're operating without database
+      logger.info('Lead submitted (no database)', {
+        email: validatedData.email,
+        name: validatedData.name,
+      })
+    }
+    
+    // Send email notifications
     const emailResults = await sendEmails(emailData)
     
     // Log email results
@@ -91,8 +97,8 @@ export async function POST(request: NextRequest) {
     // Return success response
     return NextResponse.json(
       { 
-        message: 'Lead submitted successfully',
-        id: data.id,
+        message: 'Thank you for your submission! We will contact you soon.',
+        id: supabase ? 'temp-' + Date.now() : undefined,
       },
       { status: 201 }
     )
