@@ -8,7 +8,7 @@ interface LogEntry {
   message: string
   timestamp: string
   context?: Record<string, any>
-  error?: Error
+  error?: any
 }
 
 class Logger {
@@ -23,16 +23,27 @@ class Logger {
     }
     
     if (error) {
-      log += ` | Error: ${error.message}`
-      if (error.stack && this.isDevelopment) {
-        log += `\n${error.stack}`
+      // If error is an Error object, use its message
+      if (error instanceof Error) {
+        log += ` | Error: ${error.message}`
+        if (error.stack && this.isDevelopment) {
+          log += `\n${error.stack}`
+        }
+      } else {
+        // For non-Error objects, stringify them
+        try {
+          log += ` | Error: ${JSON.stringify(error)}`
+        } catch (e) {
+          // If stringify fails, use toString
+          log += ` | Error: ${String(error)}`
+        }
       }
     }
     
     return log
   }
   
-  private log(level: LogLevel, message: string, context?: Record<string, any>, error?: Error) {
+  private log(level: LogLevel, message: string, context?: Record<string, any>, error?: any) {
     const entry: LogEntry = {
       level,
       message,
@@ -74,7 +85,7 @@ class Logger {
     this.log('warn', message, context)
   }
   
-  error(message: string, error?: Error, context?: Record<string, any>) {
+  error(message: string, error?: any, context?: Record<string, any>) {
     this.log('error', message, context, error)
   }
   
@@ -92,14 +103,17 @@ export function logApiError(
   error: any,
   context?: Record<string, any>
 ) {
+  // Pass the raw error to logger, which now handles non-Error objects
   logger.error(
     `API Error in ${endpoint}`,
-    error instanceof Error ? error : new Error(String(error)),
+    error,
     {
       ...context,
       endpoint,
       errorType: error?.constructor?.name || 'Unknown',
       errorCode: error?.code,
+      errorMessage: error?.message,
+      rawError: error instanceof Error ? undefined : error,
     }
   )
 }
