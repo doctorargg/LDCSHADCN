@@ -16,6 +16,9 @@ const leadSchema = z.object({
 })
 
 export async function POST(request: NextRequest) {
+  // Debug: Log that the endpoint was hit
+  console.log('POST /api/leads endpoint hit')
+  
   try {
     // Parse request body
     const body = await request.json()
@@ -117,6 +120,17 @@ export async function POST(request: NextRequest) {
     )
     
   } catch (error) {
+    // Enhanced error logging
+    console.error('Caught error in POST /api/leads:', {
+      error,
+      errorType: typeof error,
+      errorString: String(error),
+      errorJSON: JSON.stringify(error),
+      errorKeys: error && typeof error === 'object' ? Object.keys(error) : [],
+      errorMessage: error instanceof Error ? error.message : 'Not an Error instance',
+      errorStack: error instanceof Error ? error.stack : 'No stack trace'
+    })
+    
     logApiError('POST /api/leads', error)
     
     // Handle validation errors
