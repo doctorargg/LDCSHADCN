@@ -35,7 +35,7 @@ export async function sendLeadNotificationEmail(leadData: EmailLeadData) {
     return { success: false, message: 'NOTIFICATION_EMAIL not configured' };
   }
 
-  const emailHtml = render(LeadNotificationEmail({
+  const emailHtml = await render(LeadNotificationEmail({
     ...leadData,
     submittedAt: new Date().toLocaleString('en-US', {
       dateStyle: 'full',
@@ -66,7 +66,7 @@ export async function sendLeadConfirmationEmail(email: string, name: string) {
     return { success: false, message: 'Email service not configured' };
   }
 
-  const emailHtml = render(LeadConfirmationEmail({ name }));
+  const emailHtml = await render(LeadConfirmationEmail({ name }));
 
   const msg = {
     to: email,
