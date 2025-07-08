@@ -1,20 +1,22 @@
-import { experimental_createMcpHandler } from '@vercel/mcp-adapter';
+import { createMcpHandler } from '@vercel/mcp-adapter';
+import { McpServer } from '@modelcontextprotocol/sdk';
 import { z } from 'zod';
 
-const { GET, POST } = experimental_createMcpHandler({
-  tools: {
+const handler = createMcpHandler(async (server: McpServer) => {
+  server.tools = {
     rollDice: {
       description: 'Roll a dice.',
       parameters: z.object({
         sides: z.number().optional().default(6),
       }),
-      handler: async ({ sides }) => {
+      handler: async ({ sides }: { sides: number }) => {
         return {
           result: Math.floor(Math.random() * sides) + 1,
         };
       },
     },
-  },
+  };
 });
 
-export { GET, POST };
+export const GET = handler;
+export const POST = handler;
