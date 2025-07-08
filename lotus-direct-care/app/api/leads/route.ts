@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       
       // Save to Supabase
       const { data, error } = await supabase
-        .from('leads')
+        .from('form_submissions')
         .insert(leadData)
         .select()
         .single()
