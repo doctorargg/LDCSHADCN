@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         message: 'Thank you for your submission! We will contact you soon.',
-        id: supabase ? 'temp-' + Date.now() : undefined,
+        id: supabase ? undefined : 'temp-' + Date.now(),
       },
       { status: 201 }
     )
