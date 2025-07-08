@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Hero } from '@/components/layout/hero'
 import { LeadCaptureForm } from '@/components/forms/lead-capture-form'
 import { ValuePropositions } from '@/components/sections/value-propositions'
@@ -6,6 +7,19 @@ import { DoctorIntro } from '@/components/sections/doctor-intro'
 import { TrustSignals } from '@/components/sections/trust-signals'
 import { TestimonialsHome } from '@/components/sections/testimonials-home'
 import { CONTACT_INFO } from '@/lib/constants'
+
+export const metadata: Metadata = {
+  title: 'Lotus Direct Care | Personalized Medicine & Direct Primary Care in Mequon, WI',
+  description: 'Transform your health with Dr. Aaron Rosenberg. Functional medicine, direct primary care & innovative therapies in Mequon, WI. Schedule today!',
+  keywords: 'direct primary care Mequon, functional medicine Milwaukee, Dr. Aaron Rosenberg, personalized medicine Wisconsin, ketamine therapy, integrative health, longevity medicine, holistic doctor near me',
+  openGraph: {
+    title: 'Lotus Direct Care - Transform Your Health Today',
+    description: 'Experience personalized healthcare that addresses root causes. Direct primary care, functional medicine, and innovative therapies in Mequon, WI.',
+    url: 'https://lotusdirectcare.com',
+    siteName: 'Lotus Direct Care',
+    type: 'website',
+  },
+}
 
 export default function HomePage() {
   return (

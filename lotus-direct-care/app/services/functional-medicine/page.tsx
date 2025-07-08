@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { LeadCaptureForm } from '@/components/forms/lead-capture-form'
 import { HeroWithImage } from '@/components/layout/hero-with-image'
-import { createMedicalProcedureSchema, createFAQPageSchema, FUNCTIONAL_MEDICINE_SCHEMA } from '@/lib/schema'
+import { createMedicalProcedureSchema, createFAQPageSchema, createBreadcrumbSchema, FUNCTIONAL_MEDICINE_SCHEMA } from '@/lib/schema'
 import { 
   Brain, 
   Search,
@@ -96,6 +96,12 @@ const approach = [
 export default function FunctionalMedicinePage() {
   const procedureSchema = createMedicalProcedureSchema(FUNCTIONAL_MEDICINE_SCHEMA)
   
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', url: 'https://lotusdirectcare.com' },
+    { name: 'Services', url: 'https://lotusdirectcare.com/services' },
+    { name: 'Functional Medicine', url: 'https://lotusdirectcare.com/services/functional-medicine' }
+  ])
+  
   const faqData = [
     {
       question: "How is functional medicine different from conventional medicine?",
@@ -126,6 +132,10 @@ export default function FunctionalMedicinePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {/* Hero Section */}
       <HeroWithImage

@@ -1,5 +1,10 @@
 import { SITE_URL, CONTACT_INFO } from './constants'
 
+export interface BreadcrumbItem {
+  name: string
+  url: string
+}
+
 export interface MedicalProcedureSchema {
   name: string
   description: string
@@ -208,4 +213,63 @@ export const INTEGRATIVE_THERAPIES_SCHEMA: MedicalProcedureSchema = {
     "Preventive care",
     "Wellness optimization"
   ]
+}
+
+export function createBreadcrumbSchema(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  }
+}
+
+export interface ReviewSchema {
+  author: string
+  rating: number
+  reviewBody: string
+  datePublished?: string
+}
+
+export function createReviewSchema(reviews: ReviewSchema[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "Lotus Direct Care",
+    "url": SITE_URL,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": CONTACT_INFO.ADDRESS.STREET + ", " + CONTACT_INFO.ADDRESS.SUITE,
+      "addressLocality": CONTACT_INFO.ADDRESS.CITY,
+      "addressRegion": CONTACT_INFO.ADDRESS.STATE,
+      "postalCode": CONTACT_INFO.ADDRESS.ZIP,
+      "addressCountry": "US"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1),
+      "reviewCount": reviews.length,
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": reviews.map(review => ({
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": review.author
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": review.rating,
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "reviewBody": review.reviewBody,
+      "datePublished": review.datePublished || new Date().toISOString().split('T')[0]
+    }))
+  }
 }

@@ -26,11 +26,12 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Our Approach | Lotus Direct Care',
-  description: 'Discover our unique approach to healthcare that combines functional medicine with direct primary care for personalized, comprehensive treatment.',
+  title: 'Our Approach to Healthcare | Lotus Direct Care - Mequon, WI',
+  description: 'Discover our patient-centered approach combining functional medicine & direct primary care. Personalized healthcare in Mequon & Milwaukee.',
+  keywords: 'healthcare approach, functional medicine methodology, direct primary care model, integrative medicine Mequon, personalized treatment plans, root cause medicine Milwaukee',
   openGraph: {
-    title: 'Our Approach | Lotus Direct Care',
-    description: 'Discover our unique approach to healthcare that combines functional medicine with direct primary care for personalized, comprehensive treatment.',
+    title: 'Our Healthcare Approach | Lotus Direct Care',
+    description: 'Discover how we combine the best of functional medicine and direct primary care to transform your health.',
     url: 'https://lotusdirectcare.com/about/approach',
   },
 }

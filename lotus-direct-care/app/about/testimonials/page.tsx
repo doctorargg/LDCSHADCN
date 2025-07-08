@@ -6,20 +6,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_URLS } from "@/lib/constants";
 import { testimonials, featuredTestimonials } from "@/lib/data/testimonials";
+import { createReviewSchema, createBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Patient Testimonials | Lotus Direct Care",
+  title: "Patient Testimonials & Reviews | Lotus Direct Care - Mequon, WI",
   description:
-    "Read what our patients say about their experience with Dr. Aaron Rosenberg and Lotus Direct Care. Discover how functional medicine and direct primary care have transformed lives.",
+    "Real patient testimonials for Dr. Aaron Rosenberg & Lotus Direct Care. See how functional medicine transforms lives in Mequon & Milwaukee.",
   keywords: [
-    "patient testimonials",
-    "patient reviews",
+    "patient testimonials Mequon",
     "Dr. Aaron Rosenberg reviews",
     "Lotus Direct Care testimonials",
-    "functional medicine success stories",
-    "direct primary care reviews",
-    "Mequon doctor reviews",
+    "functional medicine success stories Milwaukee",
+    "direct primary care reviews Wisconsin",
+    "patient reviews Mequon doctor",
+    "healthcare testimonials Milwaukee",
   ],
+  openGraph: {
+    title: 'Patient Success Stories | Lotus Direct Care',
+    description: 'Real patient experiences with functional medicine and direct primary care at Lotus Direct Care in Mequon, WI.',
+    url: 'https://lotusdirectcare.com/about/testimonials',
+  },
 };
 
 export default function TestimonialsPage() {
@@ -28,33 +34,32 @@ export default function TestimonialsPage() {
     testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
   ).toFixed(1);
 
-  // Aggregate rating schema for SEO
-  const aggregateRatingSchema = {
-    "@context": "https://schema.org",
-    "@type": "MedicalOrganization",
-    "name": "Lotus Direct Care",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "11649 N Port Washington Rd",
-      "addressLocality": "Mequon",
-      "addressRegion": "WI",
-      "postalCode": "53092",
-      "addressCountry": "US"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": averageRating,
-      "reviewCount": testimonials.length,
-      "bestRating": 5,
-      "worstRating": 1
-    }
-  };
+  // Create review schema with our utility function
+  const reviewSchema = createReviewSchema(
+    testimonials.map(t => ({
+      author: t.patientName,
+      rating: t.rating,
+      reviewBody: t.review,
+      datePublished: t.date
+    }))
+  );
+
+  // Create breadcrumb schema
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', url: 'https://lotusdirectcare.com' },
+    { name: 'About', url: 'https://lotusdirectcare.com/about' },
+    { name: 'Testimonials', url: 'https://lotusdirectcare.com/about/testimonials' }
+  ]);
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {/* Header */}
       <div className="text-center mb-12">

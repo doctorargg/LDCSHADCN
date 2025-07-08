@@ -21,12 +21,14 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Dr. Aaron Rosenberg | Lotus Direct Care',
-  description: 'Meet Dr. Aaron Rosenberg, valedictorian of the Autonomous University of Guadalajara medical program, UC Davis-trained internist, and integrative healthcare physician specializing in direct primary care, functional medicine, longevity medicine, and addiction medicine in Mequon, WI.',
+  title: 'Dr. Aaron Rosenberg, MD | Functional Medicine Doctor in Mequon, WI',
+  description: 'Meet Dr. Aaron Rosenberg, MD - UC Davis-trained physician specializing in functional medicine & direct primary care. Serving Mequon & Milwaukee.',
+  keywords: 'Dr. Aaron Rosenberg, functional medicine doctor Mequon, direct primary care physician Milwaukee, integrative medicine Wisconsin, longevity doctor, ketamine therapy provider',
   openGraph: {
-    title: 'Dr. Aaron Rosenberg | Lotus Direct Care',
-    description: 'Meet Dr. Aaron Rosenberg, valedictorian of the Autonomous University of Guadalajara medical program, UC Davis-trained internist, and integrative healthcare physician specializing in direct primary care, functional medicine, longevity medicine, and addiction medicine in Mequon, WI.',
+    title: 'Dr. Aaron Rosenberg, MD | Lotus Direct Care',
+    description: 'Experienced physician combining functional medicine with direct primary care to transform patient health in Mequon, WI.',
     url: 'https://lotusdirectcare.com/about/dr-rosenberg',
+    type: 'profile',
   },
 }
 
