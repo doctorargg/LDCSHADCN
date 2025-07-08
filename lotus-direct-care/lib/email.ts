@@ -22,7 +22,8 @@ export async function sendLeadNotificationEmail(leadData: EmailLeadData) {
     }
 
     if (!process.env.NOTIFICATION_EMAIL) {
-      throw new Error('NOTIFICATION_EMAIL environment variable is not set');
+      console.warn('NOTIFICATION_EMAIL environment variable is not set. Skipping notification email.');
+      return { success: false, message: 'NOTIFICATION_EMAIL not configured' };
     }
 
     const { data, error } = await resend.emails.send({
