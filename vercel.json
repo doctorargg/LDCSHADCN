@@ -1,0 +1,69 @@
+{
+  "redirects": [
+    {
+      "source": "/accessability-notice",
+      "destination": "/accessibility-notice",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-practice",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/video-reviews",
+      "destination": "/testimonials",
+      "permanent": true
+    },
+    {
+      "source": "/copy-of-newsletter-sign-up",
+      "destination": "/newsletter",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/schedule-appointment",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/physician",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/lead-collection",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ketamine1",
+      "destination": "/services/ketamine-therapy",
+      "permanent": true
+    },
+    {
+      "source": "/direct-primary-care",
+      "destination": "/services/direct-primary-care",
+      "permanent": true
+    },
+    {
+      "source": "/direct-access-to-your-doctor",
+      "destination": "/services/direct-primary-care",
+      "permanent": true
+    },
+    {
+      "source": "/post/:slug*",
+      "destination": "/blog/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/forum/:path*",
+      "destination": "/blog",
+      "permanent": true
+    }
+  ]
+}
