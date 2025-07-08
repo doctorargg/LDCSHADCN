@@ -27,7 +27,7 @@ export async function sendLeadNotificationEmail(leadData: EmailLeadData) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Lotus Direct Care <noreply@lotusdirectcare.com>',
+      from: 'Lotus Direct Care <onboarding@resend.dev>',
       to: process.env.NOTIFICATION_EMAIL,
       subject: `New Lead: ${leadData.name}`,
       react: LeadNotificationEmail({
@@ -60,7 +60,7 @@ export async function sendLeadConfirmationEmail(email: string, name: string) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Lotus Direct Care <noreply@lotusdirectcare.com>',
+      from: 'Lotus Direct Care <onboarding@resend.dev>',
       to: email,
       subject: 'Thank you for contacting Lotus Direct Care',
       react: LeadConfirmationEmail({ name }),
