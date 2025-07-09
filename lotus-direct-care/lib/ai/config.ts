@@ -90,8 +90,11 @@ export const blogConfig = {
   schedule: aiConfig.AI_BLOG_SCHEDULE_CRON,
   provider: getAvailableProvider(),
   model: aiConfig.AI_MODEL_PRIMARY,
-  minWords: aiConfig.AI_BLOG_MIN_WORDS,
-  maxWords: aiConfig.AI_BLOG_MAX_WORDS,
+  wordCount: aiConfig.AI_BLOG_MIN_WORDS, // Target word count
+  temperature: aiConfig.AI_TEMPERATURE,
+  maxTokens: aiConfig.AI_MAX_TOKENS,
+  targetAudience: 'Patients seeking holistic, evidence-based healthcare solutions',
+  tone: 'Professional yet approachable, educational and empowering',
 };
 
 // Practice Information for AI Context
