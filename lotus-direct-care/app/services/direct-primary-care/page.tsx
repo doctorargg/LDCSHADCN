@@ -93,7 +93,7 @@ const comparisonData = [
   {
     feature: 'Annual cost (healthy adult)',
     traditional: '$3,000-5,000+',
-    dpc: '$1,200-2,400'
+    dpc: '$1,512-1,980'
   },
   {
     feature: 'Direct physician access',
@@ -260,7 +260,7 @@ export default function DirectPrimaryCarePage() {
           </div>
 
           <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
               <Card className="border-2 hover:border-blue-200 transition-colors">
                 <CardHeader>
                   <CardTitle className="text-2xl">Individual</CardTitle>
@@ -268,8 +268,8 @@ export default function DirectPrimaryCarePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="mb-6">
-                    <p className="text-3xl font-bold text-gray-900">$99<span className="text-lg font-normal text-gray-600">/month</span></p>
-                    <p className="text-sm text-gray-500">Ages 18-64</p>
+                    <p className="text-3xl font-bold text-gray-900">$165<span className="text-lg font-normal text-gray-600">/month</span></p>
+                    <p className="text-sm text-gray-500">Ages 5 and up</p>
                   </div>
                   <Button asChild className="w-full">
                     <Link href="/contact">Get Started</Link>
@@ -287,30 +287,45 @@ export default function DirectPrimaryCarePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="mb-6">
-                    <p className="text-3xl font-bold text-gray-900">$249<span className="text-lg font-normal text-gray-600">/month</span></p>
-                    <p className="text-sm text-gray-500">2 adults + children</p>
+                    <p className="text-3xl font-bold text-gray-900">$220<span className="text-lg font-normal text-gray-600">/month</span></p>
+                    <p className="text-sm text-gray-500">First 2 family members (ages 5+)</p>
+                    <p className="text-xs text-gray-500 mt-1">Add additional members for $20/month each</p>
                   </div>
                   <Button asChild className="w-full">
                     <Link href="/contact">Get Started</Link>
                   </Button>
                 </CardContent>
               </Card>
+            </div>
 
-              <Card className="border-2 hover:border-blue-200 transition-colors">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Senior</CardTitle>
-                  <CardDescription>Specialized care for older adults</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="mb-6">
-                    <p className="text-3xl font-bold text-gray-900">$149<span className="text-lg font-normal text-gray-600">/month</span></p>
-                    <p className="text-sm text-gray-500">Ages 65+</p>
+            <div className="space-y-4 mb-8">
+              <div className="text-center">
+                <p className="text-gray-600">
+                  <span className="font-semibold">No enrollment fees!</span> 
+                  <span className="text-sm ml-2">Just your monthly membership fee to get started</span>
+                </p>
+              </div>
+              
+              <Card className="bg-green-50 border-green-200">
+                <CardContent className="p-6">
+                  <h3 className="font-semibold text-green-900 mb-2">Save with Annual Plans</h3>
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="font-medium text-green-800">Individual Annual: $1,512.50</p>
+                      <p className="text-green-700">Save over $450 per year!</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-green-800">Family Annual: $2,062.50</p>
+                      <p className="text-green-700">Save over $575 per year!</p>
+                    </div>
                   </div>
-                  <Button asChild className="w-full">
-                    <Link href="/contact">Get Started</Link>
-                  </Button>
+                  <p className="text-xs text-gray-600 mt-3">* Annual discount not available when paying with Care Credit</p>
                 </CardContent>
               </Card>
+              
+              <div className="text-center text-sm text-gray-600">
+                <p><span className="font-semibold">Important:</span> We care for patients ages 5 and up. 3-month minimum commitment required.</p>
+              </div>
             </div>
 
             <Card className="bg-blue-50 border-blue-200">
@@ -420,8 +435,9 @@ export default function DirectPrimaryCarePage() {
                   Can I cancel my membership anytime?
                 </h3>
                 <p className="text-gray-600">
-                  Absolutely. There are no long-term contracts. You can cancel or pause your 
-                  membership at any time with 30 days notice.
+                  Yes! We have a 3-month minimum commitment (paid upfront), but no long-term 
+                  contracts - you can cancel anytime after that with 30 days notice. If you 
+                  cancel and later resume care, there is a $150 re-initiation fee.
                 </p>
               </div>
             </div>
