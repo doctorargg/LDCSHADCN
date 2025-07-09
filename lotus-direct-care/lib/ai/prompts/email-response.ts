@@ -67,6 +67,8 @@ Please create a warm, professional response that:
 4. Maintains the practice's professional yet approachable tone
 5. Ends with clear next steps
 
+IMPORTANT: Do NOT include a greeting (like "Dear [Name]" or "Hi [Name]") as this will be added automatically by the email template. Start your response directly with the main content.
+
 The response should be formatted as HTML suitable for email, but keep styling simple and clean.`;
 }
 
@@ -127,15 +129,16 @@ export function generateCTA(inquiryType: string): string {
     generalInquiry: `
       <p>I'd love to discuss how our practice can support your health goals. You can:</p>
       <ul>
-        <li><a href="${practiceInfo.links.bookAppointment}">Schedule a consultation</a> to meet with Dr. Rosenberg</li>
+        <li><a href="${practiceInfo.links.membershipSignup}">Sign up as a new patient</a> for our Direct Primary Care program</li>
         <li><a href="${practiceInfo.links.website}/services">Explore our services</a> to learn more about our approach</li>
-        <li><a href="${practiceInfo.links.membershipSignup}">Review membership options</a> for our Direct Primary Care program</li>
+        <li><a href="${practiceInfo.links.bookAppointment}">Schedule a free meet & greet</a> if you'd like to visit our practice first</li>
       </ul>
     `,
     
     functionalMedicine: `
       <p>To explore how functional medicine can help address your health concerns:</p>
       <ul>
+        <li><a href="${practiceInfo.links.membershipSignup}">Sign up as a new patient</a> to get started</li>
         <li><a href="${practiceInfo.links.bookAppointment}">Book a comprehensive consultation</a> (60-90 minutes)</li>
         <li><a href="${practiceInfo.links.website}/services/functional-medicine">Learn about our functional medicine approach</a></li>
       </ul>
@@ -153,6 +156,7 @@ export function generateCTA(inquiryType: string): string {
     weightLoss: `
       <p>Let's create a personalized weight management plan for you:</p>
       <ul>
+        <li><a href="${practiceInfo.links.membershipSignup}">Sign up to start your weight loss journey</a></li>
         <li><a href="${practiceInfo.links.bookAppointment}">Schedule a metabolic consultation</a></li>
         <li><a href="${practiceInfo.links.website}/services/functional-medicine">Learn about our approach to weight management</a></li>
       </ul>
@@ -161,6 +165,7 @@ export function generateCTA(inquiryType: string): string {
     chronicConditions: `
       <p>We're here to help you find answers and relief. Your next steps:</p>
       <ul>
+        <li><a href="${practiceInfo.links.membershipSignup}">Sign up as a new patient</a> to begin your healing journey</li>
         <li><a href="${practiceInfo.links.bookAppointment}">Book an extended consultation</a> to discuss your condition</li>
         <li><a href="${practiceInfo.links.website}/about/approach">Understand our root-cause approach</a></li>
       </ul>
