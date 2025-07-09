@@ -102,7 +102,8 @@ export class EmailResponder {
     aiContent: string,
     inquiryType: string
   ): string {
-    const logoUrl = `${practiceInfo.website}/images/Lotus%20Midjourney%20Flowers/lotus_logo.png`;
+    // Use favicon as fallback since it loads successfully
+    const logoUrl = `${practiceInfo.website}/favicon.ico`;
     const cta = generateCTA(inquiryType);
 
     return `
@@ -193,7 +194,10 @@ export class EmailResponder {
 <body>
   <div class="container">
     <div class="header">
-      <img src="${logoUrl}" alt="Lotus Direct Care" class="logo" style="max-width: 180px; height: auto;">
+      <div style="background-color: rgba(255, 255, 255, 0.95); display: inline-block; padding: 20px 40px; border-radius: 10px;">
+        <h1 style="color: #2c5282; margin: 0; font-size: 28px; font-weight: 700;">LOTUS DIRECT CARE</h1>
+        <p style="color: #4A90E2; margin: 5px 0 0 0; font-size: 14px; letter-spacing: 1px;">FUNCTIONAL & PERSONALIZED MEDICINE</p>
+      </div>
     </div>
     
     <div class="content">
