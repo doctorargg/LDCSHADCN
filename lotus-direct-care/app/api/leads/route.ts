@@ -148,8 +148,8 @@ export async function POST(request: NextRequest) {
           }
           
           // Send the AI-generated email
-          const { sendEmail } = await import('@/lib/email/sendgrid');
-          await sendEmail({
+          const { sendAIGeneratedEmail } = await import('@/lib/email');
+          await sendAIGeneratedEmail({
             to: validatedData.email,
             subject: aiResponse.subject,
             html: aiResponse.htmlContent,

@@ -125,3 +125,42 @@ export async function sendEmails(leadData: EmailLeadData) {
 
   return results;
 }
+
+// New function for sending AI-generated emails
+export interface AIEmailOptions {
+  to: string;
+  subject: string;
+  html: string;
+  text?: string;
+}
+
+export async function sendAIGeneratedEmail(options: AIEmailOptions) {
+  if (!isEmailConfigured) {
+    logger.warn('Email service not configured. Skipping AI-generated email.');
+    return { success: false, message: 'Email service not configured' };
+  }
+
+  const msg = {
+    to: options.to,
+    from: process.env.SENDGRID_FROM_EMAIL!,
+    subject: options.subject,
+    html: options.html,
+    text: options.text || 'Please view this email in an HTML-capable email client.',
+  };
+
+  try {
+    await sgMail.send(msg);
+    logger.info('AI-generated email sent successfully', { 
+      to: options.to, 
+      subject: options.subject 
+    });
+    return { success: true };
+  } catch (error) {
+    logger.error('Failed to send AI-generated email via SendGrid', { 
+      error,
+      to: options.to,
+      subject: options.subject 
+    });
+    throw error;
+  }
+}
