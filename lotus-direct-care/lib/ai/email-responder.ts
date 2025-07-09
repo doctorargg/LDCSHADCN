@@ -102,7 +102,7 @@ export class EmailResponder {
     aiContent: string,
     inquiryType: string
   ): string {
-    const logoUrl = `${practiceInfo.website}/images/Lotus%20Midjourney%20Flowers/lotus_logo_hero%20-%20Copy.png`;
+    const logoUrl = `${practiceInfo.website}/images/Lotus%20Midjourney%20Flowers/lotus_logo.png`;
     const cta = generateCTA(inquiryType);
 
     return `
@@ -129,14 +129,17 @@ export class EmailResponder {
     }
     .header {
       background: linear-gradient(135deg, #4A90E2 0%, #7EC8E3 100%);
-      padding: 30px;
+      padding: 40px 30px;
       text-align: center;
     }
     .logo {
-      max-width: 200px;
+      max-width: 180px;
       height: auto;
       display: block;
       margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 8px;
     }
     .content {
       padding: 40px 30px;
@@ -190,7 +193,7 @@ export class EmailResponder {
 <body>
   <div class="container">
     <div class="header">
-      <img src="${logoUrl}" alt="Lotus Direct Care" class="logo">
+      <img src="${logoUrl}" alt="Lotus Direct Care" class="logo" style="max-width: 180px; height: auto;">
     </div>
     
     <div class="content">
