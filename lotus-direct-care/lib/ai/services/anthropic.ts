@@ -14,6 +14,12 @@ export class AnthropicService extends AIService {
     prompt: string,
     options: AIPromptOptions = {}
   ): Promise<AIResponse> {
+    console.log('AnthropicService.generateResponse called', {
+      model: this.model,
+      hasApiKey: !!this.apiKey,
+      promptLength: prompt.length,
+    });
+    
     try {
       const response = await this.client.messages.create({
         model: this.model,

@@ -281,15 +281,30 @@ export class EmailResponder {
     context: EmailContext,
     sendCallback: (response: EmailResponse) => Promise<void>
   ): Promise<void> {
-    const response = await this.generateResponse(context);
+    console.log('scheduleResponse called with delay:', emailResponseConfig.delayMs);
     
-    // Schedule the email to be sent after the configured delay
-    setTimeout(async () => {
-      try {
-        await sendCallback(response);
-      } catch (error) {
-        console.error('Error sending scheduled email:', error);
-      }
-    }, emailResponseConfig.delayMs);
+    try {
+      const response = await this.generateResponse(context);
+      console.log('AI response generated:', {
+        subject: response.subject,
+        inquiryType: response.inquiryType,
+        aiGenerated: response.aiGenerated,
+        hasError: !!response.error,
+      });
+      
+      // Schedule the email to be sent after the configured delay
+      setTimeout(async () => {
+        console.log('Executing scheduled email send after delay');
+        try {
+          await sendCallback(response);
+          console.log('Scheduled email callback completed');
+        } catch (error) {
+          console.error('Error in scheduled email callback:', error);
+        }
+      }, emailResponseConfig.delayMs);
+    } catch (error) {
+      console.error('Error in scheduleResponse:', error);
+      throw error;
+    }
   }
 }

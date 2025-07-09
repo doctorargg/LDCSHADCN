@@ -115,68 +115,62 @@ export async function POST(request: NextRequest) {
       logger.error('Failed to send confirmation email', emailResults.confirmation.error)
     }
     
-    // Schedule AI-generated follow-up email (if enabled)
-    logger.info('AI email check', {
-      enabled: emailResponseConfig.enabled,
-      savedLeadId,
-      hasApiKey: !!process.env.ANTHROPIC_API_KEY || !!process.env.OPENAI_API_KEY,
-      provider: emailResponseConfig.provider,
-    });
-    
+    // Process AI email immediately (if enabled) - Vercel Functions can't use setTimeout
     if (emailResponseConfig.enabled && savedLeadId) {
-      const emailResponder = EmailResponder.getInstance();
-      
-      // Prepare context for AI response
-      const aiContext = {
-        patientName: validatedData.name,
+      logger.info('Processing AI email response', {
+        leadId: savedLeadId,
         email: validatedData.email,
-        phone: validatedData.phone,
-        reasonForVisit: validatedData.reasonForVisit,
-        message: validatedData.message || '',
-        preferredContactMethod: validatedData.preferredContact,
-      };
-      
-      // Schedule the AI response (non-blocking)
-      emailResponder.scheduleResponse(aiContext, async (aiResponse: EmailResponse) => {
-        try {
-          // Save AI response to database
-          if (supabase && savedLeadId) {
-            await supabase
-              .from('ai_email_responses')
-              .insert({
-                lead_id: savedLeadId,
-                subject: aiResponse.subject,
-                html_content: aiResponse.htmlContent,
-                text_content: aiResponse.textContent,
-                inquiry_type: aiResponse.inquiryType,
-                sent_at: new Date().toISOString(),
-                ai_generated: true,
-              });
-          }
-          
-          // Send the AI-generated email
-          const { sendAIGeneratedEmail } = await import('@/lib/email');
-          await sendAIGeneratedEmail({
-            to: validatedData.email,
-            subject: aiResponse.subject,
-            html: aiResponse.htmlContent,
-            text: aiResponse.textContent,
-          });
-          
-          logger.info('AI-generated email sent', {
-            leadId: savedLeadId,
-            email: validatedData.email,
-            inquiryType: aiResponse.inquiryType,
-          });
-        } catch (error) {
-          logger.error('Failed to send AI-generated email', error, {
-            leadId: savedLeadId,
-            email: validatedData.email,
-          });
-        }
-      }).catch((error) => {
-        logger.error('Failed to schedule AI response', error);
       });
+      
+      try {
+        const emailResponder = EmailResponder.getInstance();
+        
+        // Generate AI response immediately
+        const aiResponse = await emailResponder.generateResponse({
+          patientName: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          reasonForVisit: validatedData.reasonForVisit,
+          message: validatedData.message || '',
+          preferredContactMethod: validatedData.preferredContact,
+        });
+        
+        // Save AI response to database
+        if (supabase) {
+          await supabase
+            .from('ai_email_responses')
+            .insert({
+              lead_id: savedLeadId,
+              subject: aiResponse.subject,
+              html_content: aiResponse.htmlContent,
+              text_content: aiResponse.textContent,
+              inquiry_type: aiResponse.inquiryType,
+              sent_at: new Date().toISOString(),
+              ai_generated: true,
+            });
+        }
+        
+        // Send the AI-generated email immediately (no delay in serverless)
+        const { sendAIGeneratedEmail } = await import('@/lib/email');
+        await sendAIGeneratedEmail({
+          to: validatedData.email,
+          subject: aiResponse.subject,
+          html: aiResponse.htmlContent,
+          text: aiResponse.textContent,
+        });
+        
+        logger.info('AI-generated email sent immediately', {
+          leadId: savedLeadId,
+          email: validatedData.email,
+          inquiryType: aiResponse.inquiryType,
+        });
+      } catch (error) {
+        logger.error('Failed to process AI email', error, {
+          leadId: savedLeadId,
+          email: validatedData.email,
+        });
+        // Don't fail the main request if AI fails
+      }
     }
     
     // Return success response
