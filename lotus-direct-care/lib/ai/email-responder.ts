@@ -30,15 +30,25 @@ export class EmailResponder {
   }
 
   async generateResponse(context: EmailContext): Promise<EmailResponse> {
+    console.log('EmailResponder.generateResponse called', {
+      enabled: emailResponseConfig.enabled,
+      provider: emailResponseConfig.provider,
+    });
+    
     // Check if AI email responses are enabled
     if (!emailResponseConfig.enabled) {
+      console.log('AI email responses disabled');
       return this.getDefaultResponse(context);
     }
 
     // Get AI service
     const aiService = AIServiceFactory.getService();
     if (!aiService) {
-      console.error('No AI service available for email response');
+      console.error('No AI service available for email response', {
+        hasAnthropicKey: !!process.env.ANTHROPIC_API_KEY,
+        hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+        provider: emailResponseConfig.provider,
+      });
       return this.getDefaultResponse(context);
     }
 

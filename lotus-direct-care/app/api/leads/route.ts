@@ -116,6 +116,13 @@ export async function POST(request: NextRequest) {
     }
     
     // Schedule AI-generated follow-up email (if enabled)
+    logger.info('AI email check', {
+      enabled: emailResponseConfig.enabled,
+      savedLeadId,
+      hasApiKey: !!process.env.ANTHROPIC_API_KEY || !!process.env.OPENAI_API_KEY,
+      provider: emailResponseConfig.provider,
+    });
+    
     if (emailResponseConfig.enabled && savedLeadId) {
       const emailResponder = EmailResponder.getInstance();
       
