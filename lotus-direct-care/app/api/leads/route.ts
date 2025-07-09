@@ -4,6 +4,8 @@ import { supabase, handleSupabaseError } from '@/lib/supabase'
 import type { InsertLead } from '@/lib/supabase'
 import { logger, logApiError } from '@/lib/logger'
 import { sendEmails, type EmailLeadData } from '@/lib/email'
+import { EmailResponder, type EmailResponse } from '@/lib/ai/email-responder'
+import { emailResponseConfig } from '@/lib/ai/config'
 
 // Validation schema matching the frontend
 const leadSchema = z.object({
@@ -37,6 +39,8 @@ export async function POST(request: NextRequest) {
     }
     
     // If Supabase is configured, save to database
+    let savedLeadId: string | undefined;
+    
     if (supabase) {
       // Prepare lead data for insertion
       const leadData: InsertLead = {
@@ -69,6 +73,7 @@ export async function POST(request: NextRequest) {
           )
         }
       } else {
+        savedLeadId = data.id;
         // Log successful submission
         logger.info('New lead saved', {
           id: data.id,
@@ -85,7 +90,7 @@ export async function POST(request: NextRequest) {
       })
     }
     
-    // Send email notifications
+    // Send immediate email notifications
     let emailResults;
     try {
       emailResults = await sendEmails(emailData)
@@ -110,11 +115,68 @@ export async function POST(request: NextRequest) {
       logger.error('Failed to send confirmation email', emailResults.confirmation.error)
     }
     
+    // Schedule AI-generated follow-up email (if enabled)
+    if (emailResponseConfig.enabled && savedLeadId) {
+      const emailResponder = EmailResponder.getInstance();
+      
+      // Prepare context for AI response
+      const aiContext = {
+        patientName: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        reasonForVisit: validatedData.reasonForVisit,
+        message: validatedData.message || '',
+        preferredContactMethod: validatedData.preferredContact,
+      };
+      
+      // Schedule the AI response (non-blocking)
+      emailResponder.scheduleResponse(aiContext, async (aiResponse: EmailResponse) => {
+        try {
+          // Save AI response to database
+          if (supabase && savedLeadId) {
+            await supabase
+              .from('ai_email_responses')
+              .insert({
+                lead_id: savedLeadId,
+                subject: aiResponse.subject,
+                html_content: aiResponse.htmlContent,
+                text_content: aiResponse.textContent,
+                inquiry_type: aiResponse.inquiryType,
+                sent_at: new Date().toISOString(),
+                ai_generated: true,
+              });
+          }
+          
+          // Send the AI-generated email
+          const { sendEmail } = await import('@/lib/email/sendgrid');
+          await sendEmail({
+            to: validatedData.email,
+            subject: aiResponse.subject,
+            html: aiResponse.htmlContent,
+            text: aiResponse.textContent,
+          });
+          
+          logger.info('AI-generated email sent', {
+            leadId: savedLeadId,
+            email: validatedData.email,
+            inquiryType: aiResponse.inquiryType,
+          });
+        } catch (error) {
+          logger.error('Failed to send AI-generated email', error, {
+            leadId: savedLeadId,
+            email: validatedData.email,
+          });
+        }
+      }).catch((error) => {
+        logger.error('Failed to schedule AI response', error);
+      });
+    }
+    
     // Return success response
     return NextResponse.json(
       { 
         message: 'Thank you for your submission! We will contact you soon.',
-        id: supabase ? undefined : 'temp-' + Date.now(),
+        id: savedLeadId || (supabase ? undefined : 'temp-' + Date.now()),
       },
       { status: 201 }
     )
@@ -151,4 +213,3 @@ export async function POST(request: NextRequest) {
     )
   }
 }
-
