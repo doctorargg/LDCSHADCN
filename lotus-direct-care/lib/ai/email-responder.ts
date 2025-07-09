@@ -102,7 +102,7 @@ export class EmailResponder {
     aiContent: string,
     inquiryType: string
   ): string {
-    const logoUrl = `${practiceInfo.website}/images/lotus_logo.png`;
+    const logoUrl = `${practiceInfo.website}/images/Lotus%20Midjourney%20Flowers/lotus_logo_hero%20-%20Copy.png`;
     const cta = generateCTA(inquiryType);
 
     return `
@@ -133,8 +133,10 @@ export class EmailResponder {
       text-align: center;
     }
     .logo {
-      max-width: 150px;
+      max-width: 200px;
       height: auto;
+      display: block;
+      margin: 0 auto;
     }
     .content {
       padding: 40px 30px;
