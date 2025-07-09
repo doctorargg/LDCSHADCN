@@ -10,8 +10,8 @@ export enum AIProvider {
 // AI Model Configuration
 export const AIModels = {
   [AIProvider.ANTHROPIC]: {
-    primary: 'claude-3-opus-20240229',
-    secondary: 'claude-3-sonnet-20240229',
+    primary: 'claude-3-5-sonnet-20241022',  // Latest Claude 3.5 Sonnet
+    secondary: 'claude-3-haiku-20240307',    // Fast, affordable fallback
   },
   [AIProvider.OPENAI]: {
     primary: 'gpt-4-turbo-preview',
@@ -32,7 +32,7 @@ const envSchema = z.object({
   FIRECRAWL_API_KEY: z.string().optional(),
   
   // AI Configuration
-  AI_MODEL_PRIMARY: z.string().default(AIModels[AIProvider.ANTHROPIC].primary),
+  AI_MODEL_PRIMARY: z.string().default('claude-3-5-sonnet-20241022'),
   AI_MODEL_SECONDARY: z.string().default(AIModels[AIProvider.OPENAI].primary),
   AI_TEMPERATURE: z.coerce.number().min(0).max(2).default(0.7),
   AI_MAX_TOKENS: z.coerce.number().min(100).max(8000).default(4000),
