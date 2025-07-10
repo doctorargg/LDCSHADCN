@@ -25,6 +25,12 @@
       ],
       "@/components/*": [
         "components/*"
+      ],
+      "@/types/*": [
+        "types/*"
+      ],
+      "@/*": [
+        "./*"
       ]
     },
     "plugins": [
