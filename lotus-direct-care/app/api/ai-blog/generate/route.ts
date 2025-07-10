@@ -5,9 +5,12 @@ import { BlogContext } from '@/lib/ai/prompts/blog-content';
 
 export async function POST(request: NextRequest) {
   try {
-    // Check for API key authentication
+    // Check for API key authentication or admin token
     const apiKey = request.headers.get('x-api-key');
-    if (apiKey !== process.env.ADMIN_API_KEY) {
+    const adminToken = request.headers.get('x-admin-token');
+    
+    // Accept either the API key or a valid admin token from cookies
+    if (apiKey !== process.env.ADMIN_API_KEY && adminToken !== process.env.ADMIN_API_KEY) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

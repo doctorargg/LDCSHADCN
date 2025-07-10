@@ -54,6 +54,7 @@ export default function GenerateBlogPage() {
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
+          'x-admin-token': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
         },
         body: JSON.stringify({
           topic: finalTopic,
