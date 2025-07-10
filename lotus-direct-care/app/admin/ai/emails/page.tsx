@@ -49,12 +49,12 @@ async function getEmailStats() {
   const { data: stats } = await supabase
     .from('ai_email_responses')
     .select('status')
-    .then(({ data }) => {
+    .then(({ data }: any) => {
       const counts = {
         total: data?.length || 0,
-        sent: data?.filter(d => d.status === 'sent').length || 0,
-        pending: data?.filter(d => d.status === 'pending').length || 0,
-        failed: data?.filter(d => d.status === 'failed').length || 0,
+        sent: data?.filter((d: any) => d.status === 'sent').length || 0,
+        pending: data?.filter((d: any) => d.status === 'pending').length || 0,
+        failed: data?.filter((d: any) => d.status === 'failed').length || 0,
       };
       return { data: counts };
     });
