@@ -171,7 +171,7 @@ export default async function LeadsPage({
       {/* Summary Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
         {Object.entries(statusColors).map(([status, color]) => {
-          const count = leads.filter(lead => lead.status === status).length;
+          const count = leads.filter((lead: any) => lead.status === status).length;
           return (
             <div key={status} className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center justify-between">
