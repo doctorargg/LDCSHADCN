@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { BlogGenerator } from '@/lib/ai/blog-generator';
 
+export const dynamic = 'force-dynamic';
+
 // Test endpoint for blog generation (development only)
 export async function GET(request: NextRequest) {
   try {
