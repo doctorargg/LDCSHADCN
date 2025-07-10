@@ -107,7 +107,7 @@ export class BlogGenerator {
         seoDescription: seoMetadata.description,
         seoKeywords: seoMetadata.keywords,
         aiGenerated: true,
-        aiModel: aiService.getModelName?.() || blogConfig.provider,
+        aiModel: blogConfig.provider,
         generationPrompt: generateBlogPrompt(fullContext),
       };
     } catch (error) {
