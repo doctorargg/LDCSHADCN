@@ -72,6 +72,13 @@
       "Bash(cd:*)",
       "Bash(cd:*)",
       "Bash(git checkout:*)",
+      "Bash(cd:*)",
+      "Bash(git pull:*)",
+      "Bash(echo -e \"\\x03\")",
+      "Bash(cd:*)",
+      "Bash(cd:*)",
+      "Bash(cd:*)",
+      "Bash(cd:*)",
       "Bash(cd:*)"
     ],
     "deny": []

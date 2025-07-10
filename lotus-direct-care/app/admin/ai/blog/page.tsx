@@ -111,7 +111,7 @@ export default async function BlogManagementPage({
                 </TableCell>
               </TableRow>
             ) : (
-              posts.map((post) => (
+              posts.map((post: any) => (
                 <TableRow key={post.id}>
                   <TableCell className="font-medium">
                     <div>
