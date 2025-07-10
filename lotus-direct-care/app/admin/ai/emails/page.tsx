@@ -148,7 +148,7 @@ export default async function AIEmailsPage({
                 </TableCell>
               </TableRow>
             ) : (
-              emails.map((email) => (
+              emails.map((email: any) => (
                 <TableRow key={email.id}>
                   <TableCell>
                     <div>

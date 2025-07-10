@@ -129,7 +129,7 @@ export default async function LeadsPage({
                 </TableCell>
               </TableRow>
             ) : (
-              leads.map((lead) => (
+              leads.map((lead: any) => (
                 <TableRow key={lead.id}>
                   <TableCell className="font-medium">
                     {lead.name}
