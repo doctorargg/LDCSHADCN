@@ -33,17 +33,18 @@ export default function AdminLoginPage() {
       if (response.ok) {
         setSuccess(true);
         setError('');
-        // Add a small delay to ensure cookie is set
-        setTimeout(() => {
-          router.push('/admin');
-        }, 100);
+        console.log('Login successful, redirecting to /admin...');
+        
+        // Use window.location.replace for immediate redirect
+        window.location.replace('/admin');
       } else {
         const data = await response.json();
         setError(data.error || 'Invalid API key');
+        setIsLoading(false);
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('An error occurred. Please try again.');
-    } finally {
       setIsLoading(false);
     }
   };
