@@ -1,5 +1,5 @@
 import React from 'react';
-import { LeadData } from '@/lib/email';
+import { EmailLeadData as LeadData } from '@/lib/email';
 
 interface LeadNotificationEmailProps {
   leadData: LeadData;
