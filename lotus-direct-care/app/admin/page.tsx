@@ -145,7 +145,7 @@ export default async function AdminDashboardPage() {
               {recentLeads.length === 0 ? (
                 <p className="text-sm text-gray-500">No recent leads</p>
               ) : (
-                recentLeads.map((lead) => (
+                recentLeads.map((lead: any) => (
                   <div key={lead.id} className="flex items-center justify-between">
                     <div className="space-y-1">
                       <p className="text-sm font-medium">{lead.name}</p>
@@ -174,7 +174,7 @@ export default async function AdminDashboardPage() {
               {recentEmails.length === 0 ? (
                 <p className="text-sm text-gray-500">No recent emails</p>
               ) : (
-                recentEmails.map((email) => (
+                recentEmails.map((email: any) => (
                   <div key={email.id} className="flex items-center justify-between">
                     <div className="space-y-1">
                       <p className="text-sm font-medium">{email.recipient_email}</p>

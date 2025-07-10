@@ -34,7 +34,7 @@ export default function AdminLayout({
           </div>
           
           <nav className="flex-1 px-4 py-4 space-y-1">
-            {navigation.map((item) => (
+            {navigation.map((item: any) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -77,7 +77,7 @@ export default function AdminLayout({
           </SheetTrigger>
           <SheetContent side="left" className="w-64">
             <nav className="flex flex-col space-y-1 mt-6">
-              {navigation.map((item) => (
+              {navigation.map((item: any) => (
                 <Link
                   key={item.name}
                   href={item.href}

@@ -98,7 +98,7 @@ export default function GenerateBlogPage() {
                   <SelectValue placeholder="Select a topic or choose custom" />
                 </SelectTrigger>
                 <SelectContent>
-                  {blogTopics.map((t) => (
+                  {blogTopics.map((t: any) => (
                     <SelectItem key={t} value={t}>{t}</SelectItem>
                   ))}
                 </SelectContent>

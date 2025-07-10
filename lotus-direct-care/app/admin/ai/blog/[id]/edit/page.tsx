@@ -181,7 +181,7 @@ export default function BlogEditPage({
                     value={post.tags.join(', ')}
                     onChange={(e) => setPost({ 
                       ...post, 
-                      tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
+                      tags: e.target.value.split(',').map((tag: string) => tag.trim()).filter(Boolean)
                     })}
                   />
                 </div>
@@ -226,7 +226,7 @@ export default function BlogEditPage({
                   value={post.seo_keywords.join(', ')}
                   onChange={(e) => setPost({ 
                     ...post, 
-                    seo_keywords: e.target.value.split(',').map(kw => kw.trim()).filter(Boolean)
+                    seo_keywords: e.target.value.split(',').map((kw: string) => kw.trim()).filter(Boolean)
                   })}
                 />
               </div>
