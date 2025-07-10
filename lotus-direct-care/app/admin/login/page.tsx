@@ -12,6 +12,7 @@ import { Loader2 } from 'lucide-react';
 export default function AdminLoginPage() {
   const [apiKey, setApiKey] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -30,7 +31,12 @@ export default function AdminLoginPage() {
       });
 
       if (response.ok) {
-        router.push('/admin');
+        setSuccess(true);
+        setError('');
+        // Add a small delay to ensure cookie is set
+        setTimeout(() => {
+          router.push('/admin');
+        }, 100);
       } else {
         const data = await response.json();
         setError(data.error || 'Invalid API key');
@@ -69,6 +75,12 @@ export default function AdminLoginPage() {
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            
+            {success && (
+              <Alert>
+                <AlertDescription>Authentication successful! Redirecting...</AlertDescription>
               </Alert>
             )}
             
