@@ -3,8 +3,6 @@ import { cookies } from 'next/headers'
 import type { Database } from '@/types/database'
 
 export async function createClient() {
-  const cookieStore = await cookies()
-  
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   
@@ -21,16 +19,25 @@ export async function createClient() {
     } as any
   }
 
+  // Only access cookies when actually needed (lazy initialization)
+  let cookieStore: any = null
+  
   return createServerClient<Database>(
     supabaseUrl,
     supabaseAnonKey,
     {
       cookies: {
-        getAll() {
+        async getAll() {
+          if (!cookieStore) {
+            cookieStore = await cookies()
+          }
           return cookieStore.getAll()
         },
-        setAll(cookiesToSet) {
+        async setAll(cookiesToSet) {
           try {
+            if (!cookieStore) {
+              cookieStore = await cookies()
+            }
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             )

@@ -79,6 +79,14 @@
       "Bash(cd:*)",
       "Bash(cd:*)",
       "Bash(cd:*)",
+      "Bash(cd:*)",
+      "Bash(for file in button.tsx table.tsx tabs.tsx input.tsx card.tsx separator.tsx sheet.tsx navigation-menu.tsx badge.tsx label.tsx form.tsx)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(head:*)",
+      "Bash(done)",
+      "Bash(timeout 30 npm run dev)",
+      "Bash(cd:*)",
+      "Bash(cd:*)",
       "Bash(cd:*)"
     ],
     "deny": []

@@ -1,3 +1,5 @@
+"use client";
+
 import { TestimonialCarousel } from "@/components/testimonials/testimonial-carousel";
 import { featuredTestimonials } from "@/lib/data/testimonials";
 import { Button } from "@/components/ui/button";
