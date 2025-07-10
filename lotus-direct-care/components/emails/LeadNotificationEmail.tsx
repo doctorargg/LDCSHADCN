@@ -11,8 +11,8 @@ export const LeadNotificationEmail: React.FC<LeadNotificationEmailProps> = ({ le
     <p><strong>Name:</strong> {leadData.name}</p>
     <p><strong>Email:</strong> {leadData.email}</p>
     {leadData.phone && <p><strong>Phone:</strong> {leadData.phone}</p>}
-    {leadData.reason_for_visit && <p><strong>Reason for Visit:</strong> {leadData.reason_for_visit}</p>}
-    {leadData.preferred_contact && <p><strong>Preferred Contact:</strong> {leadData.preferred_contact}</p>}
+    {leadData.reasonForVisit && <p><strong>Reason for Visit:</strong> {leadData.reasonForVisit}</p>}
+    {leadData.preferredContact && <p><strong>Preferred Contact:</strong> {leadData.preferredContact}</p>}
     {leadData.message && <p><strong>Message:</strong><br/>{leadData.message}</p>}
   </div>
 );
