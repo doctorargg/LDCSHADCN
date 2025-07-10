@@ -53,9 +53,8 @@ export default function GenerateBlogPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
-          'x-admin-token': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
         },
+        credentials: 'include', // This ensures cookies are sent
         body: JSON.stringify({
           topic: finalTopic,
           targetAudience,

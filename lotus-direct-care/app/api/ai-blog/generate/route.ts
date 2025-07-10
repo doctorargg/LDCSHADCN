@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+// Force recompilation
 import { BlogGenerator } from '@/lib/ai/blog-generator';
 import { createClient } from '@/lib/supabase/server';
 import { BlogContext } from '@/lib/ai/prompts/blog-content';
@@ -9,8 +11,32 @@ export async function POST(request: NextRequest) {
     const apiKey = request.headers.get('x-api-key');
     const adminToken = request.headers.get('x-admin-token');
     
-    // Accept either the API key or a valid admin token from cookies
-    if (apiKey !== process.env.ADMIN_API_KEY && adminToken !== process.env.ADMIN_API_KEY) {
+    // Also check cookies directly
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    
+    // Debug logging
+    console.log('Blog generation auth check:', {
+      hasApiKey: !!apiKey,
+      hasAdminToken: !!adminToken,
+      hasCookieToken: !!cookieToken,
+      adminTokenValue: adminToken ? `${adminToken.substring(0, 5)}...` : 'none',
+      cookieTokenValue: cookieToken ? `${cookieToken.substring(0, 5)}...` : 'none',
+      envKeyExists: !!process.env.ADMIN_API_KEY,
+      envKeyValue: process.env.ADMIN_API_KEY ? `${process.env.ADMIN_API_KEY.substring(0, 5)}...` : 'none',
+    });
+    
+    // Accept either the API key, admin token header, or cookie
+    const isAuthorized = 
+      apiKey === process.env.ADMIN_API_KEY || 
+      adminToken === process.env.ADMIN_API_KEY ||
+      cookieToken === process.env.ADMIN_API_KEY;
+      
+    if (!isAuthorized) {
+      console.log('Auth failed:', {
+        apiKeyMatch: apiKey === process.env.ADMIN_API_KEY,
+        adminTokenMatch: adminToken === process.env.ADMIN_API_KEY,
+        cookieTokenMatch: cookieToken === process.env.ADMIN_API_KEY,
+      });
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
