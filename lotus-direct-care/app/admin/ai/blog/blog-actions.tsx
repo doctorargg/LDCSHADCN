@@ -52,9 +52,16 @@ export default function BlogActions({ post }: { post: BlogPost }) {
 
       if (response.ok) {
         router.refresh();
+        // Show success message (you could add a toast here)
+        console.log('Blog post published successfully!');
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to publish:', errorData);
+        alert(`Failed to publish blog post: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error publishing post:', error);
+      alert('Error publishing blog post. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -76,9 +83,15 @@ export default function BlogActions({ post }: { post: BlogPost }) {
       if (response.ok) {
         setIsScheduleOpen(false);
         router.refresh();
+        console.log('Blog post scheduled successfully!');
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to schedule:', errorData);
+        alert(`Failed to schedule blog post: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error scheduling post:', error);
+      alert('Error scheduling blog post. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -95,9 +108,15 @@ export default function BlogActions({ post }: { post: BlogPost }) {
       if (response.ok) {
         setIsDeleteOpen(false);
         router.refresh();
+        console.log('Blog post deleted successfully!');
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to delete:', errorData);
+        alert(`Failed to delete blog post: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error deleting post:', error);
+      alert('Error deleting blog post. Please try again.');
     } finally {
       setIsLoading(false);
     }

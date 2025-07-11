@@ -4,9 +4,20 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function POST(request: NextRequest) {
   try {
-    // Check for API key authentication
+    // Check for API key authentication or admin token
     const apiKey = request.headers.get('x-api-key');
-    if (apiKey !== process.env.ADMIN_API_KEY) {
+    const adminToken = request.headers.get('x-admin-token');
+    
+    // Also check cookies directly
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    
+    // Accept either the API key, admin token header, or cookie
+    const isAuthorized = 
+      apiKey === process.env.ADMIN_API_KEY || 
+      adminToken === process.env.ADMIN_API_KEY ||
+      cookieToken === process.env.ADMIN_API_KEY;
+      
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -88,9 +99,20 @@ export async function POST(request: NextRequest) {
 // GET endpoint to retrieve scheduled posts
 export async function GET(request: NextRequest) {
   try {
-    // Check for API key authentication
+    // Check for API key authentication or admin token
     const apiKey = request.headers.get('x-api-key');
-    if (apiKey !== process.env.ADMIN_API_KEY) {
+    const adminToken = request.headers.get('x-admin-token');
+    
+    // Also check cookies directly
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    
+    // Accept either the API key, admin token header, or cookie
+    const isAuthorized = 
+      apiKey === process.env.ADMIN_API_KEY || 
+      adminToken === process.env.ADMIN_API_KEY ||
+      cookieToken === process.env.ADMIN_API_KEY;
+      
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
