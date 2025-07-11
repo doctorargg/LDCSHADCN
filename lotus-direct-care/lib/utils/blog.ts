@@ -2,12 +2,7 @@ import { BlogPost, BlogCategory, BlogTag, PaginationInfo } from '@/lib/types/blo
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { 
-  getAllBlogPostsFromDB, 
-  getBlogPostFromDB, 
-  getAllCategoriesFromDB, 
-  getAllTagsFromDB 
-} from '@/lib/services/blog-db';
+import { BlogDatabaseService } from '@/lib/services/blog-db';
 
 const POSTS_PER_PAGE = 9;
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'blog');
@@ -77,7 +72,7 @@ async function getAllBlogPostsFromFiles(): Promise<BlogPost[]> {
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   try {
     // First try to get posts from database
-    const dbPosts = await getAllBlogPostsFromDB();
+    const dbPosts = await BlogDatabaseService.getAllBlogPosts();
     
     // Then get posts from files
     const filePosts = await getAllBlogPostsFromFiles();
@@ -113,7 +108,7 @@ async function getBlogPostFromFile(slug: string): Promise<BlogPost | null> {
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     // First try to get the post from database
-    const dbPost = await getBlogPostFromDB(slug);
+    const dbPost = await BlogDatabaseService.getBlogPost(slug);
     if (dbPost) {
       return dbPost;
     }
