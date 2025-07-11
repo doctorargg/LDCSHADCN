@@ -432,4 +432,165 @@
   .animate-lotus-bloom {
     animation: lotus-bloom 20s ease-in-out infinite;
   }
+
+  /* Custom prose styles for blog content */
+  .prose {
+    @apply text-foreground max-w-none;
+  }
+
+  .prose h1 {
+    @apply text-3xl md:text-4xl font-bold mb-4 mt-8 text-lotus-teal-dark;
+  }
+
+  .prose h2 {
+    @apply text-2xl md:text-3xl font-semibold mb-3 mt-6 text-lotus-teal;
+  }
+
+  .prose h3 {
+    @apply text-xl md:text-2xl font-semibold mb-3 mt-5 text-lotus-teal;
+  }
+
+  .prose h4 {
+    @apply text-lg md:text-xl font-medium mb-2 mt-4 text-foreground;
+  }
+
+  .prose h5 {
+    @apply text-base md:text-lg font-medium mb-2 mt-4 text-foreground;
+  }
+
+  .prose h6 {
+    @apply text-base font-medium mb-2 mt-4 text-foreground;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed text-foreground/90;
+  }
+
+  .prose a {
+    @apply text-lotus-teal hover:text-lotus-teal-dark underline underline-offset-2 transition-colors;
+  }
+
+  .prose strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .prose em {
+    @apply italic;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-lotus-teal/50 pl-4 my-4 italic text-muted-foreground;
+  }
+
+  .prose ul {
+    @apply list-disc list-inside mb-4 space-y-1;
+  }
+
+  .prose ol {
+    @apply list-decimal list-inside mb-4 space-y-1;
+  }
+
+  .prose li {
+    @apply text-foreground/90;
+  }
+
+  .prose li > p {
+    @apply inline;
+  }
+
+  .prose code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-lotus-teal-dark;
+  }
+
+  .prose pre {
+    @apply bg-muted p-4 rounded-lg overflow-x-auto my-4;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-sm;
+  }
+
+  .prose hr {
+    @apply border-border my-8;
+  }
+
+  .prose table {
+    @apply w-full border-collapse my-4;
+  }
+
+  .prose thead {
+    @apply border-b-2 border-border;
+  }
+
+  .prose th {
+    @apply text-left font-semibold p-2 text-foreground;
+  }
+
+  .prose td {
+    @apply p-2 border-b border-border/50 text-foreground/90;
+  }
+
+  .prose img {
+    @apply rounded-lg my-4 max-w-full h-auto;
+  }
+
+  .prose > *:first-child {
+    @apply mt-0;
+  }
+
+  .prose > *:last-child {
+    @apply mb-0;
+  }
+
+  /* Prose variations for different contexts */
+  .prose-sm {
+    @apply text-sm;
+  }
+
+  .prose-sm h1 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  .prose-sm h2 {
+    @apply text-xl md:text-2xl;
+  }
+
+  .prose-sm h3 {
+    @apply text-lg md:text-xl;
+  }
+
+  .prose-lg {
+    @apply text-lg;
+  }
+
+  .prose-lg h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  .prose-lg h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  .prose-lg h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  /* Dark mode adjustments */
+  .dark .prose h1,
+  .dark .prose h2,
+  .dark .prose h3 {
+    @apply text-lotus-turquoise;
+  }
+
+  .dark .prose a {
+    @apply text-lotus-turquoise hover:text-lotus-amber;
+  }
+
+  .dark .prose code {
+    @apply text-lotus-amber;
+  }
+
+  .dark .prose blockquote {
+    @apply border-lotus-turquoise/50;
+  }
 }

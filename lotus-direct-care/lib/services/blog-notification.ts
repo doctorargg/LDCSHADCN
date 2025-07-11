@@ -10,6 +10,7 @@ interface BlogPost {
   slug: string;
   category: string;
   status: string;
+  content?: string;
 }
 
 export class BlogNotificationService {
@@ -49,6 +50,7 @@ export class BlogNotificationService {
           blogExcerpt: blogPost.excerpt,
           blogSlug: blogPost.slug,
           blogCategory: blogPost.category,
+          blogContent: blogPost.content,
           approvalToken,
           isApprovalEmail: true,
         })
@@ -128,6 +130,7 @@ export class BlogNotificationService {
               blogExcerpt: blogPost.excerpt,
               blogSlug: blogPost.slug,
               blogCategory: blogPost.category,
+              blogContent: blogPost.content,
               isApprovalEmail: false,
             })
           );

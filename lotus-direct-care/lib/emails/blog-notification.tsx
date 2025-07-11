@@ -19,6 +19,7 @@ interface BlogNotificationEmailProps {
   blogExcerpt: string;
   blogSlug: string;
   blogCategory: string;
+  blogContent?: string; // First few paragraphs for preview
   approvalToken?: string;
   isApprovalEmail?: boolean;
 }
@@ -29,6 +30,7 @@ export const BlogNotificationEmail = ({
   blogExcerpt,
   blogSlug,
   blogCategory,
+  blogContent,
   approvalToken,
   isApprovalEmail = false,
 }: BlogNotificationEmailProps) => {
@@ -36,6 +38,46 @@ export const BlogNotificationEmail = ({
   const blogUrl = `${baseUrl}/resources/blog/${blogSlug}`;
   const approveUrl = approvalToken ? `${baseUrl}/api/admin/blog/approve?token=${approvalToken}&action=approve` : '';
   const rejectUrl = approvalToken ? `${baseUrl}/api/admin/blog/approve?token=${approvalToken}&action=reject` : '';
+
+  // Helper function to convert basic markdown to HTML for email
+  const formatContentForEmail = (content: string) => {
+    if (!content) return '';
+    
+    // Take first 500 characters for preview
+    const preview = content.substring(0, 500);
+    
+    // Basic markdown to HTML conversion for emails
+    return preview
+      .split('\n\n')
+      .map(paragraph => {
+        // Convert headers
+        if (paragraph.startsWith('### ')) {
+          return `<h3 style="${emailH3}">${paragraph.replace('### ', '')}</h3>`;
+        }
+        if (paragraph.startsWith('## ')) {
+          return `<h2 style="${emailH2}">${paragraph.replace('## ', '')}</h2>`;
+        }
+        if (paragraph.startsWith('# ')) {
+          return `<h1 style="${emailH1}">${paragraph.replace('# ', '')}</h1>`;
+        }
+        
+        // Convert bold and italic
+        let formatted = paragraph
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>');
+        
+        // Convert lists
+        if (paragraph.startsWith('- ') || paragraph.startsWith('* ')) {
+          const items = paragraph.split('\n').map(item => 
+            `<li style="${emailLi}">${item.replace(/^[-*]\s/, '')}</li>`
+          ).join('');
+          return `<ul style="${emailUl}">${items}</ul>`;
+        }
+        
+        return `<p style="${emailP}">${formatted}</p>`;
+      })
+      .join('');
+  };
 
   return (
     <Html>
@@ -172,6 +214,29 @@ const h2 = {
   fontWeight: 'bold',
   margin: '0 0 10px',
   padding: '0',
+};
+
+const h3 = {
+  color: '#333',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  margin: '16px 0 8px',
+  padding: '0',
+};
+
+const previewSection = {
+  backgroundColor: '#fafafa',
+  borderRadius: '8px',
+  padding: '24px',
+  margin: '24px 0',
+  border: '1px solid #e5e5e5',
+};
+
+const fadeText = {
+  color: '#999',
+  fontSize: '16px',
+  textAlign: 'center' as const,
+  margin: '8px 0 0',
 };
 
 const text = {
