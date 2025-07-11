@@ -49,10 +49,12 @@ export default async function BlogPostViewPage({
             </Button>
           </Link>
           {post.status === 'published' && (
-            <Button variant="outline">
-              <Eye className="w-4 h-4 mr-2" />
-              View Live
-            </Button>
+            <Link href={`/resources/blog/${post.slug}`} target="_blank">
+              <Button variant="outline">
+                <Eye className="w-4 h-4 mr-2" />
+                View Live
+              </Button>
+            </Link>
           )}
         </div>
       </div>

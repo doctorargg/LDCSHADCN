@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { getAdminHeaders } from '@/lib/admin-auth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,10 +43,7 @@ export default function BlogActions({ post }: { post: BlogPost }) {
     try {
       const response = await fetch('/api/ai-blog/schedule', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
-        },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           postId: post.id,
           action: 'publish',
@@ -67,10 +65,7 @@ export default function BlogActions({ post }: { post: BlogPost }) {
     try {
       const response = await fetch('/api/ai-blog/schedule', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
-        },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           postId: post.id,
           action: 'schedule',
@@ -92,13 +87,9 @@ export default function BlogActions({ post }: { post: BlogPost }) {
   const handleDelete = async () => {
     setIsLoading(true);
     try {
-      // In a real app, you'd create a delete endpoint
-      // For now, we'll just archive it
       const response = await fetch(`/api/admin/blog/${post.id}`, {
         method: 'DELETE',
-        headers: {
-          'x-api-key': document.cookie.split('admin-token=')[1]?.split(';')[0] || '',
-        },
+        headers: getAdminHeaders(),
       });
 
       if (response.ok) {

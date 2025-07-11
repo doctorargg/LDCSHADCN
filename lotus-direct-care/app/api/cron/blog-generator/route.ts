@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BlogGenerator } from '@/lib/ai/blog-generator';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
+import { BlogNotificationService } from '@/lib/services/blog-notification';
 
 // This function runs on a schedule via Vercel Cron
 export async function GET(request: NextRequest) {
@@ -57,6 +58,8 @@ export async function GET(request: NextRequest) {
           console.error('Failed to save generated blog post:', error);
         } else {
           console.log('Successfully generated blog post:', data.title);
+          // Send approval notification to admin
+          await BlogNotificationService.sendApprovalNotification(data);
         }
       } catch (error) {
         console.error('Failed to generate blog post:', error);
@@ -93,8 +96,8 @@ export async function GET(request: NextRequest) {
         } else {
           console.log(`Published post: ${post.title}`);
           
-          // TODO: Trigger email notifications for new blog post
-          // This could call another API endpoint or service
+          // Send notifications to subscribers
+          await BlogNotificationService.sendPublishedNotification(post);
         }
       }
     }

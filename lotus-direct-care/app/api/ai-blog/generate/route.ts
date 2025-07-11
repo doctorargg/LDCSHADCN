@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BlogGenerator } from '@/lib/ai/blog-generator';
 import { createClient } from '@/lib/supabase/server';
 import { BlogContext } from '@/lib/ai/prompts/blog-content';
+import { BlogNotificationService } from '@/lib/services/blog-notification';
 
 export async function POST(request: NextRequest) {
   try {
@@ -97,6 +98,17 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to save blog post', details: error.message },
         { status: 500 }
       );
+    }
+
+    // Send notification emails
+    if (data) {
+      if (publish) {
+        // If publishing immediately, send to subscribers
+        await BlogNotificationService.sendPublishedNotification(data);
+      } else {
+        // If draft, send approval notification to admin
+        await BlogNotificationService.sendApprovalNotification(data);
+      }
     }
 
     return NextResponse.json({

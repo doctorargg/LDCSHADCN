@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { createClient } from '@/lib/supabase/server';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 import { Users, Mail, FileText, TrendingUp } from 'lucide-react';
@@ -78,69 +79,84 @@ export default async function AdminDashboardPage() {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalLeads}</div>
-            <p className="text-xs text-muted-foreground">
-              {stats.newLeads} new leads to review
-            </p>
-          </CardContent>
-        </Card>
+        <Link href="/admin/leads" className="block transition-transform hover:scale-105">
+          <Card className="cursor-pointer hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.totalLeads}</div>
+              <p className="text-xs text-muted-foreground">
+                {stats.newLeads} new leads to review
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">AI Emails Sent</CardTitle>
-            <Mail className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalEmails}</div>
-            <p className="text-xs text-muted-foreground">
-              {stats.emailsToday} sent today
-            </p>
-          </CardContent>
-        </Card>
+        <Link href="/admin/emails" className="block transition-transform hover:scale-105">
+          <Card className="cursor-pointer hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">AI Emails Sent</CardTitle>
+              <Mail className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.totalEmails}</div>
+              <p className="text-xs text-muted-foreground">
+                {stats.emailsToday} sent today
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Blog Posts</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalPosts}</div>
-            <p className="text-xs text-muted-foreground">
-              {stats.draftPosts} drafts pending review
-            </p>
-          </CardContent>
-        </Card>
+        <Link href="/admin/blog" className="block transition-transform hover:scale-105">
+          <Card className="cursor-pointer hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Blog Posts</CardTitle>
+              <FileText className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.totalPosts}</div>
+              <p className="text-xs text-muted-foreground">
+                {stats.draftPosts} drafts pending review
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.totalLeads > 0 
-                ? Math.round((stats.totalEmails / stats.totalLeads) * 100) 
-                : 0}%
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Email response rate
-            </p>
-          </CardContent>
-        </Card>
+        <Link href="/admin/emails" className="block transition-transform hover:scale-105">
+          <Card className="cursor-pointer hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {stats.totalLeads > 0 
+                  ? Math.round((stats.totalEmails / stats.totalLeads) * 100) 
+                  : 0}%
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Email response rate
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Recent Activity */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Recent Leads</CardTitle>
-            <CardDescription>Latest patient inquiries</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Recent Leads</CardTitle>
+                <CardDescription>Latest patient inquiries</CardDescription>
+              </div>
+              <Link href="/admin/leads" className="text-sm text-lotus-primary hover:text-lotus-primary/80">
+                View all →
+              </Link>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -168,8 +184,15 @@ export default async function AdminDashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent AI Emails</CardTitle>
-            <CardDescription>Latest automated responses</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Recent AI Emails</CardTitle>
+                <CardDescription>Latest automated responses</CardDescription>
+              </div>
+              <Link href="/admin/emails" className="text-sm text-lotus-primary hover:text-lotus-primary/80">
+                View all →
+              </Link>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
