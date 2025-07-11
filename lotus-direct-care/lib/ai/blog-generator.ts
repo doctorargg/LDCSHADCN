@@ -168,11 +168,17 @@ export class BlogGenerator {
   }
 
   private generateSlug(title: string): string {
-    return title
+    const baseSlug = title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '')
-      .substring(0, 60);
+      .substring(0, 50); // Reduced to leave room for suffix
+    
+    // Add a timestamp-based suffix to ensure uniqueness
+    const timestamp = Date.now().toString(36); // Convert to base36 for shorter string
+    const randomSuffix = Math.random().toString(36).substring(2, 5); // 3 random chars
+    
+    return `${baseSlug}-${timestamp}-${randomSuffix}`;
   }
 
   private determineCategory(topic: string): string {

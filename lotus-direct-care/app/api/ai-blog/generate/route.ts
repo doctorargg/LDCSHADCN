@@ -68,29 +68,55 @@ export async function POST(request: NextRequest) {
     console.log('Generating blog post with context:', context);
     const blogPost = await generator.generatePost(context);
 
-    // Save to database
-    const { data, error } = await supabase
-      .from('blog_posts_ai')
-      .insert({
-        title: blogPost.title,
-        slug: blogPost.slug,
-        content: blogPost.content,
-        excerpt: blogPost.excerpt,
-        category: blogPost.category,
-        tags: blogPost.tags,
-        seo_title: blogPost.seoTitle,
-        seo_description: blogPost.seoDescription,
-        seo_keywords: blogPost.seoKeywords,
-        status: publish ? 'published' : 'draft',
-        published_at: publish ? new Date().toISOString() : null,
-        scheduled_for: scheduledFor || null,
-        ai_model: blogPost.aiModel,
-        generation_prompt: blogPost.generationPrompt,
-        author_name: 'Dr. Aaron Rosenberg',
-        author_role: 'Medical Director',
-      })
-      .select()
-      .single();
+    // Save to database with retry logic for duplicate slugs
+    let data = null;
+    let error = null;
+    let retries = 0;
+    const maxRetries = 3;
+
+    while (!data && retries < maxRetries) {
+      const result = await supabase
+        .from('blog_posts_ai')
+        .insert({
+          title: blogPost.title,
+          slug: blogPost.slug,
+          content: blogPost.content,
+          excerpt: blogPost.excerpt,
+          category: blogPost.category,
+          tags: blogPost.tags,
+          seo_title: blogPost.seoTitle,
+          seo_description: blogPost.seoDescription,
+          seo_keywords: blogPost.seoKeywords,
+          status: publish ? 'published' : 'draft',
+          published_at: publish ? new Date().toISOString() : null,
+          scheduled_for: scheduledFor || null,
+          ai_model: blogPost.aiModel,
+          generation_prompt: blogPost.generationPrompt,
+          author_name: 'Dr. Aaron Rosenberg',
+          author_role: 'Medical Director',
+        })
+        .select()
+        .single();
+
+      data = result.data;
+      error = result.error;
+
+      // Check if error is due to duplicate slug
+      if (error && error.code === '23505' && error.message?.includes('slug')) {
+        console.log(`Duplicate slug detected: ${blogPost.slug}, regenerating...`);
+        retries++;
+        
+        // Regenerate the slug with additional randomness
+        const timestamp = Date.now().toString(36);
+        const randomSuffix = Math.random().toString(36).substring(2, 7);
+        blogPost.slug = `${blogPost.slug.split('-')[0]}-${timestamp}-${randomSuffix}`;
+        
+        error = null; // Clear error for next iteration
+      } else if (error) {
+        // Other error, break out of loop
+        break;
+      }
+    }
 
     if (error) {
       console.error('Database error:', error);

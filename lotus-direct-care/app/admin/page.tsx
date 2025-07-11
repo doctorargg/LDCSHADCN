@@ -94,7 +94,7 @@ export default async function AdminDashboardPage() {
           </Card>
         </Link>
 
-        <Link href="/admin/emails" className="block transition-transform hover:scale-105">
+        <Link href="/admin/ai/emails" className="block transition-transform hover:scale-105">
           <Card className="cursor-pointer hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">AI Emails Sent</CardTitle>
@@ -109,7 +109,7 @@ export default async function AdminDashboardPage() {
           </Card>
         </Link>
 
-        <Link href="/admin/blog" className="block transition-transform hover:scale-105">
+        <Link href="/admin/ai/blog" className="block transition-transform hover:scale-105">
           <Card className="cursor-pointer hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Blog Posts</CardTitle>
@@ -124,7 +124,7 @@ export default async function AdminDashboardPage() {
           </Card>
         </Link>
 
-        <Link href="/admin/emails" className="block transition-transform hover:scale-105">
+        <Link href="/admin/ai/emails" className="block transition-transform hover:scale-105">
           <Card className="cursor-pointer hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
@@ -189,7 +189,7 @@ export default async function AdminDashboardPage() {
                 <CardTitle>Recent AI Emails</CardTitle>
                 <CardDescription>Latest automated responses</CardDescription>
               </div>
-              <Link href="/admin/emails" className="text-sm text-lotus-primary hover:text-lotus-primary/80">
+              <Link href="/admin/ai/emails" className="text-sm text-lotus-primary hover:text-lotus-primary/80">
                 View all →
               </Link>
             </div>
