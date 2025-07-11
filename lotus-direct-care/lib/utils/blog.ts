@@ -2,6 +2,12 @@ import { BlogPost, BlogCategory, BlogTag, PaginationInfo } from '@/lib/types/blo
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { 
+  getAllBlogPostsFromDB, 
+  getBlogPostFromDB, 
+  getAllCategoriesFromDB, 
+  getAllTagsFromDB 
+} from '@/lib/services/blog-db';
 
 const POSTS_PER_PAGE = 9;
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'blog');
@@ -22,7 +28,7 @@ export function generateSlug(title: string): string {
     .trim();
 }
 
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
+async function getAllBlogPostsFromFiles(): Promise<BlogPost[]> {
   try {
     if (!fs.existsSync(CONTENT_DIR)) {
       return [];
@@ -63,15 +69,57 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
     
     return posts;
   } catch (error) {
-    console.error('Error reading blog posts:', error);
+    console.error('Error reading blog posts from files:', error);
     return [];
+  }
+}
+
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  try {
+    // First try to get posts from database
+    const dbPosts = await getAllBlogPostsFromDB();
+    
+    // Then get posts from files
+    const filePosts = await getAllBlogPostsFromFiles();
+    
+    // Combine both sources, with database posts taking precedence for duplicate slugs
+    const allPosts = [...dbPosts];
+    const dbSlugs = new Set(dbPosts.map(post => post.slug));
+    
+    filePosts.forEach(post => {
+      if (!dbSlugs.has(post.slug)) {
+        allPosts.push(post);
+      }
+    });
+    
+    // Sort by published date
+    return allPosts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+  } catch (error) {
+    console.error('Error getting all blog posts:', error);
+    return [];
+  }
+}
+
+async function getBlogPostFromFile(slug: string): Promise<BlogPost | null> {
+  try {
+    const posts = await getAllBlogPostsFromFiles();
+    return posts.find(post => post.slug === slug) || null;
+  } catch (error) {
+    console.error('Error getting blog post from file:', error);
+    return null;
   }
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
-    const posts = await getAllBlogPosts();
-    return posts.find(post => post.slug === slug) || null;
+    // First try to get the post from database
+    const dbPost = await getBlogPostFromDB(slug);
+    if (dbPost) {
+      return dbPost;
+    }
+    
+    // If not found in database, try files
+    return await getBlogPostFromFile(slug);
   } catch (error) {
     console.error('Error getting blog post:', error);
     return null;
