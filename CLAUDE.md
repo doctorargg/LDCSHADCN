@@ -3,6 +3,12 @@
 ## 🏥 Project Overview
 Lotus Direct Care is a medical practice website for Dr. Aaron Rosenberg, featuring functional medicine and direct primary care services. Built with Next.js, TypeScript, and Tailwind CSS.
 
+## 📚 Project Documentation
+- **PROJECT_MEMORY.md** - Current implementation status and handoff instructions
+- **IMPLEMENTATION_LOG.md** - Technical decisions and rationale
+- **DEBUGGING_GUIDE.md** - Common issues and solutions
+- **CLAUDE.md** - This file, project overview and workflow
+
 ## 🚀 Parallel Development Strategy
 
 ### Active Branches & Their Purpose
@@ -16,7 +22,7 @@ We're using a parallel development approach with different Claude instances work
 ### Current Development Status
 
 #### 🤖 AI Integration Branch (ai-integration)
-**Last Active**: 2025-01-09
+**Last Active**: 2025-01-11
 **Recent Progress**:
 - ✅ Implemented AI-powered email response system
 - ✅ Set up blog automation infrastructure
@@ -29,6 +35,9 @@ We're using a parallel development approach with different Claude instances work
 - ✅ Built comprehensive admin dashboard with authentication
 - ✅ Added email response review interface
 - ✅ Created AI settings configuration UI
+- ✅ Fixed blog database integration - published posts now show on site
+- ✅ Resolved TypeScript build errors for deployment
+- ✅ Created comprehensive project documentation system
 
 **Files Modified**:
 - `/lib/ai/*` - AI service implementations
@@ -72,6 +81,23 @@ cat CLAUDE.md
 
 ### During Development
 
+#### Version Control & Memory Protocol
+1. **Start of work**: Read PROJECT_MEMORY.md for current status
+2. **During work**: Update documentation as you go
+3. **Before commits**: Run debugging checklist
+4. **After milestones**: Full documentation update
+
+#### Debugging Checklist (Run before every commit)
+```bash
+# 1. Build locally
+npm run build
+
+# 2. Type check
+npx tsc --noEmit
+
+# 3. If errors, check DEBUGGING_GUIDE.md for solutions
+```
+
 #### For AI Integration Work (Terminal 1)
 - Focus on: `/lib/ai/*`, `/app/api/*`, database files, environment config
 - Avoid: UI components, frontend pages, styling files
@@ -83,11 +109,14 @@ cat CLAUDE.md
 - Use commit prefix: `feat(ui):`, `fix(ui):`, etc.
 
 ### After Completing Features
-1. Run tests and linting (if available)
-2. Commit with descriptive messages
-3. Push to your branch
-4. Create PR to develop branch
-5. Update this file with progress
+1. Run debugging checklist
+2. Update PROJECT_MEMORY.md with changes
+3. Add technical decisions to IMPLEMENTATION_LOG.md
+4. Document any new issues in DEBUGGING_GUIDE.md
+5. Commit with descriptive messages
+6. Push to your branch
+7. Create PR to develop branch
+8. Update this file with progress
 
 ## 🔄 Integration Strategy
 
@@ -139,11 +168,14 @@ cat CLAUDE.md
 ## 💡 Development Tips
 
 ### Working with Claude
-1. **Always start by reading this file** to understand current context
+1. **Always start by reading PROJECT_MEMORY.md** for current implementation status
 2. **Check your branch** before making changes
 3. **Use TodoWrite tool** to track complex tasks
-4. **Commit frequently** with clear messages
-5. **Document API changes** for the other terminal
+4. **Run debugging checklist** before commits
+5. **Update documentation** after significant changes
+6. **Commit frequently** with clear messages
+7. **Push to GitHub** at major milestones
+8. **Document API changes** for the other terminal
 
 ### Git Commands Quick Reference
 ```bash
@@ -176,12 +208,14 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 **Scopes**: ai, ui, api, db, config, etc.
 
 ## 🔗 Related Documentation
+- `/PROJECT_MEMORY.md` - Current implementation status and handoff guide
+- `/IMPLEMENTATION_LOG.md` - Technical decisions and rationale
+- `/DEBUGGING_GUIDE.md` - Common issues and solutions
 - `/CLAUDE_COORDINATION.md` - Detailed branch coordination rules
-- `/lotus-direct-care/CLAUDE.md` - Project-specific memory
 - `/docs/` - Technical specifications and guides
 
 ## 📅 Last Updated
-2025-01-09 - Created comprehensive parallel development guide
+2025-01-11 - Added comprehensive documentation system and debugging protocols
 
 ---
 
