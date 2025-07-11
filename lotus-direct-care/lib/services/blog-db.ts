@@ -1,6 +1,38 @@
 import { createClient } from '@/lib/supabase/server';
 import { BlogPost } from '@/lib/types/blog';
 
+// Database blog post type
+interface DatabaseBlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string | null;
+  category: string | null;
+  tags: string[] | null;
+  status: string;
+  ai_generated: boolean | null;
+  ai_model: string | null;
+  generation_prompt: string | null;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string[] | null;
+  featured_image_url: string | null;
+  reading_time_minutes: number | null;
+  published_at: string | null;
+  scheduled_for: string | null;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
+  created_at: string;
+  updated_at: string;
+  approval_token: string | null;
+  approval_token_expires: string | null;
+  // Additional fields that might be used
+  author_name?: string;
+  author_role?: string;
+  featured_image?: string;
+}
+
 // Default author for AI-generated posts
 const DEFAULT_AUTHOR = {
   name: 'Dr. Aaron Rosenberg',
@@ -34,7 +66,7 @@ export class BlogDatabaseService {
       }
 
       // Convert database format to BlogPost interface
-      return data.map(post => this.convertToBlogPost(post));
+      return data.map((post: DatabaseBlogPost) => this.convertToBlogPost(post));
     } catch (error) {
       console.error('Error in getAllBlogPosts:', error);
       return [];
@@ -85,7 +117,7 @@ export class BlogDatabaseService {
         return [];
       }
 
-      return data.map(post => this.convertToBlogPost(post));
+      return data.map((post: DatabaseBlogPost) => this.convertToBlogPost(post));
     } catch (error) {
       console.error('Error fetching posts by category:', error);
       return [];
@@ -111,7 +143,7 @@ export class BlogDatabaseService {
         return [];
       }
 
-      return data.map(post => this.convertToBlogPost(post));
+      return data.map((post: DatabaseBlogPost) => this.convertToBlogPost(post));
     } catch (error) {
       console.error('Error fetching posts by tag:', error);
       return [];
@@ -121,7 +153,7 @@ export class BlogDatabaseService {
   /**
    * Convert database post to BlogPost interface
    */
-  private static convertToBlogPost(dbPost: any): BlogPost {
+  private static convertToBlogPost(dbPost: DatabaseBlogPost): BlogPost {
     // Convert category to match frontend expectations
     const categoryMap: Record<string, string> = {
       'Functional Medicine': 'functional-medicine',
@@ -134,15 +166,16 @@ export class BlogDatabaseService {
       'General Health': 'wellness',
     };
 
-    const categorySlug = categoryMap[dbPost.category] || 'wellness';
+    const category = dbPost.category || 'General Health';
+    const categorySlug = categoryMap[category] || 'wellness';
 
     return {
       slug: dbPost.slug,
       title: dbPost.title,
-      excerpt: dbPost.excerpt,
+      excerpt: dbPost.excerpt || '',
       content: dbPost.content,
-      publishedAt: dbPost.published_at,
-      updatedAt: dbPost.updated_at || dbPost.published_at,
+      publishedAt: dbPost.published_at || new Date().toISOString(),
+      updatedAt: dbPost.updated_at || dbPost.published_at || new Date().toISOString(),
       author: {
         id: 'dr-aaron-rosenberg',
         name: dbPost.author_name || DEFAULT_AUTHOR.name,
@@ -150,15 +183,15 @@ export class BlogDatabaseService {
         bio: DEFAULT_AUTHOR.bio,
         image: DEFAULT_AUTHOR.avatar,
       },
-      categories: [dbPost.category], // Convert single category to array
+      categories: [category], // Convert single category to array
       tags: dbPost.tags || [],
       readingTime: this.calculateReadingTime(dbPost.content),
       seo: {
         metaTitle: dbPost.seo_title || dbPost.title,
-        metaDescription: dbPost.seo_description || dbPost.excerpt,
+        metaDescription: dbPost.seo_description || dbPost.excerpt || '',
         keywords: dbPost.seo_keywords || [],
       },
-      featuredImage: dbPost.featured_image || `/images/blog/${categorySlug}-default.jpg`,
+      featuredImage: dbPost.featured_image || dbPost.featured_image_url || `/images/blog/${categorySlug}-default.jpg`,
     };
   }
 
