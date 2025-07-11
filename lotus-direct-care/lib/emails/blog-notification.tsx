@@ -24,6 +24,14 @@ interface BlogNotificationEmailProps {
   isApprovalEmail?: boolean;
 }
 
+// Define email styles for the formatContentForEmail function
+const emailH1 = 'color: #333; font-size: 24px; font-weight: bold; margin: 16px 0 8px; padding: 0;';
+const emailH2 = 'color: #333; font-size: 20px; font-weight: bold; margin: 16px 0 8px; padding: 0;';
+const emailH3 = 'color: #333; font-size: 18px; font-weight: bold; margin: 16px 0 8px; padding: 0;';
+const emailP = 'color: #333; font-size: 16px; line-height: 26px; margin: 16px 0;';
+const emailUl = 'color: #333; font-size: 16px; line-height: 26px; margin: 16px 0; padding-left: 20px;';
+const emailLi = 'margin: 8px 0;';
+
 export const BlogNotificationEmail = ({
   recipientName = 'there',
   blogTitle,
