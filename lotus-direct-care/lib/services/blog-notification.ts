@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
-import { sendEmail } from '@/lib/email';
+import { sendAIGeneratedEmail } from '@/lib/email';
 import { render } from '@react-email/render';
 import BlogNotificationEmail from '@/lib/emails/blog-notification';
-import { randomBytes } from 'crypto';
 
 interface BlogPost {
   id: string;
@@ -25,8 +24,12 @@ export class BlogNotificationService {
         return;
       }
 
-      // Generate approval token
-      const approvalToken = randomBytes(32).toString('hex');
+      // Generate approval token using Web Crypto API (edge-compatible)
+      const buffer = new Uint8Array(32);
+      crypto.getRandomValues(buffer);
+      const approvalToken = Array.from(buffer)
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
       
       // Store approval token in database
       const supabase = await createClient();
@@ -39,7 +42,7 @@ export class BlogNotificationService {
         .eq('id', blogPost.id);
 
       // Render email HTML
-      const emailHtml = render(
+      const emailHtml = await render(
         BlogNotificationEmail({
           recipientName: 'Dr. Rosenberg',
           blogTitle: blogPost.title,
@@ -52,7 +55,7 @@ export class BlogNotificationService {
       );
 
       // Send email
-      await sendEmail({
+      await sendAIGeneratedEmail({
         to: adminEmail,
         subject: `New Blog Post Ready for Approval: ${blogPost.title}`,
         html: emailHtml,
@@ -118,7 +121,7 @@ export class BlogNotificationService {
       // Send emails to all subscribers
       for (const subscriber of subscribers) {
         try {
-          const emailHtml = render(
+          const emailHtml = await render(
             BlogNotificationEmail({
               recipientName: subscriber.name?.split(' ')[0] || 'there',
               blogTitle: blogPost.title,
@@ -129,7 +132,7 @@ export class BlogNotificationService {
             })
           );
 
-          await sendEmail({
+          await sendAIGeneratedEmail({
             to: subscriber.email,
             subject: `New from Dr. Rosenberg: ${blogPost.title}`,
             html: emailHtml,

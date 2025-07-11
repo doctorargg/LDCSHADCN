@@ -132,6 +132,6 @@ export async function GET(request: NextRequest) {
 }
 
 // Vercel Cron configuration
-export const runtime = 'edge';
+// Using Node.js runtime for compatibility with AI services and email functionality
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60; // 60 seconds max
