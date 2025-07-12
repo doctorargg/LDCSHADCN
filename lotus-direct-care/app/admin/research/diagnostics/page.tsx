@@ -41,6 +41,7 @@ export default function ResearchDiagnosticsPage() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
+      console.log('Diagnostics data:', data); // Debug log
       setDiagnostics(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch diagnostics');
@@ -134,12 +135,16 @@ export default function ResearchDiagnosticsPage() {
         <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4">Database Tables</h2>
           <div className="space-y-2">
-            {Object.entries(diagnostics.database.tables || {}).map(([table, exists]) => (
-              <div key={table} className="flex items-center justify-between">
-                <span>{table}</span>
-                <StatusIndicator status={exists} />
-              </div>
-            ))}
+            {Object.keys(diagnostics.database.tables || {}).length === 0 ? (
+              <p className="text-gray-500">Checking tables...</p>
+            ) : (
+              Object.entries(diagnostics.database.tables).map(([table, exists]) => (
+                <div key={table} className="flex items-center justify-between">
+                  <span>{table}</span>
+                  <StatusIndicator status={exists} />
+                </div>
+              ))
+            )}
             {diagnostics.database.error && (
               <Alert className="mt-4">
                 <AlertDescription className="text-sm">
@@ -184,6 +189,32 @@ export default function ResearchDiagnosticsPage() {
                 </li>
               )}
             </ul>
+          </Card>
+        )}
+
+        {/* Errors Section */}
+        {(diagnostics.database.error || diagnostics.permissions.error) && (
+          <Card className="p-6 border-red-500 bg-red-50">
+            <h2 className="text-xl font-semibold mb-4">Errors</h2>
+            <div className="space-y-2">
+              {Object.entries(diagnostics.database.tables || {}).map(([table, exists]) => 
+                !exists && (
+                  <div key={table} className="text-sm text-red-700">
+                    <strong>{table}:</strong> Table not found or inaccessible
+                  </div>
+                )
+              )}
+              {diagnostics.database.error && (
+                <div className="text-sm text-red-700 mt-2">
+                  <strong>Database:</strong> {diagnostics.database.error}
+                </div>
+              )}
+              {diagnostics.permissions.error && (
+                <div className="text-sm text-red-700 mt-2">
+                  <strong>Permissions:</strong> {diagnostics.permissions.error}
+                </div>
+              )}
+            </div>
           </Card>
         )}
 
