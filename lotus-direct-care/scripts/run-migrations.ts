@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs';
 
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
@@ -54,9 +54,15 @@ async function runMigrations() {
         // Skip comments
         if (statement.trim().startsWith('--')) continue;
         
-        const { error } = await supabase.rpc('exec_sql', {
-          sql: statement
-        }).then(() => ({ error: null })).catch((err) => ({ error: err }));
+        let error: any = null;
+        try {
+          const result = await supabase.rpc('exec_sql', {
+            sql: statement
+          });
+          error = result.error;
+        } catch (err) {
+          error = err;
+        }
         
         // If RPC doesn't exist, try direct execution (this won't work with RLS)
         if (error?.message?.includes('exec_sql')) {
