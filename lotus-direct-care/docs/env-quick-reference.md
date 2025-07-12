@@ -10,6 +10,7 @@ NOTIFICATION_EMAIL=info@lotusdirectcare.com
 # Database (Supabase)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here  # Required for admin functions
 
 # Admin API Security
 ADMIN_API_KEY=your-secure-random-key-here
@@ -47,7 +48,10 @@ Add these variables in Vercel Dashboard → Settings → Environment Variables:
 ### Supabase
 1. Go to [app.supabase.com](https://app.supabase.com)
 2. Select your project → Settings → API
-3. Copy the Project URL and anon public key
+3. Copy the following:
+   - Project URL
+   - anon public key
+   - service_role key (keep this secret!)
 
 ## Troubleshooting
 
