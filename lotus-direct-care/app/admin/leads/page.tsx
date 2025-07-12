@@ -1,7 +1,6 @@
-'use client';
+import { createClient } from '@/lib/supabase/server';
 
-import { useEffect, useState } from 'react';
-import { Card } from '@/components/ui/card';
+export const dynamic = 'force-dynamic';
 import {
   Table,
   TableBody,
@@ -10,120 +9,181 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import LeadActions from './lead-actions';
 
-interface Lead {
-  id: string;
-  created_at: string;
-  name: string;
-  email: string;
-  phone?: string;
-  message?: string;
-  preferred_contact?: string;
-  reason_for_visit?: string;
-  status: string;
+async function getLeads(status?: string, search?: string) {
+  const supabase = await createClient();
+  
+  let query = supabase
+    .from('leads')
+    .select('*')
+    .order('created_at', { ascending: false });
+    
+  if (status && status !== 'all') {
+    query = query.eq('status', status);
+  }
+  
+  if (search) {
+    query = query.or(`name.ilike.%${search}%,email.ilike.%${search}%`);
+  }
+  
+  const { data, error } = await query;
+  
+  if (error) {
+    console.error('Error fetching leads:', error);
+    return [];
+  }
+  
+  return data || [];
 }
 
-export default function AdminLeadsPage() {
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default async function LeadsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string; search?: string }>;
+}) {
+  const params = await searchParams;
+  const leads = await getLeads(params.status, params.search);
 
-  useEffect(() => {
-    fetchLeads();
-  }, []);
-
-  const fetchLeads = async () => {
-    try {
-      // Use development endpoint that doesn't require authentication
-      // TODO: Switch to /api/admin/leads with proper auth in production
-      const response = await fetch('/api/admin/leads-dev');
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      // The API returns data in a wrapper object
-      setLeads(result.data || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch leads');
-    } finally {
-      setLoading(false);
-    }
+  const statusColors = {
+    new: 'bg-blue-100 text-blue-800',
+    contacted: 'bg-green-100 text-green-800',
+    qualified: 'bg-yellow-100 text-yellow-800',
+    converted: 'bg-purple-100 text-purple-800',
+    lost: 'bg-gray-100 text-gray-800',
   };
 
-  if (loading) {
-    return (
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-8">Leads Management</h1>
-        <p>Loading leads...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-8">Leads Management</h1>
-        <Alert className="mb-4">
-          <AlertDescription className="text-red-600">
-            Error: {error}
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Leads Management</h1>
-      
-      <Card className="p-6">
-        <div className="mb-4">
-          <p className="text-gray-600">Total leads: {leads.length}</p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Leads Management</h1>
+        <p className="mt-2 text-gray-600">
+          Track and manage patient inquiries and conversions
+        </p>
+      </div>
+
+      {/* Filters */}
+      <form className="flex gap-4 items-end">
+        <div className="flex-1">
+          <label htmlFor="search" className="block text-sm font-medium mb-1">
+            Search
+          </label>
+          <Input
+            id="search"
+            name="search"
+            placeholder="Search by name or email..."
+            defaultValue={params.search}
+          />
         </div>
         
-        {leads.length === 0 ? (
-          <p className="text-gray-500">No leads found.</p>
-        ) : (
-          <Table>
-            <TableHeader>
+        <div>
+          <label htmlFor="status" className="block text-sm font-medium mb-1">
+            Status
+          </label>
+          <Select name="status" defaultValue={params.status || 'all'}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Leads</SelectItem>
+              <SelectItem value="new">New</SelectItem>
+              <SelectItem value="contacted">Contacted</SelectItem>
+              <SelectItem value="qualified">Qualified</SelectItem>
+              <SelectItem value="converted">Converted</SelectItem>
+              <SelectItem value="lost">Lost</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        
+        <Button type="submit" variant="secondary">
+          Apply Filters
+        </Button>
+      </form>
+
+      {/* Leads Table */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Contact Info</TableHead>
+              <TableHead>Reason for Visit</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {leads.length === 0 ? (
               <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Reason</TableHead>
+                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                  No leads found
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {leads.map((lead) => (
+            ) : (
+              leads.map((lead: any) => (
                 <TableRow key={lead.id}>
+                  <TableCell className="font-medium">
+                    {lead.name}
+                  </TableCell>
+                  <TableCell>
+                    <div className="text-sm">
+                      <p>{lead.email}</p>
+                      {lead.phone && <p className="text-gray-500">{lead.phone}</p>}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="max-w-xs">
+                      {lead.reason_for_visit && (
+                        <p className="text-sm font-medium">{lead.reason_for_visit}</p>
+                      )}
+                      {lead.message && (
+                        <p className="text-xs text-gray-500 truncate">{lead.message}</p>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge className={statusColors[lead.status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}>
+                      {lead.status}
+                    </Badge>
+                  </TableCell>
                   <TableCell>
                     {new Date(lead.created_at).toLocaleDateString()}
                   </TableCell>
-                  <TableCell className="font-medium">{lead.name}</TableCell>
-                  <TableCell>{lead.email}</TableCell>
-                  <TableCell>{lead.phone || '-'}</TableCell>
-                  <TableCell>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      lead.status === 'new' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {lead.status}
-                    </span>
-                  </TableCell>
-                  <TableCell className="max-w-xs truncate">
-                    {lead.reason_for_visit || '-'}
+                  <TableCell className="text-right">
+                    <LeadActions lead={lead} />
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </Card>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+        {Object.entries(statusColors).map(([status, color]: any) => {
+          const count = leads.filter((lead: any) => lead.status === status).length;
+          return (
+            <div key={status} className="bg-white rounded-lg shadow p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium capitalize">{status}</span>
+                <Badge className={color}>{count}</Badge>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
