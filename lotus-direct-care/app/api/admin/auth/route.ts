@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Auth error:', error);
     return NextResponse.json(
       { error: 'Authentication failed' },
@@ -54,7 +54,7 @@ export async function DELETE(request: NextRequest) {
     cookieStore.delete('admin-token');
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Logout error:', error);
     return NextResponse.json(
       { error: 'Logout failed' },

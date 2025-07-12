@@ -50,7 +50,7 @@ export async function DELETE(
       message: 'Blog post archived successfully',
       data 
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in DELETE /api/admin/blog/[id]:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -100,7 +100,7 @@ export async function GET(
     }
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in GET /api/admin/blog/[id]:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -159,7 +159,7 @@ export async function PATCH(
       message: 'Blog post updated successfully',
       data 
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in PATCH /api/admin/blog/[id]:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

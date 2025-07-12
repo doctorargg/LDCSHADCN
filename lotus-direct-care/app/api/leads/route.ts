@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
           email: validatedData.email,
           inquiryType: aiResponse.inquiryType,
         });
-      } catch (error) {
+      } catch (error: unknown) {
         logger.error('Failed to process AI email', error, {
           leadId: savedLeadId,
           email: validatedData.email,
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     )
     
-  } catch (error) {
+  } catch (error: unknown) {
     // Enhanced error logging
     console.error('Caught error in POST /api/leads:', {
       error,

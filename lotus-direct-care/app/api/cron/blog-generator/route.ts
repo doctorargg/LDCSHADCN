@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
           // Send approval notification to admin
           await BlogNotificationService.sendApprovalNotification(data);
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Failed to generate blog post:', error);
       }
     } else {
@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
       draftCount,
       publishedCount: scheduledPosts?.length || 0,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Blog generator cron error:', error);
     return NextResponse.json(
       { error: 'Cron job failed', details: error instanceof Error ? error.message : 'Unknown error' },

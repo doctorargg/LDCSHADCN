@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
       post: data,
       message: `Blog post ${action}ed successfully`,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Blog scheduling error:', error);
     return NextResponse.json(
       { error: 'Failed to schedule blog post', details: error instanceof Error ? error.message : 'Unknown error' },
@@ -172,7 +172,7 @@ export async function GET(request: NextRequest) {
       upcoming: upcomingPosts || [],
       message: `Published ${publishedPosts.length} posts`,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error processing scheduled posts:', error);
     return NextResponse.json(
       { error: 'Failed to process scheduled posts', details: error instanceof Error ? error.message : 'Unknown error' },

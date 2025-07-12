@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     const { searchParams } = new URL(request.url);
     const queryType = searchParams.get('query_type');
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({ queries: data });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching queries:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     const body = await request.json();
     const {
@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ query: data });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating query:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

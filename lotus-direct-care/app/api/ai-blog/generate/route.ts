@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
       blogPost: data,
       message: publish ? 'Blog post published successfully' : 'Blog post saved as draft',
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Blog generation error:', error);
     return NextResponse.json(
       { error: 'Failed to generate blog post', details: error instanceof Error ? error.message : 'Unknown error' },
@@ -193,7 +193,7 @@ export async function GET(request: NextRequest) {
       limit,
       offset,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error retrieving blog posts:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve blog posts', details: error instanceof Error ? error.message : 'Unknown error' },

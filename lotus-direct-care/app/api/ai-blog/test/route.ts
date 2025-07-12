@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         contentPreview: blogPost.content.substring(0, 500) + '...',
       },
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Blog test error:', error);
     return NextResponse.json(
       { error: 'Failed to generate test blog post', details: error instanceof Error ? error.message : 'Unknown error' },

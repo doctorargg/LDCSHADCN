@@ -89,7 +89,11 @@
       "Bash(cd:*)",
       "Bash(cd:*)",
       "Bash(cd:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(for:*)",
+      "Bash(do sed -i 's/} catch (error) {/} catch (error: unknown) {/g' \"$file\")",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(claude mcp:*)"
     ],
     "deny": []
   }

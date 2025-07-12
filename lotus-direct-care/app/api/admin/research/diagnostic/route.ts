@@ -1,5 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
+
+interface DiagnosticResult {
+  tables: Record<string, {
+    exists: boolean;
+    count: number;
+    error: string | null;
+  }>;
+  environment: Record<string, boolean>;
+  errors: string[];
+  rls_note?: string;
+  write_permission?: {
+    status: string;
+    error: string | null;
+  };
+  status?: string;
+  recommendation?: string;
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,8 +34,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const supabase = await createClient();
-    const diagnostics: any = {
+    const supabase = createAdminClient();
+    const diagnostics: DiagnosticResult = {
       tables: {},
       environment: {},
       errors: []
@@ -57,7 +74,7 @@ export async function GET(request: NextRequest) {
             error: null
           };
         }
-      } catch (e) {
+      } catch (e: unknown) {
         diagnostics.tables[table] = {
           exists: false,
           count: 0,
@@ -69,14 +86,13 @@ export async function GET(request: NextRequest) {
 
     // Check RLS policies
     try {
-      const { data: policies } = await supabase
-        .rpc('get_policies', { schema_name: 'public' })
-        .then(result => ({ data: null }))
-        .catch(() => ({ data: null }));
+      await supabase
+        .rpc('get_policies', { schema_name: 'public' });
       
       diagnostics.rls_note = 'Check Supabase dashboard for RLS policy status';
-    } catch (e) {
+    } catch (e: unknown) {
       // RPC might not exist, that's okay
+      diagnostics.rls_note = 'Check Supabase dashboard for RLS policy status';
     }
 
     // Check if we can insert a test record (to test write permissions)
@@ -110,7 +126,7 @@ export async function GET(request: NextRequest) {
           error: null
         };
       }
-    } catch (e) {
+    } catch (e: unknown) {
       diagnostics.write_permission = {
         status: 'failed',
         error: e instanceof Error ? e.message : 'Unknown error'
@@ -124,7 +140,7 @@ export async function GET(request: NextRequest) {
       : 'System appears healthy';
 
     return NextResponse.json(diagnostics);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Diagnostic error:', error);
     return NextResponse.json(
       { 

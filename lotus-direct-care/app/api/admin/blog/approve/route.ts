@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
         'Content-Type': 'text/html',
       },
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error processing approval:', error);
     
     // Return error HTML page

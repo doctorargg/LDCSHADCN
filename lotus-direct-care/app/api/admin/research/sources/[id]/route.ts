@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function PATCH(
   request: NextRequest,
@@ -7,7 +7,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -37,7 +37,7 @@ export async function PATCH(
     });
 
     return NextResponse.json({ source: data });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error updating source:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -52,7 +52,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -88,7 +88,7 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error deleting source:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

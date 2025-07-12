@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { researchService } from '@/lib/services/research-service';
 
 export async function GET(request: NextRequest) {
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     const { searchParams } = new URL(request.url);
     const action_type = searchParams.get('action_type');
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json({ history });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching history:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

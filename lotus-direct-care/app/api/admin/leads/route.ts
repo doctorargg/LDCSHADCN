@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
       }
     })
     
-  } catch (error) {
+  } catch (error: unknown) {
     logApiError('GET /api/admin/leads', error)
     
     if (error instanceof z.ZodError) {
@@ -195,7 +195,7 @@ export async function PATCH(request: NextRequest) {
       data
     })
     
-  } catch (error) {
+  } catch (error: unknown) {
     logApiError('PATCH /api/admin/leads', error)
     
     if (error instanceof z.ZodError) {

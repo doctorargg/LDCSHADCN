@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { cookies } from 'next/headers';
 
 export async function GET(request: NextRequest) {
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     const { searchParams } = new URL(request.url);
     const isActive = searchParams.get('is_active');
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({ sources: data });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching sources:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     const body = await request.json();
     const {
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ source: data });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating source:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

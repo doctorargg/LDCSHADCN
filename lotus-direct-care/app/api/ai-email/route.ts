@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
       inquiryType: aiResponse.inquiryType,
     });
     
-  } catch (error) {
+  } catch (error: unknown) {
     logger.error('Error in AI email endpoint', error);
     
     if (error instanceof z.ZodError) {
