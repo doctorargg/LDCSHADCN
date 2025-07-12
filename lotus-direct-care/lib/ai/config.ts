@@ -29,6 +29,7 @@ const envSchema = z.object({
   ANTHROPIC_API_KEY: z.string().optional(),
   OPENAI_API_KEY: z.string().optional(),
   GOOGLE_AI_API_KEY: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(), // Alias for GOOGLE_AI_API_KEY
   FIRECRAWL_API_KEY: z.string().optional(),
   
   // AI Configuration
@@ -56,7 +57,12 @@ const envSchema = z.object({
 // Parse and validate environment variables
 const parseEnv = () => {
   try {
-    return envSchema.parse(process.env);
+    // Handle GEMINI_API_KEY as an alias for GOOGLE_AI_API_KEY
+    const env = { ...process.env };
+    if (env.GEMINI_API_KEY && !env.GOOGLE_AI_API_KEY) {
+      env.GOOGLE_AI_API_KEY = env.GEMINI_API_KEY;
+    }
+    return envSchema.parse(env);
   } catch (error) {
     console.error('Invalid environment variables:', error);
     throw new Error('Invalid environment configuration');
