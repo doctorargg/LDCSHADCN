@@ -13,9 +13,11 @@ import {
   CheckCircle,
   Plus,
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  Activity
 } from 'lucide-react';
 import ResearchActions from './research-actions';
+import DiagnosticButton from './diagnostic-button';
 
 export const dynamic = 'force-dynamic';
 
@@ -92,6 +94,7 @@ export default async function ResearchDashboardPage() {
           </p>
         </div>
         <div className="flex gap-2">
+          <DiagnosticButton />
           <Link href="/admin/ai/research/sources">
             <Button variant="outline">
               <Database className="w-4 h-4 mr-2" />

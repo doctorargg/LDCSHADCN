@@ -229,6 +229,31 @@ return new NextResponse(body, {
 3. Verify the data being sent matches expected format
 4. Check if auth tokens are being properly sent
 
+### If Sources Don't Appear:
+
+1. **Use the System Check button** on the Research Dashboard
+   - This runs comprehensive diagnostics
+   - Shows which tables exist and record counts
+   - Checks environment variables
+   - Tests write permissions
+
+2. **Check Vercel Logs** for the sources page
+   - Look for "Fetching research sources..." log
+   - Check if it shows "Found X sources"
+   - Look for any error messages
+
+3. **Verify Migration Status**
+   - The sources were added in migration files:
+     - `20250711_create_research_tables.sql` (7 default sources)
+     - `20250711_add_curated_research_sources.sql` (20 additional sources)
+   - Run migrations in Supabase dashboard or locally
+
+4. **Manual Database Check**
+   - Go to Supabase dashboard > Table Editor
+   - Check if `research_sources` table exists
+   - Check if it has any records
+   - If table exists but is empty, migrations may have failed silently
+
 ---
 
 ## Database Issues

@@ -19,17 +19,21 @@ export const dynamic = 'force-dynamic';
 async function getResearchSources() {
   const supabase = await createClient();
   
-  const { data, error } = await supabase
+  console.log('Fetching research sources...');
+  
+  const { data, error, count } = await supabase
     .from('research_sources')
-    .select('*')
+    .select('*', { count: 'exact' })
     .order('reliability_score', { ascending: false });
   
   if (error) {
     console.error('Error fetching research sources:', error);
-    return [];
+    return { sources: [], error: error.message, count: 0 };
   }
   
-  return data || [];
+  console.log(`Found ${count} sources:`, data?.length);
+  
+  return { sources: data || [], error: null, count: count || 0 };
 }
 
 const sourceTypeColors: Record<string, string> = {
@@ -42,7 +46,7 @@ const sourceTypeColors: Record<string, string> = {
 };
 
 export default async function ResearchSourcesPage() {
-  const sources = await getResearchSources();
+  const { sources, error, count } = await getResearchSources();
 
   return (
     <div className="space-y-6">
@@ -60,6 +64,22 @@ export default async function ResearchSourcesPage() {
           </Button>
         </Link>
       </div>
+
+      {/* Error Display */}
+      {error && (
+        <Card className="border-red-200 bg-red-50">
+          <CardHeader>
+            <CardTitle className="text-red-700">Database Error</CardTitle>
+            <CardDescription className="text-red-600">{error}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-red-600">
+              This could mean the research tables haven't been created yet. 
+              Please run the database migrations.
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
