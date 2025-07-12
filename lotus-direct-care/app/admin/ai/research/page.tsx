@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -22,7 +22,7 @@ import DiagnosticButton from './diagnostic-button';
 export const dynamic = 'force-dynamic';
 
 async function getResearchStats() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   // Get counts for different entities
   const [
@@ -49,7 +49,7 @@ async function getResearchStats() {
 }
 
 async function getRecentQueries() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   const { data } = await supabase
     .from('research_queries')
@@ -61,7 +61,7 @@ async function getRecentQueries() {
 }
 
 async function getRecentResults() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   const { data } = await supabase
     .from('research_results')

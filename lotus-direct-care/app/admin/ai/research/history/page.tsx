@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -39,7 +39,7 @@ const actionColors: Record<string, string> = {
 };
 
 async function getHistory(filters: { action_type?: string; days?: string }) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   let query = supabase
     .from('research_history')

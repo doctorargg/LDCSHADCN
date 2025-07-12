@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -17,7 +17,7 @@ import SourceActions from './source-actions';
 export const dynamic = 'force-dynamic';
 
 async function getResearchSources() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   console.log('Fetching research sources...');
   
