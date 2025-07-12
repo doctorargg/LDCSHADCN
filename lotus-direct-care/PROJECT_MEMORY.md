@@ -69,6 +69,21 @@ Lotus Direct Care is a medical practice website with advanced AI capabilities fo
    - Created migration to add missing fields (status, recipient_email, ai_model)
    - Fixed email display in admin dashboard
 
+4. **Added curated research sources** (20 additional sources)
+   - Functional Medicine: 7 sources (Chris Kresser, Dr. Hyman, etc.)
+   - Direct Primary Care: 3 sources (DPC Alliance, etc.)
+   - Academic/Research: 4 sources (Cochrane, JAMA, etc.)
+   - Nutrition/Lifestyle: 3 sources (Examine.com, etc.)
+   - Medical Institutions: 3 sources (Johns Hopkins, Stanford, etc.)
+   - Environmental Health: 2 sources
+
+5. **Added sample research queries** (10 pre-configured queries)
+   - Gut Health Research (weekly automated)
+   - Hormone Optimization (weekly automated)
+   - DPC Practice Models (monthly automated)
+   - Metabolic Health (weekly automated)
+   - And 6 more covering various topics
+
 #### Subagent Progress:
 1. **Gemini API Integration** ✅ COMPLETED (2025-01-11)
    - ✅ GoogleAIService class implementation (`/lib/ai/services/gemini.ts`)
