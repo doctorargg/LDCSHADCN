@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { AIServiceFactory } from '@/lib/ai/services/factory';
 import { AIProvider } from '@/lib/ai/config';
 import { FirecrawlService } from '@/lib/ai/firecrawl-service';
@@ -46,23 +47,45 @@ export class ResearchService {
    * Execute a research query using configured sources
    */
   async executeResearch(queryId: string): Promise<ResearchResult[]> {
-    const supabase = await createClient();
+    // Use admin client for research operations to bypass RLS
+    const supabase = createAdminClient();
     
     // Start history entry
     const startTime = Date.now();
     let historyId: string | undefined;
     
     try {
+      // Debug: List all queries first
+      const { data: allQueries, error: listError } = await supabase
+        .from('research_queries')
+        .select('id, name')
+        .limit(10);
+      
+      if (listError) {
+        console.error('Error listing queries:', listError);
+      } else {
+        console.log('Available queries:', allQueries?.map(q => ({ id: q.id, name: q.name })));
+      }
+      
       // Get query configuration
+      console.log('Fetching research query with ID:', queryId);
       const { data: query, error: queryError } = await supabase
         .from('research_queries')
         .select('*')
         .eq('id', queryId)
         .single();
       
-      if (queryError || !query) {
+      if (queryError) {
+        console.error('Error fetching query:', queryError);
+        throw new Error(`Failed to fetch query: ${queryError.message}`);
+      }
+      
+      if (!query) {
+        console.error('No query found with ID:', queryId);
         throw new Error('Query not found');
       }
+      
+      console.log('Query found:', query.name);
 
       // Record start of research
       const { data: history } = await supabase
@@ -142,7 +165,7 @@ export class ResearchService {
    * Get active sources based on query configuration
    */
   private async getActiveSources(query: ResearchQuery): Promise<ResearchSource[]> {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     let sourcesQuery = supabase
       .from('research_sources')
@@ -290,7 +313,7 @@ Provide:
    * Save research results to database
    */
   private async saveResults(queryId: string, results: ResearchResult[]): Promise<void> {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     // Mark previous results as outdated
     await supabase
@@ -334,7 +357,7 @@ Provide:
     resultCount: number,
     errorMessage?: string
   ): Promise<void> {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     await supabase
       .from('research_history')
@@ -359,7 +382,7 @@ Provide:
    * Get recent research results for a query
    */
   async getRecentResults(queryId: string, limit: number = 20): Promise<ResearchResult[]> {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     const { data, error } = await supabase
       .from('research_results')
@@ -384,7 +407,7 @@ Provide:
     days?: number;
     limit?: number;
   }): Promise<any[]> {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     
     let query = supabase
       .from('research_history')

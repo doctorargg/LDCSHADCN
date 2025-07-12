@@ -7,13 +7,22 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const supabase = createAdminClient();
     
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    // Check authentication using admin token
+    const adminToken = request.headers.get('x-admin-token');
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    const apiKey = request.headers.get('x-api-key');
+    
+    const isAuthorized = 
+      adminToken === process.env.ADMIN_API_KEY || 
+      cookieToken === process.env.ADMIN_API_KEY ||
+      apiKey === process.env.ADMIN_API_KEY;
+    
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    
+    const supabase = createAdminClient();
 
     const body = await request.json();
 
@@ -32,7 +41,7 @@ export async function PATCH(
     await supabase.from('research_history').insert({
       action_type: 'config_change',
       source_id: id,
-      user_email: user.email,
+      user_email: 'admin@lotusdirectcare.com',
       details: { action: 'source_updated', changes: Object.keys(body) },
     });
 
@@ -52,13 +61,22 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const supabase = createAdminClient();
     
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    // Check authentication using admin token
+    const adminToken = request.headers.get('x-admin-token');
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    const apiKey = request.headers.get('x-api-key');
+    
+    const isAuthorized = 
+      adminToken === process.env.ADMIN_API_KEY || 
+      cookieToken === process.env.ADMIN_API_KEY ||
+      apiKey === process.env.ADMIN_API_KEY;
+    
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    
+    const supabase = createAdminClient();
 
     // Get source info before deletion
     const { data: source } = await supabase
@@ -79,7 +97,7 @@ export async function DELETE(
     // Log the action
     await supabase.from('research_history').insert({
       action_type: 'config_change',
-      user_email: user.email,
+      user_email: 'admin@lotusdirectcare.com',
       details: { 
         action: 'source_deleted', 
         source_name: source?.name,
