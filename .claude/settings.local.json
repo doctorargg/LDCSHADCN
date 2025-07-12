@@ -94,7 +94,8 @@
       "Bash(do sed -i 's/} catch (error) {/} catch (error: unknown) {/g' \"$file\")",
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(claude mcp:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git stash:*)"
     ],
     "deny": []
   }
