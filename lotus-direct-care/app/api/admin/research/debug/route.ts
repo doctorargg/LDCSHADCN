@@ -2,7 +2,32 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   // Log everything to help debug
-  const debug = {
+  const debug: {
+    env: {
+      NODE_ENV: string | undefined;
+      hasSupabaseUrl: boolean;
+      hasSupabaseAnon: boolean;
+      hasServiceKey: boolean;
+      serviceKeyLength: number;
+      serviceKeyStart: string;
+      serviceKeyEnd: string;
+    };
+    test: string;
+    fetchResult?: {
+      status: number;
+      statusText: string;
+      headers: {
+        'content-type': string | null;
+        'x-request-id': string | null;
+      };
+      data?: any;
+      error?: string;
+    };
+    error?: {
+      message: string;
+      cause?: any;
+    };
+  } = {
     env: {
       NODE_ENV: process.env.NODE_ENV,
       hasSupabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
