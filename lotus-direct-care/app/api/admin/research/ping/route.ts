@@ -1,12 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
-  return NextResponse.json({ 
+// Simple ping endpoint - no auth required, just to verify the route exists
+export async function GET() {
+  return NextResponse.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    headers: {
-      'x-admin-token': request.headers.has('x-admin-token'),
-      'x-api-key': request.headers.has('x-api-key')
-    }
+    environment: process.env.NODE_ENV || 'unknown',
+    message: 'Research API is reachable'
   });
 }

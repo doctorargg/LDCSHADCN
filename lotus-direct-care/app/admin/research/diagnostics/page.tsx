@@ -36,14 +36,41 @@ export default function ResearchDiagnosticsPage() {
     setError(null);
     
     try {
-      const response = await fetch('/api/admin/research/diagnostics');
+      const url = '/api/admin/research/diagnostics';
+      console.log('Fetching diagnostics from:', url);
+      
+      const response = await fetch(url);
+      const contentType = response.headers.get('content-type');
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Try to get error details
+        let errorMsg = `HTTP ${response.status}: ${response.statusText}`;
+        try {
+          if (contentType?.includes('application/json')) {
+            const errorData = await response.json();
+            errorMsg = errorData.error || errorData.message || errorMsg;
+          } else {
+            // Might be getting HTML error page
+            const text = await response.text();
+            if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+              errorMsg = `Got HTML response instead of JSON (${response.status}). API route may not be deployed.`;
+            }
+          }
+        } catch (e) {
+          // Ignore parse errors
+        }
+        throw new Error(errorMsg);
       }
+      
+      if (!contentType?.includes('application/json')) {
+        throw new Error('Response is not JSON. Got: ' + contentType);
+      }
+      
       const data = await response.json();
-      console.log('Diagnostics data:', data); // Debug log
+      console.log('Diagnostics data:', data);
       setDiagnostics(data);
     } catch (err) {
+      console.error('Diagnostics error:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch diagnostics');
     } finally {
       setLoading(false);
@@ -227,9 +254,36 @@ export default function ResearchDiagnosticsPage() {
           </Alert>
         )}
 
-        <Button onClick={fetchDiagnostics} className="mt-4">
-          Refresh Diagnostics
-        </Button>
+        <div className="flex gap-2 mt-4">
+          <Button onClick={fetchDiagnostics}>
+            Refresh Diagnostics
+          </Button>
+        </div>
+        
+        {/* Debug Links */}
+        <Card className="p-6 bg-gray-50">
+          <h2 className="text-lg font-semibold mb-3">Debug Tools</h2>
+          <div className="space-y-2 text-sm">
+            <p>If diagnostics are failing, try these debug endpoints:</p>
+            <ul className="list-disc list-inside space-y-1 ml-4">
+              <li>
+                <a href="/api/admin/research/ping" target="_blank" className="text-blue-600 hover:underline">
+                  /api/admin/research/ping
+                </a> - Basic connectivity test
+              </li>
+              <li>
+                <a href="/api/admin/research/env-check" target="_blank" className="text-blue-600 hover:underline">
+                  /api/admin/research/env-check
+                </a> - Environment variables check
+              </li>
+              <li>
+                <a href="/api/admin/research/vercel-debug" target="_blank" className="text-blue-600 hover:underline">
+                  /api/admin/research/vercel-debug
+                </a> - Detailed debug info
+              </li>
+            </ul>
+          </div>
+        </Card>
       </div>
     </div>
   );

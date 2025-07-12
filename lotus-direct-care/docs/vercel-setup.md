@@ -18,7 +18,12 @@ The application requires the following environment variables:
 | `NOTIFICATION_EMAIL` | Email address to receive lead notifications | Yes | Lead notification system |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Yes | Client & server-side database |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous/public key | Yes | Client & server-side database |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (secret) | Yes | Admin/Research features |
 | `ADMIN_API_KEY` | Secure key for admin API authentication | Yes | Admin API endpoints |
+| `GEMINI_API_KEY` | Google Gemini API key | Optional | AI Research features |
+| `FIRECRAWL_API_KEY` | Firecrawl API key | Optional | Web scraping for research |
+| `ANTHROPIC_API_KEY` | Anthropic Claude API key | Optional | AI email responses |
+| `OPENAI_API_KEY` | OpenAI API key | Optional | AI features |
 
 ### Important Notes on Naming Convention
 
@@ -73,6 +78,18 @@ During the import process, or from your project settings:
 - **Value**: A secure random string (generate with `openssl rand -base64 32`)
 - **Environment**: Select all
 - Click "Save"
+
+#### Adding SUPABASE_SERVICE_ROLE_KEY (Critical for Research System)
+- **Key**: `SUPABASE_SERVICE_ROLE_KEY`
+- **Value**: Your Supabase service role key (NOT the anon key)
+- **Environment**: Select all
+- Click "Save"
+
+**⚠️ Important**: This key is different from the anon key. To get it:
+1. Go to your Supabase project dashboard
+2. Navigate to Settings → API
+3. Under "Project API keys", find "service_role" (secret)
+4. Click "Reveal" and copy the entire key (~219 characters)
 
 ### 3. Deploy
 
@@ -134,7 +151,35 @@ You can set different values for different environments in Vercel:
   - Public keys (like Supabase anon key)
   - Feature flags
 
-## Troubleshooting
+## Research System Troubleshooting
+
+### "Invalid API Key" Error in Research Diagnostics
+
+This is the most common issue. To fix:
+
+1. **Verify Environment Variables in Vercel**:
+   - Go to Vercel Dashboard → Settings → Environment Variables
+   - Ensure `SUPABASE_SERVICE_ROLE_KEY` is set (should show ~219 characters)
+   - Make sure you're using the service_role key, NOT the anon key
+   - Redeploy after adding/updating the key
+
+2. **Test Debug Endpoints**:
+   Visit these URLs on your deployed site:
+   - `/api/admin/research/ping` - Should return `{"status":"ok"}`
+   - `/api/admin/research/env-check` - Shows which env vars are set
+   - `/api/admin/research/vercel-debug` - Detailed debug info
+
+3. **Check Build Logs**:
+   - In Vercel dashboard, check the build logs
+   - Look for any errors related to API routes
+   - Ensure `/app/api/admin/research/` routes are included
+
+4. **Clear Cache and Redeploy**:
+   - In Vercel dashboard, go to Settings → Functions
+   - Clear build cache
+   - Trigger a new deployment
+
+## General Troubleshooting
 
 ### Build Failures
 

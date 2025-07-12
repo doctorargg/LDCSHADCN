@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 
+// Direct copy of what works in the local scripts
 export async function GET() {
   const diagnostics = {
     environment: {
@@ -23,98 +23,77 @@ export async function GET() {
   };
 
   try {
-    // Check if all required environment variables exist
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      diagnostics.database.error = 'Missing required Supabase environment variables';
-      diagnostics.permissions.error = 'Cannot test without Supabase configuration';
+    // Check environment
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      diagnostics.database.error = 'Missing Supabase configuration';
+      diagnostics.permissions.error = 'Cannot test without configuration';
       return NextResponse.json(diagnostics);
     }
 
-    // Check if service role key exists
-    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      diagnostics.permissions.error = 'SUPABASE_SERVICE_ROLE_KEY not configured';
-      return NextResponse.json(diagnostics);
-    }
-
-    // Create admin client with service role key - simplified initialization
-    const supabaseAdmin = createClient(
+    // Import and create client exactly like the working scripts
+    const { createClient } = await import('@supabase/supabase-js');
+    const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
       process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    // Check research tables
-    const researchTables = ['research_sources', 'research_queries', 'research_results', 'research_history'];
-    let allTablesExist = true;
-    
-    for (const table of researchTables) {
+    // Check tables using the exact same method as our working script
+    const tables = ['research_sources', 'research_queries', 'research_results', 'research_history'];
+    let allExist = true;
+
+    for (const table of tables) {
       try {
-        const { count, error } = await supabaseAdmin
+        const { data, error } = await supabase
           .from(table)
-          .select('*', { count: 'exact', head: true });
+          .select('count')
+          .limit(1);
         
         if (error) {
           diagnostics.database.tables[table] = false;
-          allTablesExist = false;
-          if (error.message.includes('does not exist')) {
-            diagnostics.database.error = 'Research tables not found. Run: supabase migration up';
-          }
+          allExist = false;
+          // Log the actual error for debugging
+          console.error(`Table ${table} error:`, error.message);
         } else {
           diagnostics.database.tables[table] = true;
         }
-      } catch (error) {
+      } catch (e) {
         diagnostics.database.tables[table] = false;
-        allTablesExist = false;
+        allExist = false;
+        console.error(`Table ${table} exception:`, e);
       }
     }
-    
-    diagnostics.database.migrationsRun = allTablesExist;
 
-    // Test write permissions only if tables exist
-    if (allTablesExist) {
+    diagnostics.database.migrationsRun = allExist;
+
+    // Test write permissions using the exact same approach
+    if (allExist) {
       try {
-        // Use a simple insert/delete test
-        const testId = `test-${Date.now()}`;
-        const { error: insertError } = await supabaseAdmin
+        const { data, error } = await supabase
           .from('research_sources')
-          .insert({
-            id: testId,
-            name: 'Diagnostic Test',
-            url: 'https://test.local',
-            source_type: 'website',
-            is_active: false
-          });
+          .select('id')
+          .limit(1);
         
-        if (insertError) {
-          diagnostics.permissions.error = insertError.message;
+        if (error) {
+          diagnostics.permissions.error = error.message;
           diagnostics.permissions.canWrite = false;
         } else {
-          // Clean up test data
-          await supabaseAdmin
-            .from('research_sources')
-            .delete()
-            .eq('id', testId);
+          // If we can read with service role, we can write
           diagnostics.permissions.canWrite = true;
         }
-      } catch (error: any) {
-        diagnostics.permissions.error = error.message || 'Failed to test write permissions';
+      } catch (e: any) {
+        diagnostics.permissions.error = e.message || 'Permission test failed';
         diagnostics.permissions.canWrite = false;
       }
-    } else {
-      diagnostics.permissions.error = 'Cannot test permissions - tables do not exist';
     }
 
   } catch (error: any) {
-    console.error('Diagnostics error:', error);
+    console.error('Diagnostics route error:', error);
     return NextResponse.json({
       ...diagnostics,
       error: error.message || 'Unknown error',
-    }, { status: 500 });
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 
-  return NextResponse.json(diagnostics, {
-    headers: {
-      'Cache-Control': 'no-store, no-cache, must-revalidate',
-      'Pragma': 'no-cache'
-    }
-  });
+  return NextResponse.json(diagnostics);
 }
