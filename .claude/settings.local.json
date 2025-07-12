@@ -76,7 +76,8 @@
       "Bash(popd:*)",
       "Bash(cd:*)",
       "Bash(git -C /mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care push origin ai-integration)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(kill:*)"
     ],
     "deny": []
   }
