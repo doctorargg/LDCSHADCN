@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-export async function GET(request: Request) {
+export async function GET() {
   const diagnostics = {
     environment: {
       supabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -36,24 +36,10 @@ export async function GET(request: Request) {
       return NextResponse.json(diagnostics);
     }
 
-    // Create admin client with service role key
+    // Create admin client with service role key - simplified initialization
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
-        db: {
-          schema: 'public'
-        },
-        global: {
-          headers: {
-            'apikey': process.env.SUPABASE_SERVICE_ROLE_KEY
-          }
-        }
-      }
+      process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
     // Check research tables
@@ -62,10 +48,9 @@ export async function GET(request: Request) {
     
     for (const table of researchTables) {
       try {
-        const { error } = await supabaseAdmin
+        const { count, error } = await supabaseAdmin
           .from(table)
-          .select('id')
-          .limit(1);
+          .select('*', { count: 'exact', head: true });
         
         if (error) {
           diagnostics.database.tables[table] = false;
@@ -84,69 +69,52 @@ export async function GET(request: Request) {
     
     diagnostics.database.migrationsRun = allTablesExist;
 
-    // Test write permissions
+    // Test write permissions only if tables exist
     if (allTablesExist) {
       try {
-        // First try a simple select to verify the service key works
-        const { error: selectError } = await supabaseAdmin
+        // Use a simple insert/delete test
+        const testId = `test-${Date.now()}`;
+        const { error: insertError } = await supabaseAdmin
           .from('research_sources')
-          .select('id')
-          .limit(1);
+          .insert({
+            id: testId,
+            name: 'Diagnostic Test',
+            url: 'https://test.local',
+            source_type: 'website',
+            is_active: false
+          });
         
-        if (selectError) {
-          console.error('Select error:', selectError);
-          if (selectError.message.toLowerCase().includes('invalid api key') || 
-              selectError.message.toLowerCase().includes('jwt')) {
-            diagnostics.permissions.error = 'Invalid API key';
-          } else {
-            diagnostics.permissions.error = `Read error: ${selectError.message}`;
-          }
+        if (insertError) {
+          diagnostics.permissions.error = insertError.message;
           diagnostics.permissions.canWrite = false;
         } else {
-          // Service key is valid, now test if we can write
-          // Use research_sources for write test since we know its schema
-          const testData = {
-            name: 'Diagnostic Test Source',
-            url: 'https://test.diagnostic.local',
-            description: 'Temporary test source for diagnostics',
-            source_type: 'website',
-            is_active: false,
-            metadata: {}
-          };
-          
-          const { data: writeTest, error: writeError } = await supabaseAdmin
+          // Clean up test data
+          await supabaseAdmin
             .from('research_sources')
-            .insert(testData)
-            .select()
-            .single();
-          
-          if (writeError) {
-            diagnostics.permissions.error = `Write error: ${writeError.message}`;
-            diagnostics.permissions.canWrite = false;
-          } else {
-            // Clean up test data
-            await supabaseAdmin
-              .from('research_sources')
-              .delete()
-              .eq('id', writeTest.id);
-            diagnostics.permissions.canWrite = true;
-          }
+            .delete()
+            .eq('id', testId);
+          diagnostics.permissions.canWrite = true;
         }
-      } catch (error) {
-        diagnostics.permissions.error = 'Failed to test permissions';
+      } catch (error: any) {
+        diagnostics.permissions.error = error.message || 'Failed to test write permissions';
         diagnostics.permissions.canWrite = false;
       }
     } else {
       diagnostics.permissions.error = 'Cannot test permissions - tables do not exist';
     }
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Diagnostics error:', error);
     return NextResponse.json({
       ...diagnostics,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error.message || 'Unknown error',
     }, { status: 500 });
   }
 
-  return NextResponse.json(diagnostics);
+  return NextResponse.json(diagnostics, {
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Pragma': 'no-cache'
+    }
+  });
 }
