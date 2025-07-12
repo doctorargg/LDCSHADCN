@@ -68,7 +68,13 @@
       "Bash(cp:*)",
       "WebFetch(domain:github.com)",
       "Bash(git clone:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(bash -c \"cd /mnt/c/Users/docro/OneDrive/2025\\ Personal/Projects/LDCSHADCN/lotus-direct-care && git push origin ai-integration\")",
+      "Bash(git -C /mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care status)",
+      "Bash(git -C \"/mnt/c/Users/docro/OneDrive/2025 Personal/Projects/LDCSHADCN/lotus-direct-care\" status)",
+      "Bash(pushd:*)",
+      "Bash(popd:*)",
+      "Bash(cd:*)"
     ],
     "deny": []
   }
