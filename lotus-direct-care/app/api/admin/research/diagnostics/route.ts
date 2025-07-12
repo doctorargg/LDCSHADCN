@@ -1,18 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { headers } from 'next/headers';
 
 export async function GET(request: Request) {
-  // Check admin API key
-  const headersList = headers();
-  const apiKey = headersList.get('x-api-key');
-  
-  if (apiKey !== process.env.ADMIN_API_KEY) {
-    return NextResponse.json(
-      { error: 'Unauthorized' },
-      { status: 401 }
-    );
-  }
   const diagnostics = {
     environment: {
       supabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -44,24 +33,6 @@ export async function GET(request: Request) {
     // Check if service role key exists
     if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
       diagnostics.permissions.error = 'SUPABASE_SERVICE_ROLE_KEY not configured';
-      
-      // Still try to check database with anon key for migrations
-      const supabaseAnon = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-      );
-      
-      const { error: tablesError } = await supabaseAnon
-        .from('form_submissions')
-        .select('id')
-        .limit(1);
-        
-      if (!tablesError) {
-        diagnostics.database.migrationsRun = true;
-      } else {
-        diagnostics.database.error = `Database check failed: ${tablesError.message}`;
-      }
-      
       return NextResponse.json(diagnostics);
     }
 
@@ -74,6 +45,14 @@ export async function GET(request: Request) {
           autoRefreshToken: false,
           persistSession: false,
         },
+        db: {
+          schema: 'public'
+        },
+        global: {
+          headers: {
+            'apikey': process.env.SUPABASE_SERVICE_ROLE_KEY
+          }
+        }
       }
     );
 
@@ -115,6 +94,7 @@ export async function GET(request: Request) {
           .limit(1);
         
         if (selectError) {
+          console.error('Select error:', selectError);
           if (selectError.message.toLowerCase().includes('invalid api key') || 
               selectError.message.toLowerCase().includes('jwt')) {
             diagnostics.permissions.error = 'Invalid API key';
@@ -129,8 +109,9 @@ export async function GET(request: Request) {
             name: 'Diagnostic Test Source',
             url: 'https://test.diagnostic.local',
             description: 'Temporary test source for diagnostics',
-            source_type: 'test',
-            is_active: false
+            source_type: 'website',
+            is_active: false,
+            metadata: {}
           };
           
           const { data: writeTest, error: writeError } = await supabaseAdmin

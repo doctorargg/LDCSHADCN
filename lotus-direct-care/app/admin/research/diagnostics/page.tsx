@@ -10,9 +10,13 @@ interface DiagnosticsData {
     supabaseUrl: boolean;
     supabaseAnonKey: boolean;
     supabaseServiceKey: boolean;
+    adminApiKey: boolean;
+    geminiApiKey: boolean;
+    firecrawlApiKey: boolean;
   };
   database: {
     migrationsRun: boolean;
+    tables: Record<string, boolean>;
     error: string | null;
   };
   permissions: {
@@ -51,8 +55,11 @@ export default function ResearchDiagnosticsPage() {
 
   if (loading) {
     return (
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-8">Research System Diagnostics</h1>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Research System Diagnostics</h1>
+          <p className="mt-2 text-gray-600">Check the health of your research infrastructure</p>
+        </div>
         <p>Loading diagnostics...</p>
       </div>
     );
@@ -60,8 +67,11 @@ export default function ResearchDiagnosticsPage() {
 
   if (error) {
     return (
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-8">Research System Diagnostics</h1>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Research System Diagnostics</h1>
+          <p className="mt-2 text-gray-600">Check the health of your research infrastructure</p>
+        </div>
         <Alert className="mb-4">
           <AlertDescription className="text-red-600">
             Error: {error}
@@ -80,8 +90,13 @@ export default function ResearchDiagnosticsPage() {
   const hasIssues = !diagnostics.database.migrationsRun || !diagnostics.permissions.canWrite;
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Research System Diagnostics</h1>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Research System Diagnostics</h1>
+        <p className="mt-2 text-gray-600">
+          Check the health of your research infrastructure
+        </p>
+      </div>
       
       <div className="space-y-6">
         {/* Environment Variables */}
@@ -89,30 +104,44 @@ export default function ResearchDiagnosticsPage() {
           <h2 className="text-xl font-semibold mb-4">Environment Variables</h2>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span>NEXT_PUBLIC_SUPABASE_URL</span>
+              <span>ADMIN_API_KEY</span>
+              <StatusIndicator status={diagnostics.environment.adminApiKey} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span>SUPABASE_URL</span>
               <StatusIndicator status={diagnostics.environment.supabaseUrl} />
             </div>
             <div className="flex items-center justify-between">
-              <span>NEXT_PUBLIC_SUPABASE_ANON_KEY</span>
+              <span>SUPABASE_ANON_KEY</span>
               <StatusIndicator status={diagnostics.environment.supabaseAnonKey} />
             </div>
             <div className="flex items-center justify-between">
               <span>SUPABASE_SERVICE_ROLE_KEY</span>
               <StatusIndicator status={diagnostics.environment.supabaseServiceKey} />
             </div>
+            <div className="flex items-center justify-between">
+              <span>GEMINI_API_KEY</span>
+              <StatusIndicator status={diagnostics.environment.geminiApiKey} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span>FIRECRAWL_API_KEY</span>
+              <StatusIndicator status={diagnostics.environment.firecrawlApiKey} />
+            </div>
           </div>
         </Card>
 
         {/* Database Status */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Database Status</h2>
+          <h2 className="text-xl font-semibold mb-4">Database Tables</h2>
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span>Migrations Run</span>
-              <StatusIndicator status={diagnostics.database.migrationsRun} />
-            </div>
+            {Object.entries(diagnostics.database.tables || {}).map(([table, exists]) => (
+              <div key={table} className="flex items-center justify-between">
+                <span>{table}</span>
+                <StatusIndicator status={exists} />
+              </div>
+            ))}
             {diagnostics.database.error && (
-              <Alert className="mt-2">
+              <Alert className="mt-4">
                 <AlertDescription className="text-sm">
                   {diagnostics.database.error}
                 </AlertDescription>
