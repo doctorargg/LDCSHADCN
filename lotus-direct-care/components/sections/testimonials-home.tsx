@@ -42,30 +42,45 @@ export function TestimonialsHome() {
             </p>
           </div>
 
-          {/* Testimonials Grid */}
+          {/* Testimonials Grid with staggered animation */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {shortTestimonials.map((testimonial, index) => (
-              <Card key={index} className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="absolute top-4 right-4 text-primary/10">
-                  <Quote className="h-16 w-16" />
+              <Card 
+                key={index} 
+                className="relative overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-background via-background to-primary/[0.02] group"
+              >
+                <div className="absolute top-4 right-4 text-primary/10 group-hover:text-primary/20 transition-all duration-300">
+                  <Quote className="h-16 w-16 group-hover:scale-110 transition-transform" />
                 </div>
-                <CardContent className="p-6 relative z-10">
+                <CardContent className="p-6 sm:p-8 relative z-10">
                   <div className="flex gap-0.5 mb-4">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 fill-yellow-400 text-yellow-400"
+                        className="h-5 w-5 fill-yellow-400 text-yellow-400 group-hover:scale-110 transition-transform"
+                        style={{ transitionDelay: `${i * 50}ms` }}
                       />
                     ))}
                   </div>
-                  <blockquote className="text-gray-700 mb-4 italic text-lg leading-relaxed">
+                  <blockquote className="text-gray-700 mb-6 italic text-base sm:text-lg leading-relaxed">
                     "{testimonial.quote}"
                   </blockquote>
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm font-medium text-gray-900">
-                      — {testimonial.author}
+                  <div className="flex items-center justify-between border-t pt-4 border-gray-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <span className="text-primary font-semibold text-sm">{testimonial.author.charAt(0)}</span>
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {testimonial.author}
+                        </div>
+                        <div className="text-xs text-primary/60">
+                          Verified Patient
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 flex items-center gap-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                       Recently Reviewed
                     </div>
                   </div>

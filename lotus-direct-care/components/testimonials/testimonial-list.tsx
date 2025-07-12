@@ -14,8 +14,8 @@ export function TestimonialList({ testimonials, columns = 3 }: TestimonialListPr
   };
 
   return (
-    <div className={`grid ${gridCols[columns]} gap-6`}>
-      {testimonials.map((testimonial) => (
+    <div className={`grid ${gridCols[columns]} gap-4 sm:gap-6`}>
+      {testimonials.map((testimonial, index) => (
         <TestimonialCard key={testimonial.id} testimonial={testimonial} />
       ))}
     </div>

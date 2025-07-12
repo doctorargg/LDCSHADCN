@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 
 export function Testimonials() {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-[oklch(0.75_0.15_75_/_0.03)] via-background to-[oklch(0.62_0.18_180_/_0.02)]">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-br from-[oklch(0.75_0.15_75_/_0.03)] via-background to-[oklch(0.62_0.18_180_/_0.02)]">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12">
