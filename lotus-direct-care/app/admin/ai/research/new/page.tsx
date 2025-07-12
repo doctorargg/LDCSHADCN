@@ -50,6 +50,8 @@ export default function NewResearchQueryPage() {
     setIsLoading(true);
 
     try {
+      console.log('Submitting form data:', formData);
+      
       const response = await fetch('/api/admin/research/queries', {
         method: 'POST',
         headers: getAdminHeaders(),
@@ -57,7 +59,9 @@ export default function NewResearchQueryPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create query');
+        const errorData = await response.json();
+        console.error('Response error:', errorData);
+        throw new Error(errorData.error || 'Failed to create query');
       }
 
       console.log('Research query created successfully');

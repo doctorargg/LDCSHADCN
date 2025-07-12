@@ -54,6 +54,13 @@ export async function POST(request: NextRequest) {
     const cookieToken = request.cookies.get('admin-token')?.value;
     const apiKey = request.headers.get('x-api-key');
     
+    console.log('Auth check:', { 
+      hasAdminToken: !!adminToken,
+      hasCookieToken: !!cookieToken,
+      hasApiKey: !!apiKey,
+      envKeyExists: !!process.env.ADMIN_API_KEY
+    });
+    
     const isAuthorized = 
       adminToken === process.env.ADMIN_API_KEY || 
       cookieToken === process.env.ADMIN_API_KEY ||
@@ -106,27 +113,32 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const insertData = {
+      name,
+      description,
+      query_text,
+      query_type,
+      categories: categories || [],
+      include_sources: include_sources || [],
+      exclude_sources: exclude_sources || [],
+      max_results: max_results || 10,
+      freshness_days: freshness_days || 30,
+      min_reliability_score: min_reliability_score || 0.5,
+      schedule_enabled: schedule_enabled || false,
+      schedule_frequency: schedule_frequency || 'weekly',
+      next_run_at,
+    };
+    
+    console.log('Inserting data:', insertData);
+
     const { data, error } = await supabase
       .from('research_queries')
-      .insert({
-        name,
-        description,
-        query_text,
-        query_type,
-        categories: categories || [],
-        include_sources: include_sources || [],
-        exclude_sources: exclude_sources || [],
-        max_results: max_results || 10,
-        freshness_days: freshness_days || 30,
-        min_reliability_score: min_reliability_score || 0.5,
-        schedule_enabled: schedule_enabled || false,
-        schedule_frequency: schedule_frequency || 'weekly',
-        next_run_at,
-      })
+      .insert(insertData)
       .select()
       .single();
 
     if (error) {
+      console.error('Database error:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 

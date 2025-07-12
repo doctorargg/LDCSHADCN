@@ -190,6 +190,47 @@ return new NextResponse(body, {
 
 ---
 
+## Research Features 500 Errors
+
+### Symptoms:
+- Getting 500 errors when trying to create research queries or sources
+- Authentication passes but database operations fail
+
+### Possible Causes & Solutions:
+
+1. **Database tables not created**
+   ```bash
+   # Run the migration locally or in Supabase dashboard
+   supabase migration up
+   ```
+   - Verify these tables exist: `research_sources`, `research_queries`, `research_results`, `research_history`
+
+2. **Row Level Security (RLS) blocking access**
+   - Check Supabase dashboard > Authentication > Policies
+   - The migration created policies for authenticated access
+   - If still failing, temporarily disable RLS on research tables for testing
+
+3. **Environment variables not set in Vercel**
+   - Go to Vercel dashboard > Settings > Environment Variables
+   - Ensure these are set:
+     - `ADMIN_API_KEY` (required)
+     - `SUPABASE_SERVICE_ROLE_KEY` (required)
+     - `GEMINI_API_KEY` (optional for now)
+     - `FIRECRAWL_API_KEY` (optional for now)
+
+4. **Check Vercel Function Logs**
+   - Go to Vercel dashboard > Functions tab
+   - Look for the failing API route (e.g., `/api/admin/research/queries`)
+   - Check logs for specific error messages
+
+### Debugging Steps:
+1. Check browser console for request/response details
+2. Look at Vercel function logs for server-side errors
+3. Verify the data being sent matches expected format
+4. Check if auth tokens are being properly sent
+
+---
+
 ## Database Issues
 
 ### Supabase Connection Errors

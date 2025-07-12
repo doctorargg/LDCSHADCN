@@ -98,26 +98,31 @@ export async function POST(request: NextRequest) {
     // Extract domain from URL if not provided
     const extractedDomain = domain || new URL(url).hostname;
 
+    const insertData = {
+      name,
+      url,
+      domain: extractedDomain,
+      source_type,
+      categories: categories || [],
+      crawl_frequency: crawl_frequency || 'weekly',
+      is_active: is_active !== false,
+      max_depth: max_depth || 2,
+      include_patterns: include_patterns || [],
+      exclude_patterns: exclude_patterns || [],
+      reliability_score: reliability_score || 0.5,
+      notes,
+    };
+    
+    console.log('Inserting source data:', insertData);
+
     const { data, error } = await supabase
       .from('research_sources')
-      .insert({
-        name,
-        url,
-        domain: extractedDomain,
-        source_type,
-        categories: categories || [],
-        crawl_frequency: crawl_frequency || 'weekly',
-        is_active: is_active !== false,
-        max_depth: max_depth || 2,
-        include_patterns: include_patterns || [],
-        exclude_patterns: exclude_patterns || [],
-        reliability_score: reliability_score || 0.5,
-        notes,
-      })
+      .insert(insertData)
       .select()
       .single();
 
     if (error) {
+      console.error('Database error:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
