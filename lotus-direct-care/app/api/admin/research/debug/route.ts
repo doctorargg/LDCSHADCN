@@ -11,6 +11,8 @@ export async function GET() {
       serviceKeyLength: number;
       serviceKeyStart: string;
       serviceKeyEnd: string;
+      serviceKeyFirstChar: string;
+      expectedKeyStart: string;
     };
     test: string;
     fetchResult?: {
@@ -35,7 +37,9 @@ export async function GET() {
       hasServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
       serviceKeyLength: process.env.SUPABASE_SERVICE_ROLE_KEY?.length || 0,
       serviceKeyStart: process.env.SUPABASE_SERVICE_ROLE_KEY?.substring(0, 20) || 'missing',
-      serviceKeyEnd: process.env.SUPABASE_SERVICE_ROLE_KEY?.substring(-10) || 'missing',
+      serviceKeyEnd: process.env.SUPABASE_SERVICE_ROLE_KEY?.slice(-10) || 'missing',
+      serviceKeyFirstChar: process.env.SUPABASE_SERVICE_ROLE_KEY?.charAt(0) || 'missing',
+      expectedKeyStart: 'eyJhbGciOiJ...',
     },
     test: 'none'
   };
