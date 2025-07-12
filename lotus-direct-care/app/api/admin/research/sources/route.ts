@@ -4,13 +4,21 @@ import { cookies } from 'next/headers';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    // Check authentication using admin token
+    const adminToken = request.headers.get('x-admin-token');
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    const apiKey = request.headers.get('x-api-key');
     
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    const isAuthorized = 
+      adminToken === process.env.ADMIN_API_KEY || 
+      cookieToken === process.env.ADMIN_API_KEY ||
+      apiKey === process.env.ADMIN_API_KEY;
+    
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    
+    const supabase = await createClient();
 
     const { searchParams } = new URL(request.url);
     const isActive = searchParams.get('is_active');
@@ -47,13 +55,21 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    // Check authentication using admin token
+    const adminToken = request.headers.get('x-admin-token');
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    const apiKey = request.headers.get('x-api-key');
     
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    const isAuthorized = 
+      adminToken === process.env.ADMIN_API_KEY || 
+      cookieToken === process.env.ADMIN_API_KEY ||
+      apiKey === process.env.ADMIN_API_KEY;
+    
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    
+    const supabase = await createClient();
 
     const body = await request.json();
     const {
@@ -109,7 +125,7 @@ export async function POST(request: NextRequest) {
     await supabase.from('research_history').insert({
       action_type: 'config_change',
       source_id: data.id,
-      user_email: user.email,
+      user_email: 'admin@lotusdirectcare.com',
       details: { action: 'source_created', source_name: name },
     });
 

@@ -23,7 +23,7 @@ async function getAIEmailResponses(status?: string) {
     .from('ai_email_responses')
     .select(`
       *,
-      leads (
+      form_submissions!lead_id (
         name,
         email,
         reason_for_visit
@@ -155,10 +155,10 @@ export default async function AIEmailsPage({
                   <TableCell>
                     <div>
                       <p className="font-medium">
-                        {email.leads?.name || 'Unknown'}
+                        {email.form_submissions?.name || 'Unknown'}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {email.recipient_email}
+                        {email.form_submissions?.email || 'No email'}
                       </p>
                     </div>
                   </TableCell>

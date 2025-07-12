@@ -4,13 +4,21 @@ import { researchService } from '@/lib/services/research-service';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    // Check authentication using admin token
+    const adminToken = request.headers.get('x-admin-token');
+    const cookieToken = request.cookies.get('admin-token')?.value;
+    const apiKey = request.headers.get('x-api-key');
     
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    const isAuthorized = 
+      adminToken === process.env.ADMIN_API_KEY || 
+      cookieToken === process.env.ADMIN_API_KEY ||
+      apiKey === process.env.ADMIN_API_KEY;
+    
+    if (!isAuthorized) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    
+    const supabase = await createClient();
 
     const { queryId } = await request.json();
 

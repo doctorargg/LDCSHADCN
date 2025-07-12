@@ -10,7 +10,8 @@ import {
   FileText, 
   Settings,
   Menu,
-  LogOut
+  LogOut,
+  Search
 } from 'lucide-react';
 
 const navigation = [
@@ -18,6 +19,7 @@ const navigation = [
   { name: 'Leads', href: '/admin/leads', icon: Users },
   { name: 'AI Emails', href: '/admin/ai/emails', icon: Mail },
   { name: 'AI Blog', href: '/admin/ai/blog', icon: FileText },
+  { name: 'AI Research', href: '/admin/ai/research', icon: Search },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
